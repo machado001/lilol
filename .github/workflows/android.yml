@@ -1,0 +1,59 @@
+name: Build debug apk
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: 11
+          distribution: 'zulu'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+        with:
+          android-sdk-tools-version: 30.0.5
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Generate Gradle checksums
+        run: |
+          find "." -name "gradle.lockfile" -type f | sort | xargs shasum  > gradle-checksums.txt
+          cat gradle-checksums.txt  
+
+      - name: Setup gradlew cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle
+          key: gradle-${{ hashFiles('gradle-checksums.txt') }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-${{ hashFiles('gradle-checksums.txt') }}-  
+
+      - name: Setup local.properties
+        env:
+          APIRESTKEY: ${{ secrets.APIRESTKEY }}
+        run: |
+          sed "s|APIRESTKEY|$APIRESTKEY|g;" local.defaults.properties > local.properties
+
+      - name: Build APK
+        run: ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-debug.apk
+          path: app/build/outputs/apk/debug/app-debug.apk

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Lilol</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="week_rotation">Free champions on\nthis week, %1$s</string>
+    <string name="week_rotation_two">To new players (until level %1$s)</string>
+    <string name="disclaimer_rotation">disclaimer: currently, Riot considers a player as a newbie until level %1$s</string>
+    <string name="error_request">Something went wrong! 🫠\nCheck your internet connection or try later!</string>
+</resources>
