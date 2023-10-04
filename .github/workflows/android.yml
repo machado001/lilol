@@ -45,9 +45,9 @@ jobs:
 
       - name: Setup local.properties
         env:
-          APIRESTKEY: ${{ secrets.APIRESTKEY }}
+          APIRESTKEY: ${{ secrets.API_ROTATIONS_KEY }}
         run: |
-          sed "s|APIRESTKEY|$APIRESTKEY|g;" local.defaults.properties > local.properties
+          sed "s|API_ROTATIONS_KEY|API_ROTATIONS_KEY|g;" local.defaults.properties > local.properties
 
       - name: Build APK
         run: ./gradlew assembleDebug

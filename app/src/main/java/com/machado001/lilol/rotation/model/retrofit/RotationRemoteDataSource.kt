@@ -9,6 +9,6 @@ import retrofit2.http.Query
 interface RotationRemoteDataSource {
     @GET("/lol/platform/v3/champion-rotations")
     suspend fun fetchRotations(
-        @Query("api_key") apiKey: String = BuildConfig.ROTATIONS_KEY
+        @Query("api_key") apiKey: String = BuildConfig.API_ROTATIONS_KEY
     ): Response<Rotations>
 }
