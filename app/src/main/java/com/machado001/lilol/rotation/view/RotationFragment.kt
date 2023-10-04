@@ -6,11 +6,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.machado001.lilol.R
+import com.machado001.lilol.common.di.DependencyInjector
+import com.machado001.lilol.common.model.data.Champion
 import com.machado001.lilol.databinding.FragmentRotationBinding
 import com.machado001.lilol.rotation.Rotation
-import com.machado001.lilol.rotation.model.Champion
-import com.machado001.lilol.rotation.model.RotationFakeRemoteDataSource
-import com.machado001.lilol.rotation.model.RotationRepository
 import com.machado001.lilol.rotation.presentation.RotationPresenter
 import kotlinx.coroutines.launch
 
@@ -23,7 +22,8 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        presenter = RotationPresenter(RotationRepository(RotationFakeRemoteDataSource()), this)
+        val repository = DependencyInjector.championRepository()
+        presenter = RotationPresenter(repository, this)
         binding = FragmentRotationBinding.bind(view)
 
         viewLifecycleOwner.lifecycleScope.launch {

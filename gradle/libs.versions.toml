@@ -1,16 +1,16 @@
 [versions]
 agp = "8.3.0-alpha06"
-converter-gson = "2.10.1"
 kotlin = "1.9.10"
 core-ktx = "1.12.0"
 junit = "4.13.2"
-kotlin-faker = "1.14.0"
 androidx-test-ext-junit = "1.1.5"
 lifecycle-runtime-ktx = "2.6.2"
 espresso-core = "3.5.1"
 appcompat = "1.6.1"
+logging-interceptor = "4.11.0"
 material = "1.9.0"
 constraintlayout = "2.1.4"
+picasso = "2.71828"
 retrofit = "2.9.0"
 secrets-gradle-plugin = "2.0.1"
 
@@ -21,10 +21,11 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "logging-interceptor" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
-faker = { group = "io.github.serpro69", name = "kotlin-faker", version.ref = "kotlin-faker" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
+picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 secrets-gradle-plugin = { module = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin", version.ref = "secrets-gradle-plugin" }
 

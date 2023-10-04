@@ -1,4 +1,4 @@
-package com.machado001.lilol.rotation.model
+package com.machado001.lilol.rotation.model.dto
 
 data class Rotations(
     val freeChampionIds: List<Int>,

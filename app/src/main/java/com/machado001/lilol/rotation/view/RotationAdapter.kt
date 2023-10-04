@@ -6,7 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.machado001.lilol.R
-import com.machado001.lilol.rotation.model.Champion
+import com.machado001.lilol.common.model.data.Champion
+import com.squareup.picasso.Picasso
 
 class RotationAdapter(
     private val rotations: MutableList<Champion> //just a list of champions
@@ -16,7 +17,7 @@ class RotationAdapter(
     class RotationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(champion: Champion) {
             itemView.findViewById<ImageView>(R.id.image_item_champion).apply {
-                setImageResource(champion.image)
+                Picasso.get().load(champion.image).into(this)
             }
 
         }

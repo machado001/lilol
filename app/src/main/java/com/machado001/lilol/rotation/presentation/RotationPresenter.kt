@@ -1,17 +1,19 @@
 package com.machado001.lilol.rotation.presentation
 
-import com.machado001.lilol.R
-import com.machado001.lilol.common.base.RequestCallback
+import android.util.Log
+import com.machado001.lilol.common.Constants
 import com.machado001.lilol.common.extensions.getCurrentDateTime
+import com.machado001.lilol.common.extensions.toDataDragon
 import com.machado001.lilol.common.extensions.toString
 import com.machado001.lilol.rotation.Rotation
-import com.machado001.lilol.rotation.model.Champion
-import com.machado001.lilol.rotation.model.RotationRepository
-import com.machado001.lilol.rotation.model.Rotations
-import io.github.serpro69.kfaker.Faker
+import com.machado001.lilol.common.model.data.Champion
+import com.machado001.lilol.common.model.data.DataDragon
+import com.machado001.lilol.rotation.model.dto.Rotations
+import com.machado001.lilol.rotation.model.dto.toRotations
+import com.machado001.lilol.rotation.model.repository.ChampionRepository
 
 class RotationPresenter(
-    private val repository: RotationRepository,
+    private val repository: ChampionRepository,
     private var view: Rotation.View?
 
 ) : Rotation.Presenter {
@@ -19,43 +21,54 @@ class RotationPresenter(
     override suspend fun fetchRotations() {
         view?.showProgress(true)
 
-        repository.fetchRotations(object : RequestCallback<Rotations> {
-            override fun onSuccess(data: Rotations) {
+        try {
+            repository.apply {
                 val date = getCurrentDateTime()
                 val dateInString = date.toString("MMMM, dd")
-                val freeChampions = data.freeChampionIds.map {
+
+                val dataDragon: DataDragon = getDataDragon(Constants.VI_VN).toDataDragon()
+                val rotations: Rotations = getRotations().toRotations()
+                val maxNewPlayerLevel = rotations.maxNewPlayerLevel
+
+                val freeChampions = dataDragon.data.values.filter {
+                    rotations.freeChampionIds.contains(it.id.toInt())
+
+                }.map {
                     Champion(
-                        it.toString(),
-                        Faker().heroes.names(),
-                        R.drawable.briar
+                        id = it.id,
+                        name = it.name,
+                        image = getImageByPath(getCurrentVersion(), it.image)
                     )
                 }
-                val freeChampionsForNewPlayers =
-                    data.freeChampionIdsForNewPlayers.map {
-                        Champion(
-                            it.toString(),
-                            Faker().heroes.names(),
-                            R.drawable.zed
-                        )
-                    }
+
+                val freeChampionsForNewPlayers = dataDragon.data.values.filter {
+                    rotations.freeChampionIdsForNewPlayers.contains(it.id.toInt())
+                }.map {
+                    Champion(
+                        id = it.id,
+                        name = it.name,
+                        image = getImageByPath(getCurrentVersion(), it.image)
+                    )
+                }
 
                 view?.showSuccess(
                     freeChampions,
                     freeChampionsForNewPlayers,
-                    data.maxNewPlayerLevel,
+                    maxNewPlayerLevel,
                     dateInString
                 )
             }
 
-            override fun onFailure(message: String) {
-                view?.showFailureMessage()
-            }
-
-            override fun onComplete() {
-                view?.showProgress(false)
-            }
-        })
+        } catch (e: Exception) {
+            view?.showFailureMessage()
+            Log.e("i caraio", e.toString())
+        } finally {
+            view?.showProgress(false)
+        }
     }
+
+    override fun getImageByPath(version: String, path: String) =
+        "https://ddragon.leagueoflegends.com/cdn/$version/img/champion/$path"
 
     override fun onDestroy() {
         view = null
