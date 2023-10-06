@@ -4,12 +4,20 @@
     <style name="Theme.Lilol.TextViewBase" parent="android:Widget.TextView">
 
         <item name="android:fontFamily">@font/epilogue</item>
-        <item name="android:textSize">32sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:paddingTop">16dp</item>
         <item name="android:paddingBottom">8dp</item>
         <item name="android:paddingStart">8dp</item>
         <item name="android:paddingEnd">8dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Theme.Lilol.TextViewBase.TextViewInChampionRotationsImage">
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:shadowDx">2</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">10</item>
     </style>
 </resources>

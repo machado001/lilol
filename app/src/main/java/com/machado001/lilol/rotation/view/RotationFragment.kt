@@ -1,12 +1,13 @@
 package com.machado001.lilol.rotation.view
 
+
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.carousel.CarouselLayoutManager
+import com.machado001.lilol.Application
 import com.machado001.lilol.R
-import com.machado001.lilol.common.di.DependencyInjector
 import com.machado001.lilol.common.model.data.Champion
 import com.machado001.lilol.databinding.FragmentRotationBinding
 import com.machado001.lilol.rotation.Rotation
@@ -22,9 +23,11 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val repository = DependencyInjector.championRepository()
-        presenter = RotationPresenter(repository, this)
+        val championsManager = (activity?.application as Application)
+            .container.championsManager
+
         binding = FragmentRotationBinding.bind(view)
+        presenter = RotationPresenter(championsManager, this)
 
         viewLifecycleOwner.lifecycleScope.launch {
             presenter.fetchRotations()
@@ -45,37 +48,44 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
         }
     }
 
-
     override fun showSuccess(
         freeChampionIds: List<Champion>,
         freeChampionIdsForNewPlayers: List<Champion>,
         level: Int,
-        date: String
     ) {
         binding?.let {
             with(it) {
 
                 rvRotationMain.apply {
-                    adapter = RotationAdapter(freeChampionIds.toMutableList())
+                    adapter = RotationAdapter(freeChampionIds.toList())
                     layoutManager = CarouselLayoutManager()
                 }
-
                 rvRotationNewPlayers.apply {
-                    adapter = RotationAdapter(freeChampionIdsForNewPlayers.toMutableList())
+                    adapter = RotationAdapter(freeChampionIdsForNewPlayers.toList())
                     layoutManager = CarouselLayoutManager()
                 }
 
                 txtRotationTitle.apply {
                     visibility = View.VISIBLE
-                    text = getString(R.string.week_rotation, date)
+                }
+                newPlayerRange.apply {
+                    visibility = View.VISIBLE
+                    text =
+                        getString(
+                            R.string.new_player_range,
+                            level,
+                            freeChampionIdsForNewPlayers.size
+                        )
                 }
 
-                txtRotationTitleTwo.apply {
+                normalPlayerRange.apply {
                     visibility = View.VISIBLE
-                    text = getString(
-                        R.string.week_rotation_two,
-                        level.toString()
-                    )
+                    text =
+                        getString(
+                            R.string.normal_player_range,
+                            level,
+                            freeChampionIds.size
+                        )
                 }
             }
         }

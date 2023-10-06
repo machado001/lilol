@@ -4,13 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.machado001.lilol.R
 import com.machado001.lilol.common.model.data.Champion
 import com.squareup.picasso.Picasso
 
 class RotationAdapter(
-    private val rotations: MutableList<Champion> //just a list of champions
+    private val rotations: List<Champion> //just a list of champions
 ) : RecyclerView.Adapter<RotationAdapter.RotationViewHolder>() {
 
 
@@ -18,8 +19,12 @@ class RotationAdapter(
         fun bind(champion: Champion) {
             itemView.findViewById<ImageView>(R.id.image_item_champion).apply {
                 Picasso.get().load(champion.image).into(this)
+                contentDescription = champion.name
             }
 
+            itemView.findViewById<TextView>(R.id.text_item_champion_name).apply {
+                text = champion.name
+            }
         }
     }
 
@@ -35,4 +40,6 @@ class RotationAdapter(
 
 
     override fun getItemCount(): Int = rotations.size
+
 }
+

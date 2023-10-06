@@ -1,38 +1,32 @@
 package com.machado001.lilol.rotation.presentation
 
 import android.util.Log
-import com.machado001.lilol.common.Constants
-import com.machado001.lilol.common.extensions.getCurrentDateTime
 import com.machado001.lilol.common.extensions.toDataDragon
-import com.machado001.lilol.common.extensions.toString
-import com.machado001.lilol.rotation.Rotation
 import com.machado001.lilol.common.model.data.Champion
 import com.machado001.lilol.common.model.data.DataDragon
+import com.machado001.lilol.rotation.Rotation
 import com.machado001.lilol.rotation.model.dto.Rotations
 import com.machado001.lilol.rotation.model.dto.toRotations
-import com.machado001.lilol.rotation.model.repository.ChampionRepository
+import com.machado001.lilol.rotation.model.repository.ChampionsManager
 
 class RotationPresenter(
-    private val repository: ChampionRepository,
+    private val repository: ChampionsManager,
     private var view: Rotation.View?
 
 ) : Rotation.Presenter {
 
     override suspend fun fetchRotations() {
         view?.showProgress(true)
-
         try {
             repository.apply {
-                val date = getCurrentDateTime()
-                val dateInString = date.toString("MMMM, dd")
+                val allLangs = getSupportedLanguages()
 
-                val dataDragon: DataDragon = getDataDragon(Constants.VI_VN).toDataDragon()
+                val dataDragon: DataDragon = getDataDragon(allLangs.first()).toDataDragon()
                 val rotations: Rotations = getRotations().toRotations()
                 val maxNewPlayerLevel = rotations.maxNewPlayerLevel
 
                 val freeChampions = dataDragon.data.values.filter {
                     rotations.freeChampionIds.contains(it.id.toInt())
-
                 }.map {
                     Champion(
                         id = it.id,
@@ -55,7 +49,6 @@ class RotationPresenter(
                     freeChampions,
                     freeChampionsForNewPlayers,
                     maxNewPlayerLevel,
-                    dateInString
                 )
             }
 

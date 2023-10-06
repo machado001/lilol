@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <com.google.android.material.carousel.MaskableFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/carousel_item_container"
-    android:layout_width="150dp"
+    android:layout_width="120dp"
     android:layout_height="match_parent"
     android:layout_marginStart="4dp"
     android:layout_marginEnd="4dp"
-    android:foreground="?attr/selectableItemBackground"
-    app:shapeAppearance="?attr/shapeAppearanceCornerExtraLarge">
+    android:foreground="?attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/image_item_champion"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@null"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        tools:src="@drawable/zed" />
+
+    <TextView
+        android:id="@+id/text_item_champion_name"
+        style="@style/Theme.Lilol.TextViewBase.TextViewInChampionRotationsImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        tools:text="Mordekaiser" />
+
 </com.google.android.material.carousel.MaskableFrameLayout>

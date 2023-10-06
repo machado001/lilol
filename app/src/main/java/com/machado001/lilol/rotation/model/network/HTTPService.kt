@@ -9,7 +9,6 @@ import retrofit2.create
 object HTTPService {
 
     private fun httpClient(): OkHttpClient {
-
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
 
@@ -27,7 +26,7 @@ object HTTPService {
             .create()
     }
 
-    val championApi: DataDragonNetworkDataSource by lazy {
+    val dataDragonApi: DataDragonNetworkDataSource by lazy {
         Retrofit.Builder()
             .baseUrl("https://ddragon.leagueoflegends.com/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -35,7 +34,6 @@ object HTTPService {
             .build()
             .create()
     }
-
 
 }
 

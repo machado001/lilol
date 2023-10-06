@@ -44,10 +44,11 @@ android {
 
 dependencies {
 
-    implementation (libs.picasso)
+    implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.picasso)
     implementation(libs.logging.interceptor)
     implementation(libs.converter.gson)
-    implementation (libs.retrofit)
+    implementation(libs.retrofit)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)

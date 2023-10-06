@@ -2,8 +2,10 @@
     <string name="app_name">Lilol</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="week_rotation">Free champions on\nthis week, %1$s</string>
+    <string name="week_rotation">Free champions on this week</string>
     <string name="week_rotation_two">To new players (until level %1$s)</string>
     <string name="disclaimer_rotation">disclaimer: currently, Riot considers a player as a newbie until level %1$s</string>
     <string name="error_request">Something went wrong! 🫠\nCheck your internet connection or try later!</string>
+    <string name="new_player_range"><![CDATA[0 < level ≤ %1$d (%2$d champions)]]></string>
+    <string name="normal_player_range"><![CDATA[ level %1$d+ (%2$d champions)]]></string>
 </resources>

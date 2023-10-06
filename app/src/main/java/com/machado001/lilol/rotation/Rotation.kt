@@ -10,7 +10,6 @@ interface Rotation {
         fun getImageByPath(version: String, path: String): String
     }
 
-
     interface View {
         fun showProgress(enabled: Boolean)
         fun showFailureMessage()
@@ -18,7 +17,6 @@ interface Rotation {
             freeChampionIds: List<Champion>,
             freeChampionIdsForNewPlayers: List<Champion>,
             level: Int,
-            date: String
         )
     }
 }
