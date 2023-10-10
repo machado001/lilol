@@ -12,10 +12,12 @@ interface Rotation {
 
     interface View {
         fun showProgress(enabled: Boolean)
+
+        fun goToChampionDetailsScreen(championId: String, championName: String)
         fun showFailureMessage()
         fun showSuccess(
-            freeChampionIds: List<Champion>,
-            freeChampionIdsForNewPlayers: List<Champion>,
+            freeChampionsMap: List<Map.Entry<String, Champion>>,
+            freeChampionForNewPlayersMap: List<Map.Entry<String, Champion>>,
             level: Int,
         )
     }

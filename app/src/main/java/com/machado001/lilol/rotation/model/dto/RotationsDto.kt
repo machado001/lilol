@@ -7,8 +7,3 @@ data class RotationsDto(
 )
 
 //just to maintain a pattern. it transformation wouldn't be necessary.
-fun RotationsDto.toRotations() = Rotations(
-    freeChampionIds = freeChampionIds,
-    freeChampionIdsForNewPlayers = freeChampionIdsForNewPlayers,
-    maxNewPlayerLevel = maxNewPlayerLevel
-)

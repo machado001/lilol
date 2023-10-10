@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/rotationFragment">
+
+
+
+    <fragment
+        android:id="@+id/championDetailFragment"
+        android:name="com.machado001.lilol.rotation.view.fragment.ChampionDetailsFragment"
+        android:label="fragment_champion_detail"
+        tools:layout="@layout/fragment_champion_detail" >
+        <argument
+            android:name="championId"
+            app:argType="string" />
+        <argument
+            android:name="championName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_championDetailFragment_self"
+            app:destination="@id/championDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/rotationFragment"
+        android:name="com.machado001.lilol.rotation.view.fragment.RotationFragment"
+        android:label="fragment_rotation"
+        tools:layout="@layout/fragment_rotation">
+        <action
+            android:id="@+id/action_rotationFragment_to_championDetailFragment"
+            app:destination="@id/championDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.machado001.lilol.rotation.view.fragment.SettingsFragment"
+        android:label="SettingsFragment" />
+</navigation>

@@ -1,0 +1,93 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_details_champion"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".rotation.view.fragment.ChampionDetailsFragment">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/detail_toolbarzada"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_details_champion_image"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:text="@string/hello_blank_fragment"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_details_champion_name"
+        style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="10"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/text_details_champion_title"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Camille" />
+
+    <TextView
+        android:id="@+id/text_details_champion_title"
+        style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+        android:layout_marginBottom="8dp"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="10"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/image_details_champion_image"
+        app:layout_constraintStart_toStartOf="@+id/image_details_champion_image"
+        tools:text="the Steel Shadow" />
+
+    <TextView
+        android:id="@+id/text_details_champion_lore"
+        style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/image_details_champion_image"
+        tools:text="Weaponized to operate outside the boundaries of the law, Camille is the Principal Intelligencer of Clan Ferros—an elegant and elite agent who ensures the Piltover machine and its Zaunite underbelly runs smoothly. Adaptable and precise, she views sloppy technique as an embarrassment that must be put to order. With a mind as sharp as the blades she bears, Camille's pursuit of superiority through hextech body augmentation has left many to wonder if she is now more machine than woman." />
+
+    <TextView
+        android:id="@+id/text_details_champion_related_champions"
+        style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/related_champions"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_details_champion_lore" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_related_champions"
+        android:layout_width="match_parent"
+        android:elevation="5dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:clipChildren="false"
+        android:clipToPadding="true"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/text_details_champion_related_champions"
+        app:layout_constraintTop_toBottomOf="@id/text_details_champion_related_champions"
+        app:spanCount="3"
+        tools:itemCount="10"
+        tools:listitem="@layout/item_rotation_rv" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

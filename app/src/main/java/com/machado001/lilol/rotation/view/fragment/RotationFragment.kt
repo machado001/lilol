@@ -1,10 +1,13 @@
-package com.machado001.lilol.rotation.view
+package com.machado001.lilol.rotation.view.fragment
 
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.machado001.lilol.Application
 import com.machado001.lilol.R
@@ -12,8 +15,8 @@ import com.machado001.lilol.common.model.data.Champion
 import com.machado001.lilol.databinding.FragmentRotationBinding
 import com.machado001.lilol.rotation.Rotation
 import com.machado001.lilol.rotation.presentation.RotationPresenter
+import com.machado001.lilol.rotation.view.adapter.RotationAdapter
 import kotlinx.coroutines.launch
-
 
 class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
 
@@ -22,12 +25,17 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val navController = findNavController()
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
         val championsManager = (activity?.application as Application)
             .container.championsManager
 
+
         binding = FragmentRotationBinding.bind(view)
         presenter = RotationPresenter(championsManager, this)
+
+        binding?.lilolToolbar?.setupWithNavController(navController, appBarConfiguration)
+        binding?.lilolToolbar?.title = getString(R.string.app_name)
 
         viewLifecycleOwner.lifecycleScope.launch {
             presenter.fetchRotations()
@@ -48,20 +56,34 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
         }
     }
 
+    override fun goToChampionDetailsScreen(championId: String, championName: String) {
+        val action =
+            RotationFragmentDirections.actionRotationFragmentToChampionDetailFragment(
+                championId,
+                championName
+            )
+        findNavController().navigate(action)
+    }
+
     override fun showSuccess(
-        freeChampionIds: List<Champion>,
-        freeChampionIdsForNewPlayers: List<Champion>,
+        freeChampionsMap: List<Map.Entry<String, Champion>>,
+        freeChampionForNewPlayersMap: List<Map.Entry<String, Champion>>,
         level: Int,
     ) {
         binding?.let {
             with(it) {
-
                 rvRotationMain.apply {
-                    adapter = RotationAdapter(freeChampionIds.toList())
+                    adapter =
+                        RotationAdapter(freeChampionsMap) { championKey, championName ->
+                            goToChampionDetailsScreen(championKey, championName)
+                        }
                     layoutManager = CarouselLayoutManager()
                 }
                 rvRotationNewPlayers.apply {
-                    adapter = RotationAdapter(freeChampionIdsForNewPlayers.toList())
+                    adapter =
+                        RotationAdapter(freeChampionForNewPlayersMap) { championKey, championName ->
+                            goToChampionDetailsScreen(championKey, championName)
+                        }
                     layoutManager = CarouselLayoutManager()
                 }
 
@@ -74,20 +96,20 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
                         getString(
                             R.string.new_player_range,
                             level,
-                            freeChampionIdsForNewPlayers.size
+                            freeChampionForNewPlayersMap.size
                         )
                 }
-
                 normalPlayerRange.apply {
                     visibility = View.VISIBLE
                     text =
                         getString(
                             R.string.normal_player_range,
                             level,
-                            freeChampionIds.size
+                            freeChampionsMap.size
                         )
                 }
             }
         }
     }
+
 }

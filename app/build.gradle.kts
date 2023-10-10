@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    id("androidx.navigation.safeargs.kotlin")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
@@ -43,7 +44,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.picasso)
     implementation(libs.logging.interceptor)
@@ -54,7 +54,19 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
+    implementation(libs.androidx.preference.ktx)
 
+// Kotlin
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+
+    // Feature module Support
+    implementation(libs.androidx.navigation.dynamic.features.fragment)
+    implementation(libs.androidx.junit.ktx)
+    testImplementation(libs.junit.jupiter)
+
+    // Testing Navigation
+    androidTestImplementation(libs.androidx.navigation.testing)
     testImplementation(libs.junit)
 
     androidTestImplementation(libs.androidx.test.ext.junit)

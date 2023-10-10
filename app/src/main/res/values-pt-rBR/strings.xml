@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lilol</string>
+    <string name="hello_blank_fragment">Olá fragmento em branco</string>
+    <string name="week_rotation">Campeões gratuitos nesta semana</string>
+    <string name="week_rotation_two">Para novos jogadores (até o nível %1$s)</string>
+    <string name="disclaimer_rotation">Aviso: atualmente, a Riot considera um jogador como iniciante até o nível %1$s</string>
+    <string name="error_request">Algo deu errado! 🫠\nVerifique sua conexão com a internet ou tente novamente mais tarde!</string>
+    <string name="new_player_range"><![CDATA[0 < nível ≤ %1$d (%2$d campeões)]]></string>
+    <string name="normal_player_range"><![CDATA[nível %1$d+ (%2$d campeões)]]></string>
+    <string name="related_champions">Campeões relacionados</string>
+    <string name="view_more">ver mais</string>
+    <string name="home">Início</string>
+    <string name="settings">Configurações</string>
+    <string name="portuguese">Português</string>
+    <string name="language_array_title" >Linguagem</string>
+    <string name="change_language">Trocar língua para %1$s</string>
+    <string name="change_language_confirm">Ao trocar de língua, o aplicativo será fechado. Volte para ver as mudanças.</string>
+    <string name="yes" >OK</string>
+    <string name="no" >deixa pra lá</string>
+</resources>

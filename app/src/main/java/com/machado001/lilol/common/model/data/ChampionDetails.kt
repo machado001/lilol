@@ -1,0 +1,11 @@
+package com.machado001.lilol.common.model.data
+
+data class ChampionDetails(
+    val name: String,
+    val id: String,
+    val lore: String,
+    val key: String,
+    val title: String,
+    val image: String,
+    val tags: List<String>
+)

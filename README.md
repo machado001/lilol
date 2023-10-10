@@ -10,7 +10,7 @@ You'll need to pick one Developer API key from Riot Games. You can read the link
 Once you have a key, you can use it in ```com/machado001/lilol/rotation/model/network/RotationNetworkDataSource.kt``` in the @Query parameter.
 
 ## Project
- This repo is using a MVP approach, and using:
+ This repo is using an MVP approach, and:
 
 - Retrofit;
 - Manual Dependency Injection (container approach);

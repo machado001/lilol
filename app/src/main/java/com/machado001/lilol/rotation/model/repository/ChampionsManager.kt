@@ -12,3 +12,4 @@ interface ChampionsManager {
     suspend fun getDataDragon(language: String): DataDragonDto
     suspend fun getRotations(): RotationsDto
 }
+

@@ -17,7 +17,7 @@
         android:theme="@style/Theme.Lilol"
         tools:targetApi="31">
         <activity
-            android:name=".rotation.view.RotationActivity"
+            android:name=".rotation.view.activity.RotationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

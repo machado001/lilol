@@ -1,7 +1,8 @@
 package com.machado001.lilol.common.model.data
 
 data class Champion(
-    val id: String,
+    val key: String,
     val name: String,
-    var image: String
+    val image: String,
+    val tags: List<String>,
 )

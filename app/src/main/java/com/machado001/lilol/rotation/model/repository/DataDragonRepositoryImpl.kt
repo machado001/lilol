@@ -1,6 +1,7 @@
 package com.machado001.lilol.rotation.model.repository
 
 import androidx.annotation.GuardedBy
+import com.machado001.lilol.rotation.model.dto.SpecificChampionDto
 import com.machado001.lilol.rotation.model.dto.DataDragonDto
 import com.machado001.lilol.rotation.model.network.DataDragonNetworkDataSource
 import kotlinx.coroutines.sync.Mutex
@@ -38,7 +39,6 @@ class DataDragonRepositoryImpl(
                 this.allGamesVersion = networkResult
             }
         }
-
         return mutex.withLock { allGamesVersion }
     }
 
@@ -50,5 +50,32 @@ class DataDragonRepositoryImpl(
             }
         }
         return mutex.withLock { allSupportedLanguages }
+    }
+
+    private var cachedDetails: SpecificChampionDto? = null
+    private var cachedImage: String? = null
+    override suspend fun getSpecificChampion(
+        version: String,
+        lang: String,
+        championName: String,
+    ): SpecificChampionDto {
+
+        if (cachedDetails == null || championName != cachedDetails?.data?.values?.first()?.name) {
+            val networkResult =
+                dataSource.getChampDetails(version, lang, championName)
+            mutex.withLock { cachedDetails = networkResult }
+        }
+        return mutex.withLock { cachedDetails!! }
+    }
+
+    override suspend fun getSpecificChampionImage(
+        championNameAsId: String
+    ): String {
+        if (cachedImage == null) {
+            val networkResult =
+                dataSource.getChampionSplashURL(championNameAsId)
+            mutex.withLock { cachedImage = networkResult }
+        }
+        return mutex.withLock { cachedImage!! }
     }
 }
