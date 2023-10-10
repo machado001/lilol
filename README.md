@@ -1,7 +1,7 @@
 # lilol
 
+![lilolpresentation](https://github.com/machado001/lilol/assets/101916850/94c82efc-d16f-4546-aeda-95ff65e44a56)
 
-![liolpresentation](https://github.com/machado001/lilol/assets/101916850/a5c24391-bbcb-4333-b3e9-3f2615fab709)
 
 - Check the current League of Legends free-week champions with real data from [Riot Games](https://developer.riotgames.com/docs/portal) APIs.
 ## How to Run
