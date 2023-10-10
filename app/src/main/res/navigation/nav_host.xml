@@ -5,12 +5,10 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/rotationFragment">
 
-
-
     <fragment
         android:id="@+id/championDetailFragment"
         android:name="com.machado001.lilol.rotation.view.fragment.ChampionDetailsFragment"
-        android:label="fragment_champion_detail"
+        android:label="@string/champion"
         tools:layout="@layout/fragment_champion_detail" >
         <argument
             android:name="championId"
@@ -21,11 +19,14 @@
         <action
             android:id="@+id/action_championDetailFragment_self"
             app:destination="@id/championDetailFragment" />
+        <argument
+            android:name="championVersion"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/rotationFragment"
         android:name="com.machado001.lilol.rotation.view.fragment.RotationFragment"
-        android:label="fragment_rotation"
+        android:label="@string/free_champions"
         tools:layout="@layout/fragment_rotation">
         <action
             android:id="@+id/action_rotationFragment_to_championDetailFragment"
@@ -34,5 +35,5 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.machado001.lilol.rotation.view.fragment.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="@string/settings" />
 </navigation>

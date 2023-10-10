@@ -14,6 +14,7 @@ fun ChampionDto.toChampion(): Champion = Champion(
     name = name,
     image = image.full,
     tags = tags,
+    version = version
 )
 
 fun DataDragonDto.toDataDragon(): DataDragon = DataDragon(

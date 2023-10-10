@@ -5,4 +5,5 @@ data class Champion(
     val name: String,
     val image: String,
     val tags: List<String>,
+    val version: String
 )

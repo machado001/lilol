@@ -26,6 +26,10 @@ class RotationActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         binding.bottomNav.setupWithNavController(navController)
 
+        setupLocalLanguage()
+    }
+
+    private fun setupLocalLanguage() {
         val langPref = PreferenceManager.getDefaultSharedPreferences(this)
         val defaultLocale = Locale.getDefault()
         val lang =

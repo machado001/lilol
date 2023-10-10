@@ -18,4 +18,6 @@
     <string name="change_language_confirm">When switching languages, the application will close. Go back to see the changes.</string>
     <string name="yes" >OK</string>
     <string name="no" >forgot it</string>
+    <string name="free_champions">Free-week</string>
+    <string name="champion">Champion</string>
 </resources>

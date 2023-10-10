@@ -19,8 +19,6 @@ class RotationPresenter(
         view?.showProgress(true)
         try {
             repository.apply {
-
-
                 val dataDragon: DataDragon = getDataDragon(Locale.getDefault().toString()).toDataDragon()
                 val rotations: Rotations = getRotations().toRotations()
                 val maxNewPlayerLevel = rotations.maxNewPlayerLevel

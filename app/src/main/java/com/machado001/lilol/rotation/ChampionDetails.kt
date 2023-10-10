@@ -1,5 +1,6 @@
 package com.machado001.lilol.rotation
 
+import com.machado001.lilol.common.ListChampionPair
 import com.machado001.lilol.common.base.BasePresenter
 import com.machado001.lilol.common.model.data.Champion
 
@@ -17,8 +18,8 @@ interface ChampionDetails {
     }
 
     interface View {
-        fun setupRecyclerView(champions: List<Map.Entry<String, Champion>>)
-        fun showSuccess(champions: List<Map.Entry<String, Champion>>)
+        fun setupRecyclerView(champions: ListChampionPair)
+        fun showSuccess(champions: ListChampionPair)
         fun showErrorMessage()
         fun goToMoreDetailsScreen()
         fun setupChampionDetails(championDetail: com.machado001.lilol.common.model.data.ChampionDetails)

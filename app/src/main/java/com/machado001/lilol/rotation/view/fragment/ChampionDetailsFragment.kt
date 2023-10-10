@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.machado001.lilol.Application
 import com.machado001.lilol.R
 import com.machado001.lilol.common.Constants
-import com.machado001.lilol.common.model.data.Champion
+import com.machado001.lilol.common.ListChampionPair
 import com.machado001.lilol.common.view.PicassoGradientTransformation
 import com.machado001.lilol.databinding.FragmentChampionDetailBinding
 import com.machado001.lilol.rotation.ChampionDetails
@@ -49,7 +49,11 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail), Cha
         binding?.detailToolbarzada?.contentDescription = args.championName
 
         viewLifecycleOwner.lifecycleScope.launch {
-            presenter.getChampionDetails("13.19.1", Locale.getDefault().toString(), args.championName)
+            presenter.getChampionDetails(
+                args.championVersion,
+                Locale.getDefault().toString(),
+                args.championName
+            )
         }
     }
 
@@ -60,25 +64,30 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail), Cha
     }
 
 
-    override fun setupRecyclerView(champions: List<Map.Entry<String, Champion>>) {
+    override fun setupRecyclerView(champions: ListChampionPair) {
         binding?.rvRelatedChampions?.apply {
-            adapter = RotationAdapter(champions) { championId, championName ->
-                goToChampionDetailsScreen(championId, championName)
+            adapter = RotationAdapter(champions) { championId, championName, championVersion ->
+                goToChampionDetailsScreen(championId, championName, championVersion)
             }
             layoutManager = GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false)
         }
     }
 
-    private fun goToChampionDetailsScreen(championId: String, championNameKey: String) {
+    private fun goToChampionDetailsScreen(
+        championId: String,
+        championNameKey: String,
+        championVersion: String,
+    ) {
         val action =
             ChampionDetailsFragmentDirections.actionChampionDetailFragmentSelf(
                 championId,
-                championNameKey
+                championNameKey,
+                championVersion
             )
         findNavController().navigate(action)
     }
 
-    override fun showSuccess(champions: List<Map.Entry<String, Champion>>) {
+    override fun showSuccess(champions: ListChampionPair) {
         setupRecyclerView(champions)
     }
 

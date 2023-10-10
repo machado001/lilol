@@ -1,7 +1,7 @@
 package com.machado001.lilol.rotation
 
+import com.machado001.lilol.common.ListChampionPair
 import com.machado001.lilol.common.base.BasePresenter
-import com.machado001.lilol.common.model.data.Champion
 
 interface Rotation {
 
@@ -12,13 +12,19 @@ interface Rotation {
 
     interface View {
         fun showProgress(enabled: Boolean)
+        fun goToChampionDetailsScreen(
+            championId: String,
+            championName: String,
+            championVersion: String,
+        )
 
-        fun goToChampionDetailsScreen(championId: String, championName: String)
         fun showFailureMessage()
         fun showSuccess(
-            freeChampionsMap: List<Map.Entry<String, Champion>>,
-            freeChampionForNewPlayersMap: List<Map.Entry<String, Champion>>,
+            freeChampionsMap: ListChampionPair,
+            freeChampionForNewPlayersMap: ListChampionPair,
             level: Int,
         )
     }
 }
+
+//typealias k = ListChampionPair

@@ -11,7 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.machado001.lilol.Application
 import com.machado001.lilol.R
-import com.machado001.lilol.common.model.data.Champion
+import com.machado001.lilol.common.ListChampionPair
 import com.machado001.lilol.databinding.FragmentRotationBinding
 import com.machado001.lilol.rotation.Rotation
 import com.machado001.lilol.rotation.presentation.RotationPresenter
@@ -56,33 +56,38 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
         }
     }
 
-    override fun goToChampionDetailsScreen(championId: String, championName: String) {
+    override fun goToChampionDetailsScreen(
+        championId: String,
+        championName: String,
+        championVersion: String,
+    ) {
         val action =
             RotationFragmentDirections.actionRotationFragmentToChampionDetailFragment(
                 championId,
-                championName
+                championName,
+                championVersion
             )
         findNavController().navigate(action)
     }
 
     override fun showSuccess(
-        freeChampionsMap: List<Map.Entry<String, Champion>>,
-        freeChampionForNewPlayersMap: List<Map.Entry<String, Champion>>,
+        freeChampionsMap: ListChampionPair,
+        freeChampionForNewPlayersMap: ListChampionPair,
         level: Int,
     ) {
         binding?.let {
             with(it) {
                 rvRotationMain.apply {
                     adapter =
-                        RotationAdapter(freeChampionsMap) { championKey, championName ->
-                            goToChampionDetailsScreen(championKey, championName)
+                        RotationAdapter(freeChampionsMap) { championKey, championName, championVersion ->
+                            goToChampionDetailsScreen(championKey, championName, championVersion)
                         }
                     layoutManager = CarouselLayoutManager()
                 }
                 rvRotationNewPlayers.apply {
                     adapter =
-                        RotationAdapter(freeChampionForNewPlayersMap) { championKey, championName ->
-                            goToChampionDetailsScreen(championKey, championName)
+                        RotationAdapter(freeChampionForNewPlayersMap) { championKey, championName, championVersion ->
+                            goToChampionDetailsScreen(championKey, championName, championVersion)
                         }
                     layoutManager = CarouselLayoutManager()
                 }

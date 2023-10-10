@@ -8,6 +8,5 @@
     <item
         android:id="@+id/settingsFragment"
         android:icon="@drawable/baseline_4g_mobiledata_24"
-        
         android:title="@string/settings" />
 </menu>

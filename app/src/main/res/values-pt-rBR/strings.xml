@@ -18,4 +18,6 @@
     <string name="change_language_confirm">Ao trocar de língua, o aplicativo será fechado. Volte para ver as mudanças.</string>
     <string name="yes" >OK</string>
     <string name="no" >deixa pra lá</string>
+    <string name="free_champions">Semana Grátis</string>
+    <string name="champion">Campeão</string>
 </resources>

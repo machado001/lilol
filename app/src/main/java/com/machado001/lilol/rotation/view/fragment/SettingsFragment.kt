@@ -10,7 +10,7 @@ import androidx.preference.PreferenceFragmentCompat
 import com.machado001.lilol.Application
 import com.machado001.lilol.R
 import com.machado001.lilol.rotation.presentation.SettingsPresenter
-import com.machado001.lilol.rotation.view.Settings
+import com.machado001.lilol.rotation.Settings
 import kotlinx.coroutines.launch
 import java.util.Locale
 

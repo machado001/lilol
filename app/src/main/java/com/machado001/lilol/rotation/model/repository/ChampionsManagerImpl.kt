@@ -11,6 +11,5 @@ class ChampionsManagerImpl(
     override suspend fun getCurrentVersion() = dataDragonRepository.fetchAllGameVersions().first()
     override suspend fun getDataDragon(language: String): DataDragonDto =
         dataDragonRepository.fetchDataDragon(getCurrentVersion(), language)
-
     override suspend fun getRotations() = rotationRepository.fetchRotations()
 }

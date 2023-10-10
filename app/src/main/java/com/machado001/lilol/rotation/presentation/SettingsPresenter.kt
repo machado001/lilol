@@ -1,7 +1,7 @@
 package com.machado001.lilol.rotation.presentation
 
 import com.machado001.lilol.rotation.model.repository.SettingsRepository
-import com.machado001.lilol.rotation.view.Settings
+import com.machado001.lilol.rotation.Settings
 import java.util.Locale
 
 class SettingsPresenter(
