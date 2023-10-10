@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Lilol</string>
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="week_rotation">Free champions on this week</string>
     <string name="week_rotation_two">To new players (until level %1$s)</string>

@@ -12,11 +12,11 @@ import com.machado001.lilol.databinding.ActivityRotationBinding
 import java.util.Locale
 
 class RotationActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityRotationBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setupLocalLanguage()
         binding = ActivityRotationBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val navHostFragment =
@@ -26,17 +26,13 @@ class RotationActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         binding.bottomNav.setupWithNavController(navController)
 
-        setupLocalLanguage()
     }
-
     private fun setupLocalLanguage() {
         val langPref = PreferenceManager.getDefaultSharedPreferences(this)
         val defaultLocale = Locale.getDefault()
         val lang =
             langPref.getString("appLanguage", defaultLocale.toString()) ?: defaultLocale.toString()
-
         val (code, country) = lang.split("_")
-
         val locale = Locale(code, country)
         Locale.setDefault(locale)
 

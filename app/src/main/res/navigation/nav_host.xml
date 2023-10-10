@@ -9,7 +9,7 @@
         android:id="@+id/championDetailFragment"
         android:name="com.machado001.lilol.rotation.view.fragment.ChampionDetailsFragment"
         android:label="@string/champion"
-        tools:layout="@layout/fragment_champion_detail" >
+        tools:layout="@layout/fragment_champion_detail">
         <argument
             android:name="championId"
             app:argType="string" />
@@ -23,6 +23,7 @@
             android:name="championVersion"
             app:argType="string" />
     </fragment>
+
     <fragment
         android:id="@+id/rotationFragment"
         android:name="com.machado001.lilol.rotation.view.fragment.RotationFragment"
@@ -32,6 +33,7 @@
             android:id="@+id/action_rotationFragment_to_championDetailFragment"
             app:destination="@id/championDetailFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.machado001.lilol.rotation.view.fragment.SettingsFragment"
