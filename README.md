@@ -18,6 +18,7 @@ Once you have a key, you can use it in ```com/machado001/lilol/rotation/model/ne
 - OkHttp Interceptors;
 - Views/XML;
 - Coroutines;
+- Jetpack Navigation;
 - Caching;
 - Kotlin;
 - Material Carousel;
