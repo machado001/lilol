@@ -12,6 +12,8 @@ Once you have a key, you can use it in ```com/machado001/lilol/rotation/model/ne
 ## Project
  This repo is using an MVP approach, and:
 
+- Material UI 3;
+- Light and Dark Themes;
 - Retrofit;
 - Manual Dependency Injection (container approach);
 - Picasso;
