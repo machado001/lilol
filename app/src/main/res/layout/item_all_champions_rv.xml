@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:padding="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/item_img_champion_card_rv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:src="@drawable/camille_11"
+            app:layout_constraintDimensionRatio="16:9"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/item_text_champion_name"
+            style="@style/Theme.Lilol.TextViewBase"
+            android:layout_width="0dp"
+            android:breakStrategy="simple"
+            android:paddingTop="8dp"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnTertiaryContainer"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/item_img_champion_card_rv"
+            app:layout_constraintTop_toBottomOf="@id/item_img_champion_card_rv"
+            tools:text="Camille" />
+
+        <TextView
+            android:id="@+id/item_text_role_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textStyle="italic"
+
+            app:layout_constraintStart_toStartOf="@id/item_text_champion_name"
+            app:layout_constraintTop_toBottomOf="@id/item_text_champion_name"
+            tools:text="Fighter" />
+
+        <TextView
+            android:id="@+id/item_text_role_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textStyle="italic"
+            android:paddingBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintStart_toStartOf="@id/item_text_champion_name"
+            app:layout_constraintTop_toBottomOf="@id/item_text_role_one"
+            tools:text="Tank" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

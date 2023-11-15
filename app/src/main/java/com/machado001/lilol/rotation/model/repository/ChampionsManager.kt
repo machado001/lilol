@@ -34,5 +34,7 @@ interface ChampionsManager {
      * @return A RotationsDto object containing details about the champion rotations.
      */
     suspend fun getRotations(): RotationsDto
+
+    suspend fun getRotationsPeriodically()
 }
 

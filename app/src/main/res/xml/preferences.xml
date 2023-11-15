@@ -5,8 +5,8 @@
 
     <ListPreference
         app:key="appLanguage"
-        android:dialogIcon="@drawable/baseline_home_24"
-        app:icon="@drawable/baseline_home_24"
+        android:dialogIcon="@drawable/baseline_language_24"
+        app:icon="@drawable/baseline_language_24"
         app:title="@string/language_array_title"
         app:useSimpleSummaryProvider="false" />
 

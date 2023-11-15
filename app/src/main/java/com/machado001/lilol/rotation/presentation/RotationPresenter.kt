@@ -11,15 +11,18 @@ import java.util.Locale
 
 class RotationPresenter(
     private val repository: ChampionsManager,
-    private var view: Rotation.View?
+    private var view: Rotation.View?,
 
-) : Rotation.Presenter {
+    ) : Rotation.Presenter {
 
     override suspend fun fetchRotations() {
         view?.showProgress(true)
+
         try {
             repository.apply {
-                val dataDragon: DataDragon = getDataDragon(Locale.getDefault().toString()).toDataDragon()
+
+                val dataDragon: DataDragon =
+                    getDataDragon(Locale.getDefault().toString()).toDataDragon()
                 val rotations: Rotations = getRotations().toRotations()
                 val maxNewPlayerLevel = rotations.maxNewPlayerLevel
 

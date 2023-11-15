@@ -55,10 +55,17 @@ dependencies {
     implementation(libs.material)
     implementation(libs.constraintlayout)
     implementation(libs.androidx.preference.ktx)
+    implementation(libs.androidx.viewpager2)
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.startup.runtime)
+
+
+
 
 // Kotlin
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.kotlinx.coroutines.core)
 
     // Feature module Support
     implementation(libs.androidx.navigation.dynamic.features.fragment)

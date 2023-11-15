@@ -1,7 +1,7 @@
 package com.machado001.lilol.rotation.model.dto
 
-data class Passive(
+data class PassiveDto(
     val name: String,
     val description: String,
-    val image: Image,
+    val image: ImageDto,
 )

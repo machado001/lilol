@@ -2,6 +2,7 @@ package com.machado001.lilol.rotation.view.activity
 
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -24,9 +25,19 @@ class RotationActivity : AppCompatActivity() {
 
         val navController = navHostFragment.navController
         appBarConfiguration = AppBarConfiguration(navController.graph)
-        binding.bottomNav.setupWithNavController(navController)
+        binding.bottomNav.apply {
+            setupWithNavController(navController)
 
+            navController.addOnDestinationChangedListener { _, destination, _ ->
+                visibility = if (destination.id == R.id.championDetailFragment) {
+                    View.GONE
+                } else {
+                    View.VISIBLE
+                }
+            }
+        }
     }
+
     private fun setupLocalLanguage() {
         val langPref = PreferenceManager.getDefaultSharedPreferences(this)
         val defaultLocale = Locale.getDefault()
@@ -35,10 +46,8 @@ class RotationActivity : AppCompatActivity() {
         val (code, country) = lang.split("_")
         val locale = Locale(code, country)
         Locale.setDefault(locale)
-
         val config = resources.configuration
         config.setLocale(locale)
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             createConfigurationContext(config)
         }

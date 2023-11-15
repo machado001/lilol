@@ -12,6 +12,7 @@ import com.machado001.lilol.rotation.model.dto.SpecificChampionDto
 fun ChampionDto.toChampion(): Champion = Champion(
     key = key,
     name = name,
+    id = id,
     image = image.full,
     tags = tags,
     version = version

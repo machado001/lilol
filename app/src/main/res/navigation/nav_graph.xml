@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/rotationFragment">
+    app:startDestination="@id/allChampionsFragment">
+
 
     <fragment
         android:id="@+id/championDetailFragment"
         android:name="com.machado001.lilol.rotation.view.fragment.ChampionDetailsFragment"
-        android:label="@string/champion"
         tools:layout="@layout/fragment_champion_detail">
         <argument
             android:name="championId"
@@ -38,4 +38,30 @@
         android:id="@+id/settingsFragment"
         android:name="com.machado001.lilol.rotation.view.fragment.SettingsFragment"
         android:label="@string/settings" />
+
+    <fragment
+        android:id="@+id/allChampionsFragment"
+        android:name="com.machado001.lilol.rotation.view.fragment.AllChampionsFragment"
+        android:label="@string/all_champions"
+        tools:layout="@layout/fragment_all_champions">
+        <action
+            android:id="@+id/action_allChampionsFragment_to_championDetailFragment"
+            app:destination="@id/championDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.machado001.lilol.rotation.view.fragment.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_rotationFragment"
+            app:destination="@id/rotationFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_allChampionsFragment"
+            app:destination="@id/allChampionsFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_homeFragment"
+        app:destination="@id/homeFragment" />
 </navigation>

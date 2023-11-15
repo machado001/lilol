@@ -1,6 +1,6 @@
 package com.machado001.lilol.rotation.model.dto
 
-data class Stats(
+data class StatsDto(
     val armor: Float,
     val armorperlevel: Float,
     val attackdamage: Float,

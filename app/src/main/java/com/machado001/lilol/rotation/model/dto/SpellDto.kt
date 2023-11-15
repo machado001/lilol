@@ -1,11 +1,11 @@
 package com.machado001.lilol.rotation.model.dto
 
-data class Spell(
+data class SpellDto(
     val id: String,
     val name: String,
     val description: String,
     val tooltip: String,
-    val leveltip: LevelTip,
+    val leveltip: LevelTipDto,
     val maxrank: Int,
     val cooldown: List<Float>,
     val cooldownBurn: String,
@@ -19,6 +19,6 @@ data class Spell(
     val maxammo: String,
     val range: List<Int>,
     val rangeBurn: String,
-    val image: Image,
+    val image: ImageDto,
     val resource: String
 )

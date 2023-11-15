@@ -10,13 +10,15 @@ import com.machado001.lilol.rotation.model.repository.DataDragonRepository
 
 class ChampionDetailsPresenter(
     private val championDetailsRepository: DataDragonRepository,
-    private var view: ChampionDetails.View?
+    private var view: ChampionDetails.View?,
 ) : ChampionDetails.Presenter {
     override suspend fun getChampionDetails(
         version: String,
         lang: String,
-        championName: String //champion id por hora
+        championName: String, //champion id por hora
     ) {
+        view?.showProgress(true)
+
         try {
             val championDetailsDto =
                 championDetailsRepository.getSpecificChampion(
@@ -25,7 +27,6 @@ class ChampionDetailsPresenter(
                     championName
                 )
             val championDetails = championDetailsDto.toChampionDetails()
-
             val relatedChampions = championDetailsRepository.fetchDataDragon(version, lang)
                 .toDataDragon().data.entries.filter { (_, championData) ->
                     championData.tags.any { championDetails.tags.contains(it) }
@@ -34,8 +35,9 @@ class ChampionDetailsPresenter(
                         championDetails.tags.contains(it)
                     }
                 }.filter { (_, championData) -> //condition to fetch related champion
-                    championData.tags.first() == championDetails.tags.first() || championData.tags.last() == championDetails.tags.last()
-                }.filter { (_, championData) ->//condition to exclude the same champion to appear in the related list
+                    championData.tags.first() == championDetails.tags.first() || championData.tags.first() == championDetails.tags.last()
+                }
+                .filter { (_, championData) ->//condition to exclude the same champion to appear in the related list
                     championData.key != championDetails.key
                 }
 
@@ -44,6 +46,8 @@ class ChampionDetailsPresenter(
         } catch (e: Exception) {
             e.message?.let { Log.e("KKK L", it) }
             view?.showErrorMessage()
+        } finally {
+            view?.showProgress(false)
         }
     }
 

@@ -2,6 +2,7 @@ package com.machado001.lilol.rotation
 
 import com.machado001.lilol.common.ListChampionPair
 import com.machado001.lilol.common.base.BasePresenter
+import com.machado001.lilol.common.base.BaseView
 
 interface Rotation {
 
@@ -10,7 +11,7 @@ interface Rotation {
         fun getImageByPath(version: String, path: String): String
     }
 
-    interface View {
+    interface View : BaseView<Presenter> {
         fun showProgress(enabled: Boolean)
         fun goToChampionDetailsScreen(
             championId: String,

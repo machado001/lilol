@@ -1,52 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<com.google.android.material.carousel.MaskableFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/carousel_item_container"
-    android:layout_width="120dp"
-    android:layout_height="120dp"
-    android:layout_marginStart="4dp"
-    android:layout_marginEnd="4dp"
-    android:foreground="?attr/selectableItemBackground">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="?attr/colorSurfaceContainerLow"
+    app:cardUseCompatPadding="true">
 
-    <androidx.cardview.widget.CardView
-        app:cardUseCompatPadding="true"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="6dp"
-        app:cardBackgroundColor="?attr/colorSurface"
-        app:cardMaxElevation="6dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ImageView
+            android:id="@+id/image_item_champion"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/zed" />
+        <TextView
+            android:id="@+id/text_item_champion_name"
+            style="@style/Theme.Lilol.TextViewBase.TextViewInChampionRotationsImage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:autoSizeTextType="uniform"
+            android:lineBreakStyle="normal"
+            android:breakStrategy="simple"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Mordekaiser" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageView
-                android:id="@+id/image_item_champion"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@null"
-                android:scaleType="centerCrop"
-                app:layout_constraintDimensionRatio="1:1"
-                tools:src="@drawable/zed" />
-
-            <TextView
-                android:id="@+id/text_item_champion_name"
-                style="@style/Theme.Lilol.TextViewBase.TextViewInChampionRotationsImage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/image_item_champion"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:text="Mordekaiser" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
 
 
-</com.google.android.material.carousel.MaskableFrameLayout>
+

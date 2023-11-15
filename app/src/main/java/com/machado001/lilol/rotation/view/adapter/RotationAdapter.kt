@@ -19,13 +19,15 @@ class RotationAdapter(
 
     inner class RotationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(championPair: Map.Entry<String, Champion>) {
-
             itemView.findViewById<ImageView>(R.id.image_item_champion).apply {
+
                 Picasso.get()
                     .load("${DATA_DRAGON_BASE_URL}cdn/${championPair.value.version}/img/champion/${championPair.key}.png")
                     .placeholder(android.R.drawable.screen_background_dark_transparent)
                     .into(this)
+
                 contentDescription = championPair.value.name
+
                 setOnClickListener {
                     goToChampionDetails(
                         championPair.value.key,
@@ -34,9 +36,7 @@ class RotationAdapter(
                     )
                 }
             }
-
             itemView.findViewById<TextView>(R.id.text_item_champion_name).apply {
-                text = championPair.value.name
             }
         }
     }
@@ -45,13 +45,9 @@ class RotationAdapter(
         RotationViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_rotation_rv, parent, false)
         )
-
-
     override fun onBindViewHolder(holder: RotationViewHolder, position: Int) {
         holder.bind(rotations[position])
     }
-
     override fun getItemCount(): Int = rotations.size
-
 }
 

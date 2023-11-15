@@ -1,6 +1,6 @@
 package com.machado001.lilol.rotation.model.dto
 
-data class Image(
+data class ImageDto(
     val full: String,
     val group: String,
     val h: Int,

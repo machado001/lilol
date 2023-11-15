@@ -20,4 +20,14 @@
     <string name="no" >deixa pra lá</string>
     <string name="free_champions">Semana Grátis</string>
     <string name="champion">Campeão</string>
+    <string name="all_champions">Campeões</string>
+    <string name="ordering_by">Ordem: %1$s</string>
+    <string name="search_hint">Pesquisar campeão</string>
+    <string name="patch">Atualização %1$s</string>
+    <string name="home_free_week_tip">Checkout current free week champions</string>
+    <string name="home_all_champions_tip">Go to a list with all available champions in the current patch</string>
+    <string name="lore">Lore</string>
+    <string name="free_week">Semana Grátis</string>
+    <string name="new_rotation_notification_title">Nova rotação disponível!</string>
+    <string name="new_rotation_notification_desc">Confira quais foram os campeões escolhidos da semana!</string>
 </resources>

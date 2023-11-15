@@ -1,6 +1,7 @@
 package com.machado001.lilol.rotation
 
 import com.machado001.lilol.common.base.BasePresenter
+import com.machado001.lilol.common.base.BaseView
 
 interface Settings {
 
@@ -8,10 +9,10 @@ interface Settings {
         suspend fun changeAppLanguage()
     }
 
-    interface View {
+    interface View : BaseView<Presenter> {
         fun displayLanguageOptions(
             readableLanguages: List<String>,
-            availableLanguages: List<String>
+            availableLanguages: List<String>,
         )
     }
 

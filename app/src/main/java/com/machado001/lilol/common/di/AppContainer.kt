@@ -1,6 +1,7 @@
 package com.machado001.lilol.common.di
 
 import android.content.Context
+import androidx.work.WorkManager
 import com.machado001.lilol.common.Constants
 import com.machado001.lilol.rotation.model.local.SettingsLocalDataSourceImpl
 import com.machado001.lilol.rotation.model.network.DataDragonNetworkDataSource
@@ -49,11 +50,14 @@ class AppContainer(private val context: Context) {
     }
 
     private val rotationRepository: RotationRepository by lazy {
-        RotationRepositoryImpl(rotationApi)
+        RotationRepositoryImpl(
+            apiDataSource = rotationApi,
+            workManager = WorkManager.getInstance(context)
+        )
     }
 
     val dataDragonRepository: DataDragonRepository by lazy {
-        DataDragonRepositoryImpl(dataDragonApi)
+        DataDragonRepositoryImpl(dataSource = dataDragonApi)
     }
 
     val championsManager: ChampionsManager by lazy {
@@ -63,5 +67,4 @@ class AppContainer(private val context: Context) {
     val settingsRepository: SettingsRepository by lazy {
         SettingsRepositoryImpl(SettingsLocalDataSourceImpl(context), dataDragonApi)
     }
-
 }

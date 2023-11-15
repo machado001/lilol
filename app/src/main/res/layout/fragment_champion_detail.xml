@@ -1,93 +1,165 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraint_details_champion"
+    android:id="@+id/coordinator_details_champion"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".rotation.view.fragment.ChampionDetailsFragment">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/detail_toolbarzada"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/details_collapsing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleGravity="top"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snapMargins">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7">
+
+                <ImageView
+                    android:id="@+id/image_details_champion_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:contentDescription="@null"
+                    android:scaleType="centerCrop"
+                    android:text="@string/hello_blank_fragment"
+                    app:layout_constraintDimensionRatio="16:9"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/camille_11" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical"
+                app:layout_collapseMode="pin">
+
+                <TextView
+                    android:id="@+id/text_details_champion_name"
+                    style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+                    android:shadowDx="5"
+                    android:shadowDy="5"
+                    android:shadowRadius="10"
+                    android:textColor="@color/md_theme_dark_onSurface"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    tools:text="Camille" />
+
+                <TextView
+                    android:id="@+id/text_details_champion_title"
+                    style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+                    android:layout_marginBottom="8dp"
+                    android:shadowDx="5"
+                    android:shadowDy="5"
+                    android:shadowRadius="10"
+                    android:textColor="@color/md_theme_dark_onSurface"
+                    android:textSize="16sp"
+                    android:textStyle="italic"
+                    tools:text="the Steel Shadow" />
+            </LinearLayout>
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/details_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_collapseMode="pin"
+                app:layout_collapseParallaxMultiplier="2" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_details_champion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        tools:context=".rotation.view.fragment.ChampionDetailsFragment">
 
-    <ImageView
-        android:id="@+id/image_details_champion_image"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:contentDescription="@null"
-        android:scaleType="centerCrop"
-        android:text="@string/hello_blank_fragment"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/text_details_champion_lore"
+            style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="?attr/colorOnBackground"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/text_details_champion_lore_title"
+            app:layout_constraintTop_toBottomOf="@id/text_details_champion_lore_title"
+            tools:text="Weaponized to operate outside the boundaries of the law, Camille is the Principal Intelligencer of Clan Ferros—an elegant and elite agent who ensures the Piltover machine and its Zaunite underbelly runs smoothly. Adaptable and precise, she views sloppy technique as an embarrassment that must be put to order. With a mind as sharp as the blades she bears, Camille's pursuit of superiority through hextech body augmentation has left many to wonder if she is now more machine than woman." />
 
-    <TextView
-        android:id="@+id/text_details_champion_name"
-        style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
-        android:shadowDx="5"
-        android:shadowDy="5"
-        android:shadowRadius="10"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/text_details_champion_title"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Camille" />
+        <com.google.android.material.divider.MaterialDivider
+            style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:dividerColor="?attr/colorOnBackground"
+            app:layout_constraintBottom_toTopOf="@id/text_details_champion_related_champions"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_details_champion_lore" />
 
-    <TextView
-        android:id="@+id/text_details_champion_title"
-        style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
-        android:layout_marginBottom="8dp"
-        android:shadowDx="5"
-        android:shadowDy="5"
-        android:shadowRadius="10"
-        android:textSize="16sp"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="@+id/image_details_champion_image"
-        app:layout_constraintStart_toStartOf="@+id/image_details_champion_image"
-        tools:text="the Steel Shadow" />
+        <TextView
+            android:id="@+id/text_details_champion_related_champions"
+            style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/related_champions"
+            android:textColor="?attr/colorOnBackground"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_details_champion_lore" />
 
-    <TextView
-        android:id="@+id/text_details_champion_lore"
-        style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:textColor="?attr/colorOnBackground"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/image_details_champion_image"
-        tools:text="Weaponized to operate outside the boundaries of the law, Camille is the Principal Intelligencer of Clan Ferros—an elegant and elite agent who ensures the Piltover machine and its Zaunite underbelly runs smoothly. Adaptable and precise, she views sloppy technique as an embarrassment that must be put to order. With a mind as sharp as the blades she bears, Camille's pursuit of superiority through hextech body augmentation has left many to wonder if she is now more machine than woman." />
 
-    <TextView
-        android:id="@+id/text_details_champion_related_champions"
-        style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+        <TextView
+            android:id="@+id/text_details_champion_lore_title"
+            style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:text="@string/lore"
+            android:textColor="?attr/colorOnBackground"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_related_champions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:clipChildren="false"
+            android:clipToPadding="true"
+            android:elevation="5dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/text_details_champion_related_champions"
+            app:layout_constraintTop_toBottomOf="@id/text_details_champion_related_champions"
+            app:spanCount="3"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_rotation_rv"
+            tools:visibility="visible" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/related_champions"
-        android:textColor="?attr/colorOnBackground"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_details_champion_lore" />
+        android:layout_gravity="center" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_related_champions"
-        android:layout_width="match_parent"
-        android:elevation="5dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:clipChildren="false"
-        android:clipToPadding="true"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/text_details_champion_related_champions"
-        app:layout_constraintTop_toBottomOf="@id/text_details_champion_related_champions"
-        app:spanCount="3"
-        tools:itemCount="10"
-        tools:listitem="@layout/item_rotation_rv" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>

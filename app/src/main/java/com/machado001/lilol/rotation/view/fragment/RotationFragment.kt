@@ -7,8 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.carousel.CarouselLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.machado001.lilol.Application
 import com.machado001.lilol.R
 import com.machado001.lilol.common.ListChampionPair
@@ -20,7 +19,7 @@ import kotlinx.coroutines.launch
 
 class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
 
-    private lateinit var presenter: Rotation.Presenter
+    override lateinit var presenter: Rotation.Presenter
     private var binding: FragmentRotationBinding? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,12 +33,10 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
         binding = FragmentRotationBinding.bind(view)
         presenter = RotationPresenter(championsManager, this)
 
-        binding?.lilolToolbar?.setupWithNavController(navController, appBarConfiguration)
-        binding?.lilolToolbar?.title = getString(R.string.app_name)
-
         viewLifecycleOwner.lifecycleScope.launch {
             presenter.fetchRotations()
         }
+
     }
 
     override fun showProgress(enabled: Boolean) {
@@ -82,14 +79,17 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
                         RotationAdapter(freeChampionsMap) { championKey, championName, championVersion ->
                             goToChampionDetailsScreen(championKey, championName, championVersion)
                         }
-                    layoutManager = CarouselLayoutManager()
+                    layoutManager =
+                        GridLayoutManager(requireContext(), 5)
                 }
                 rvRotationNewPlayers.apply {
                     adapter =
                         RotationAdapter(freeChampionForNewPlayersMap) { championKey, championName, championVersion ->
                             goToChampionDetailsScreen(championKey, championName, championVersion)
                         }
-                    layoutManager = CarouselLayoutManager()
+                    layoutManager =
+                        GridLayoutManager(requireContext(), 5)
+
                 }
 
                 txtRotationTitle.apply {
@@ -116,5 +116,4 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
             }
         }
     }
-
 }

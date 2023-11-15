@@ -2,6 +2,7 @@ package com.machado001.lilol.rotation
 
 import com.machado001.lilol.common.ListChampionPair
 import com.machado001.lilol.common.base.BasePresenter
+import com.machado001.lilol.common.base.BaseView
 import com.machado001.lilol.common.model.data.Champion
 
 interface ChampionDetails {
@@ -11,13 +12,13 @@ interface ChampionDetails {
         suspend fun getChampionDetails(
             version: String,
             lang: String,
-            championName: String
+            championName: String,
         )
 
-         fun getImageByPath(version: String, path: String): String
+        fun getImageByPath(version: String, path: String): String
     }
 
-    interface View {
+    interface View : BaseView<Presenter> {
         fun setupRecyclerView(champions: ListChampionPair)
         fun showSuccess(champions: ListChampionPair)
         fun showErrorMessage()

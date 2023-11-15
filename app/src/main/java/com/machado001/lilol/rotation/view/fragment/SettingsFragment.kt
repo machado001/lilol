@@ -1,7 +1,7 @@
 package com.machado001.lilol.rotation.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
-import android.os.Process
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.ListPreference
@@ -9,14 +9,14 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.machado001.lilol.Application
 import com.machado001.lilol.R
-import com.machado001.lilol.rotation.presentation.SettingsPresenter
 import com.machado001.lilol.rotation.Settings
+import com.machado001.lilol.rotation.presentation.SettingsPresenter
 import kotlinx.coroutines.launch
 import java.util.Locale
 
 class SettingsFragment : PreferenceFragmentCompat(), Settings.View {
 
-    private lateinit var presenter: Settings.Presenter
+    override lateinit var presenter: Settings.Presenter
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
 
@@ -29,9 +29,10 @@ class SettingsFragment : PreferenceFragmentCompat(), Settings.View {
             }
         }
     }
+
     override fun displayLanguageOptions(
         readableLanguages: List<String>,
-        availableLanguages: List<String>
+        availableLanguages: List<String>,
     ) {
         findPreference<ListPreference>("appLanguage")?.apply {
             summary = Locale.getDefault().displayName
@@ -47,7 +48,12 @@ class SettingsFragment : PreferenceFragmentCompat(), Settings.View {
                         .setTitle(getString(R.string.change_language, displayName))
                         .setMessage(getString(R.string.change_language_confirm))
                         .setPositiveButton(getString(R.string.yes)) { _, _ ->
-                            Process.killProcess(Process.myPid())
+                            val intent =
+                                requireActivity().intent // use Intent intent = getActivity().getIntent() in Java
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                            requireActivity().finish() // use getActivity() again
+                            startActivity(intent)
+//                            Process.killProcess(Process.myPid())
                         }
                         .setNegativeButton(getString(R.string.no), null)
                         .show()
