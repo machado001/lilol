@@ -23,7 +23,6 @@ Once you have a key, you can use it in ```com/machado001/lilol/rotation/model/ne
 - Jetpack Navigation;
 - Caching;
 - Kotlin;
-- Material Carousel;
 - and more 😘.
 
 **Project not completed yet!**
