@@ -8,7 +8,6 @@ class HomePresenter(
     private var view: Home.View?,
 
     ) : Home.Presenter {
-
     override fun onNavigateToFreeWeekScreen() {
         view?.goToFreeWeekScreen()
     }

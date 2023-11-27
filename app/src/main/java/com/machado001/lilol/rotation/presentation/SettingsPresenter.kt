@@ -17,7 +17,6 @@ class SettingsPresenter(
                 val (code, country) = it.split("_")
                 Locale(code, country).displayName
             }
-
         view?.displayLanguageOptions(userReadableLanguages, availableLanguages)
     }
 

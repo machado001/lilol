@@ -26,8 +26,13 @@
     <string name="patch">Atualização %1$s</string>
     <string name="home_free_week_tip">Checkout current free week champions</string>
     <string name="home_all_champions_tip">Go to a list with all available champions in the current patch</string>
-    <string name="lore">Lore</string>
+    <string name="lore">História</string>
     <string name="free_week">Semana Grátis</string>
     <string name="new_rotation_notification_title">Nova rotação disponível!</string>
     <string name="new_rotation_notification_desc">Confira quais foram os campeões escolhidos da semana!</string>
+    <string name="playing_with_champion">Jogando com %1$s</string>
+    <string name="no_available_tips_for_playing_with_champion">Não há dicas disponíveis ainda para jogar com este campeão.</string>
+    <string name="cd_toggle_icon_champion_detail">Abrir/Fechar História</string>
+    <string name="playing_against_champion">Jogando contra %1$s</string>
+    <string name="no_available_tips_for_playing_against_champion">Não há dicas disponíveis ainda para jogar contra este campeão.</string>
 </resources>

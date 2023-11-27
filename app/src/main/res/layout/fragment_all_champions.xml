@@ -6,15 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".rotation.view.fragment.AllChampionsFragment">
 
-
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/all_champions_toolbar"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/menu_bottom_nav" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"

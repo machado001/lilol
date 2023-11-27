@@ -1,12 +1,18 @@
 package com.machado001.lilol.rotation.view.fragment
 
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.machado001.lilol.Application
 import com.machado001.lilol.R
@@ -33,10 +39,45 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
         binding = FragmentRotationBinding.bind(view)
         presenter = RotationPresenter(championsManager, this)
 
+        binding?.freeWeekToolbar?.setupWithNavController(navController, appBarConfiguration)
+
         viewLifecycleOwner.lifecycleScope.launch {
             presenter.fetchRotations()
         }
 
+    }
+
+    // Declare the launcher at the top of your Activity/Fragment:
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission(),
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            // FCM SDK (and your app) can post notifications.
+        } else {
+            // TODO: Inform user that that your app will not show notifications.
+        }
+    }
+
+    private fun askNotificationPermission() {
+        // This is only necessary for API level >= 33 (TIRAMISU)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) ==
+                PackageManager.PERMISSION_GRANTED
+            ) {
+                // FCM SDK (and your app) can post notifications.
+            } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+                // TODO: display an educational UI explaining to the user the features that will be enabled
+                //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
+                //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
+                //       If the user selects "No thanks," allow the user to continue without notifications.
+            } else {
+                // Directly ask for the permission
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
     }
 
     override fun showProgress(enabled: Boolean) {
@@ -92,9 +133,9 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
 
                 }
 
-                txtRotationTitle.apply {
-                    visibility = View.VISIBLE
-                }
+//                txtRotationTitle.apply {
+//                    visibility = View.VISIBLE
+//                }
                 newPlayerRange.apply {
                     visibility = View.VISIBLE
                     text =

@@ -1,107 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/free_week_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        app:layout_constraintTop_toBottomOf="@id/free_week_toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp">
 
-        <TextView
-            android:id="@+id/txt_rotation_title"
-            style="@style/Theme.Lilol.TextViewBase"
-            android:paddingBottom="20dp"
-            android:text="@string/week_rotation"
-            android:textStyle="bold"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
-
-        <TextView
-            android:id="@+id/new_player_range"
-            style="@style/Theme.Lilol.TextViewBase"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
-            android:background="?attr/colorSurfaceContainerLow"
-            android:text="@string/new_player_range"
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="16sp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/rv_rotation_new_players"
-            app:layout_constraintStart_toStartOf="@+id/rv_rotation_new_players"
-            app:layout_constraintTop_toBottomOf="@id/txt_rotation_title"
-            tools:visibility="visible" />
+            android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_rotation_new_players"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorSurfaceContainerLow"
-            android:backgroundTintMode="src_in"
-            android:clipChildren="true"
-            android:clipToPadding="false"
-            app:barrierDirection="end"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/new_player_range"
-            tools:itemCount="10"
-            tools:listitem="@layout/item_rotation_rv" />
+            <TextView
+                android:id="@+id/new_player_range"
+                style="@style/Theme.Lilol.TextViewBase"
+                android:layout_width="match_parent"
+                android:background="?attr/colorSurfaceContainerLow"
+                android:text="@string/new_player_range"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/rv_rotation_new_players"
+                app:layout_constraintStart_toStartOf="@+id/rv_rotation_new_players"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
 
-        <TextView
-            android:id="@+id/normal_player_range"
-            style="@style/Theme.Lilol.TextViewBase"
-            android:layout_marginTop="20dp"
-            android:background="?attr/colorSurfaceContainerLow"
-            android:elevation="30dp"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_rotation_new_players"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorSurfaceContainerLow"
+                android:backgroundTintMode="src_in"
+                android:clipChildren="true"
+                android:clipToPadding="false"
+                app:barrierDirection="end"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/new_player_range"
+                tools:itemCount="10"
+                tools:listitem="@layout/item_rotation_rv" />
 
-            android:text="@string/normal_player_range"
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="16sp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/rv_rotation_main"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_rotation_new_players"
-            tools:visibility="visible" />
+            <TextView
+                android:id="@+id/normal_player_range"
+                style="@style/Theme.Lilol.TextViewBase"
+                android:layout_marginTop="20dp"
+                android:background="?attr/colorSurfaceContainerLow"
+                android:elevation="30dp"
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_rotation_main"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorSurfaceContainerLow"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:elevation="2dp"
-            app:barrierDirection="end"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/normal_player_range"
-            tools:itemCount="10"
-            tools:listitem="@layout/item_rotation_rv" />
+                android:text="@string/normal_player_range"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/rv_rotation_main"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_rotation_new_players"
+                tools:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_rotation_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorSurfaceContainerLow"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:elevation="2dp"
+                app:barrierDirection="end"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/normal_player_range"
+                tools:itemCount="10"
+                tools:listitem="@layout/item_rotation_rv" />
 
 
-        <ProgressBar
-            android:id="@+id/progress_rotation"
-            style="@style/Theme.Lilol.TextViewBase"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.05"
-            tools:visibility="visible" />
 
-        <TextView
-            android:id="@+id/text_error_request"
-            style="@style/Theme.Lilol.TextViewBase"
-            android:text="@string/error_request"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/text_error_request"
+                style="@style/Theme.Lilol.TextViewBase"
+                android:text="@string/error_request"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:layout_gravity="center"
+        android:id="@+id/progress_rotation"
+        style="@style/Theme.Lilol.TextViewBase"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.5"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

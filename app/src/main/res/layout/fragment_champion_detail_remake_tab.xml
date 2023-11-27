@@ -20,6 +20,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_img_name_desc_wrapper"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_collapseMode="parallax"
@@ -36,7 +37,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:src="@drawable/camille_11" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -74,131 +74,229 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
+                app:menu="@menu/menu_bottom_nav"
                 app:layout_collapseParallaxMultiplier="2" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_details_champion"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        tools:context=".rotation.view.fragment.ChampionDetailsFragment">
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/champion_tab"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_details_champion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:context=".rotation.view.fragment.ChampionDetailsFragment">
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/champion_pager"
-            app:layout_constraintTop_toBottomOf="@id/champion_tab"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/lore_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:animateLayoutChanges="true"
-            app:layout_constraintTop_toTopOf="@id/champion_pager">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint_card_wrapper"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/lore_card"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:animateLayoutChanges="true"
-                android:padding="8dp">
+                app:layout_constraintTop_toTopOf="@id/constraint_details_champion">
 
-                <TextView
-                    android:id="@+id/text_details_champion_lore_title"
-                    style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:text="@string/lore"
-                    android:textColor="?attr/colorOnBackground"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="0dp"
-                    android:src="@drawable/baseline_arrow_forward_ios_24"
-                    app:layout_constraintBottom_toBottomOf="@+id/text_details_champion_lore_title"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/text_details_champion_lore_title"
-                    app:tint="?attr/colorOnBackground" />
-
-                <TextView
-                    android:id="@+id/text_details_champion_lore"
-                    style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_card_wrapper"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:textColor="?attr/colorOnBackground"
-                    android:textSize="16sp"
-                    android:visibility="gone"
-                    app:layout_constraintTop_toBottomOf="@id/text_details_champion_lore_title"
-                    tools:text="@string/tools_lore"
-                    tools:visibility="visible" />
+                    android:layout_height="match_parent"
+                    android:animateLayoutChanges="true"
+                    android:padding="8dp">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/text_details_champion_lore_title"
+                        style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:text="@string/lore"
+                        android:textColor="?attr/colorOnBackground"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-        </com.google.android.material.card.MaterialCardView>
+                    <ImageView
+                        android:id="@+id/icon_toggle"
+                        android:layout_width="24dp"
+                        android:layout_height="0dp"
+                        android:src="@drawable/baseline_arrow_forward_ios_24"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_details_champion_lore_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/text_details_champion_lore_title"
+                        app:tint="?attr/colorOnBackground"
+                        android:contentDescription="@string/cd_toggle_icon_champion_detail" />
+
+                    <TextView
+                        android:id="@+id/text_details_champion_lore"
+                        style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="?attr/colorOnBackground"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintTop_toBottomOf="@id/text_details_champion_lore_title"
+                        tools:text="@string/tools_lore"
+                        tools:visibility="visible" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/ally_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:animateLayoutChanges="true"
+                app:layout_constraintTop_toBottomOf="@id/lore_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_card_wrapper_ally"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:animateLayoutChanges="true"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/text_details_champion_ally_title"
+                        style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:text="@string/playing_with_champion"
+                        android:textColor="?attr/colorOnBackground"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Playing with Camille" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="0dp"
+                        android:src="@drawable/baseline_arrow_forward_ios_24"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_details_champion_ally_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/text_details_champion_ally_title"
+                        app:tint="?attr/colorOnBackground" />
+
+                    <LinearLayout
+                        android:id="@+id/linear_layout_details_champion_ally_tips"
+                        style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        android:textColor="?attr/colorOnBackground"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintTop_toBottomOf="@id/text_details_champion_ally_title"
+                        tools:visibility="visible">
+
+                        <!--                        add textviews programatically here-->
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/enemy_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:animateLayoutChanges="true"
+                app:layout_constraintTop_toBottomOf="@id/ally_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_card_wrapper_enemy"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:animateLayoutChanges="true"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/text_details_champion_enemy_title"
+                        style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:text="@string/playing_with_champion"
+                        android:textColor="?attr/colorOnBackground"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Playing against Camille" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="0dp"
+                        android:src="@drawable/baseline_arrow_forward_ios_24"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_details_champion_enemy_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/text_details_champion_enemy_title"
+                        app:tint="?attr/colorOnBackground" />
+
+                    <LinearLayout
+                        android:id="@+id/linear_layout_details_champion_enemy_tips"
+                        style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        android:textColor="?attr/colorOnBackground"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintTop_toBottomOf="@id/text_details_champion_enemy_title"
+                        tools:visibility="visible">
+
+                        <!--                        add textviews programatically here-->
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
 
-        <com.google.android.material.divider.MaterialDivider
-            style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            app:dividerColor="?attr/colorOnBackground"
-            app:layout_constraintBottom_toTopOf="@id/text_details_champion_related_champions"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lore_card" />
-
-        <TextView
-            android:id="@+id/text_details_champion_related_champions"
-            style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/related_champions"
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lore_card" />
+            <TextView
+                android:id="@+id/text_details_champion_related_champions"
+                style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/related_champions"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/enemy_card" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_related_champions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:clipChildren="false"
-            android:clipToPadding="true"
-            android:elevation="5dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/text_details_champion_related_champions"
-            app:layout_constraintTop_toBottomOf="@id/text_details_champion_related_champions"
-            app:spanCount="3"
-            tools:itemCount="10"
-            tools:listitem="@layout/item_rotation_rv"
-            tools:visibility="visible" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_related_champions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:clipChildren="false"
+                android:clipToPadding="true"
+                android:elevation="5dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/text_details_champion_related_champions"
+                app:layout_constraintTop_toBottomOf="@id/text_details_champion_related_champions"
+                app:spanCount="3"
+                tools:itemCount="10"
+                tools:listitem="@layout/item_rotation_rv"
+                tools:visibility="visible" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
     <ProgressBar
         android:id="@+id/progress_bar"

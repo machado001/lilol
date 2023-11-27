@@ -27,6 +27,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), Home.View {
         }
     }
 
+
+
     override fun showGameVersion(version: String) {
         binding?.homeTextPatch?.text = getString(R.string.patch, version)
     }

@@ -37,6 +37,8 @@ fun SpecificChampionDto.toChampionDetails(): ChampionDetails = with(data.values.
         title = title,
         image = id,
         tags = tags,
-        key = key
+        key = key,
+        allytips = allytips,
+        enemytips = enemytips
     )
 }

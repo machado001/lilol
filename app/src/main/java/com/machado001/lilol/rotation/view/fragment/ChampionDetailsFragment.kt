@@ -5,6 +5,9 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Space
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -12,7 +15,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.android.material.tabs.TabLayoutMediator
 import com.machado001.lilol.Application
 import com.machado001.lilol.R
 import com.machado001.lilol.common.Constants
@@ -21,7 +23,6 @@ import com.machado001.lilol.common.view.PicassoGradientTransformation
 import com.machado001.lilol.databinding.FragmentChampionDetailRemakeTabBinding
 import com.machado001.lilol.rotation.ChampionDetails
 import com.machado001.lilol.rotation.presentation.ChampionDetailsPresenter
-import com.machado001.lilol.rotation.view.adapter.ChampionDetailPagerAdapter
 import com.machado001.lilol.rotation.view.adapter.RotationAdapter
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
@@ -57,18 +58,6 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
                 setupWithNavController(detailsToolbar, navController, appBarConfiguration)
                 detailsToolbar.popupTheme = R.style.Theme_Lilol
             }
-
-            championPager.adapter = ChampionDetailPagerAdapter(this@ChampionDetailsFragment)
-            championPager.isUserInputEnabled = false
-
-            TabLayoutMediator(championTab, championPager) { tab, position ->
-                when (position) {
-                    0 -> tab.text = "Skills"
-                    1 -> tab.text = "Lore"
-                    2 -> tab.text = "Skins"
-                    3 -> tab.text = "Related Champions"
-                }
-            }.attach()
 
         }
 
@@ -145,27 +134,154 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
                         setExpandedTitleColor(Color.TRANSPARENT)
                     }
 
-                }
+                    textDetailsChampionAllyTitle.apply {
+                        text = getString(R.string.playing_with_champion, name)
+                    }
+                    textDetailsChampionEnemyTitle.apply {
+                        text = getString(R.string.playing_against_champion, name)
+                    }
 
-                var isExpanded = false
+                    linearLayoutDetailsChampionAllyTips.apply {
 
-                loreCard.apply {
-                    setOnClickListener {
-                        isExpanded = !isExpanded
-                        layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-
-                        textDetailsChampionLore.apply {
-                            visibility = when (isExpanded) {
-                                true -> View.VISIBLE
-                                false -> View.GONE
+                        if (allytips.isEmpty() || allytips.contains(lore)) {
+                            val textView = TextView(
+                                requireContext(),
+                                null,
+                                0,
+                                R.style.Theme_Lilol_TextViewBase_ChampionDetail,
+                            ).apply {
+                                text =
+                                    getString(R.string.no_available_tips_for_playing_with_champion)
+                                textSize = 16.0f
                             }
+
+                            addView(textView)
+                        } else {
+                            allytips.forEach { allyTip ->
+                                val textView = TextView(
+                                    requireContext(),
+                                    null,
+                                    0,
+                                    R.style.Theme_Lilol_TextViewBase_ChampionDetail,
+                                ).apply {
+                                    text = allyTip
+                                }
+                                val space = Space(requireContext()).apply {
+                                    layoutParams = ViewGroup.LayoutParams(0, 16)
+                                }
+                                addView(textView)
+                                if (allyTip != allytips.last()) addView(space)
+                            }
+
                         }
 
-                        constraintCardWrapper.apply {
+                    }
+
+                    linearLayoutDetailsChampionEnemyTips.apply {
+
+                        if (enemytips.isEmpty() || enemytips.contains(lore)) {
+                            val textView = TextView(
+                                requireContext(),
+                                null,
+                                0,
+                                R.style.Theme_Lilol_TextViewBase_ChampionDetail,
+                            ).apply {
+                                text =
+                                    getString(R.string.no_available_tips_for_playing_against_champion)
+                                textSize = 16.0f
+                            }
+
+                            addView(textView)
+                        } else {
+                            enemytips.forEach { enemyTip ->
+                                val textView = TextView(
+                                    requireContext(),
+                                    null,
+                                    0,
+                                    R.style.Theme_Lilol_TextViewBase_ChampionDetail,
+                                ).apply {
+                                    text = enemyTip
+                                }
+                                val space = Space(requireContext()).apply {
+                                    layoutParams = ViewGroup.LayoutParams(0, 16)
+                                }
+                                addView(textView)
+                                if (enemyTip != enemytips.last()) addView(space)
+                            }
+                        }
+                    }
+                }
+                val sectionClickListeners = arrayOf(
+                    loreCard to { textDetailsChampionLore },
+                    allyCard to { linearLayoutDetailsChampionAllyTips },
+                    enemyCard to { linearLayoutDetailsChampionEnemyTips }
+                )
+
+                val sectionStates = booleanArrayOf(false, false, false)
+
+                sectionClickListeners.forEachIndexed { index, (card, content) ->
+                    card.apply {
+                        setOnClickListener {
+                            sectionStates[index] = !sectionStates[index]
+                            layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+
+                            content().apply {
+                                visibility = when (sectionStates[index]) {
+                                    true -> View.VISIBLE
+                                    false -> View.GONE
+                                }
+                            }
                         }
                     }
                 }
             }
+
+
+//                var isLoreSectionExpanded = false
+//                var isAllySectionExpanded = false
+//                var isEnemySectionExpanded = false
+//
+//                loreCard.apply {
+//                    setOnClickListener {
+//                        isLoreSectionExpanded = !isLoreSectionExpanded
+//                        layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+//
+//                        textDetailsChampionLore.apply {
+//                            visibility = when (isLoreSectionExpanded) {
+//                                true -> View.VISIBLE
+//                                false -> View.GONE
+//                            }
+//                        }
+//                    }
+//                }
+//
+//                allyCard.apply {
+//                    setOnClickListener {
+//                        isAllySectionExpanded = !isAllySectionExpanded
+//                        layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+//
+//                        linearLayoutDetailsChampionAllyTips.apply {
+//                            visibility = when (isAllySectionExpanded) {
+//                                true -> View.VISIBLE
+//                                false -> View.GONE
+//                            }
+//                        }
+//                    }
+//                }
+//
+//                enemyCard.apply {
+//                    setOnClickListener {
+//                        isEnemySectionExpanded = !isEnemySectionExpanded
+//                        layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+//
+//                        linearLayoutDetailsChampionEnemyTips.apply {
+//                            visibility = when (isEnemySectionExpanded) {
+//                                true -> View.VISIBLE
+//                                false -> View.GONE
+//                            }
+//                        }
+//                    }
+//                }
         }
     }
 
@@ -177,6 +293,7 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
         }
     }
 }
+
 
 
 

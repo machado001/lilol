@@ -7,5 +7,7 @@ data class ChampionDetails(
     val key: String,
     val title: String,
     val image: String,
-    val tags: List<String>
+    val tags: List<String>,
+    val allytips: List<String>,
+    val enemytips: List<String>,
 )

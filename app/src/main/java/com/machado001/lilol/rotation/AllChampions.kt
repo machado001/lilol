@@ -8,7 +8,6 @@ interface AllChampions {
     interface Presenter : BasePresenter {
         suspend fun getAllChampions()
         suspend fun filterChampions(roles: List<CharSequence>)
-
         suspend fun getAllRoles(): Set<String>
     }
 
@@ -20,11 +19,8 @@ interface AllChampions {
         )
 
         fun showErrorMessage(msg: String)
-
         fun showProgress(enabled: Boolean)
         fun showChampions(allChampions: List<Champion>)
         fun setupRecyclerViewAllChampions()
-
-
     }
 }

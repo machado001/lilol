@@ -28,10 +28,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.machado001.lilol" />
+                  <option name="mobileSdkAppId" value="1:674745716018:android:798cd57ebc3f3f79a3db2b" />
+                  <option name="projectId" value="lilol-b3ca5" />
+                  <option name="projectNumber" value="674745716018" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

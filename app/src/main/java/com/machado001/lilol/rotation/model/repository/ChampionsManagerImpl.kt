@@ -15,11 +15,7 @@ class ChampionsManagerImpl(
 
     override suspend fun getRotations(): RotationsDto {
         return rotationRepository.run {
-            fetchRotationsPeriodically()
             fetchRotations()
         }
     }
-
-    override suspend fun getRotationsPeriodically() =
-        rotationRepository.fetchRotationsPeriodically()
 }

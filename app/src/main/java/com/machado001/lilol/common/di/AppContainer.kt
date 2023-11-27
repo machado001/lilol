@@ -1,7 +1,6 @@
 package com.machado001.lilol.common.di
 
 import android.content.Context
-import androidx.work.WorkManager
 import com.machado001.lilol.common.Constants
 import com.machado001.lilol.rotation.model.local.SettingsLocalDataSourceImpl
 import com.machado001.lilol.rotation.model.network.DataDragonNetworkDataSource
@@ -52,7 +51,6 @@ class AppContainer(private val context: Context) {
     private val rotationRepository: RotationRepository by lazy {
         RotationRepositoryImpl(
             apiDataSource = rotationApi,
-            workManager = WorkManager.getInstance(context)
         )
     }
 

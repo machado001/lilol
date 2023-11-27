@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Lilol</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="week_rotation">Free champions on this week</string>
+    <string name="week_rotation">Current free champion list on this week</string>
     <string name="week_rotation_two">To new players (until level %1$s)</string>
     <string name="disclaimer_rotation">disclaimer: currently, Riot considers a player as a newbie until level %1$s</string>
     <string name="error_request">Something went wrong! 🫠\nCheck your internet connection or try later!</string>
@@ -73,4 +73,9 @@
     <string name="free_week">Free Week</string>
     <string name="new_rotation_notification_title">New rotation available!</string>
     <string name="new_rotation_notification_desc">Check out the chosen champions of the week!</string>
+    <string name="playing_with_champion">Playing with %1$s</string>
+    <string name="playing_against_champion">Playing against %1$s</string>
+    <string name="no_available_tips_for_playing_with_champion">No available tips to play with this champion yet.</string>
+    <string name="no_available_tips_for_playing_against_champion">No available tips to play against this champion yet.</string>
+    <string name="cd_toggle_icon_champion_detail">Open/close Lore</string>
 </resources>
