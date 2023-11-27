@@ -3,11 +3,13 @@ package com.machado001.lilol.common.extensions
 import com.machado001.lilol.common.model.data.Champion
 import com.machado001.lilol.common.model.data.ChampionDetails
 import com.machado001.lilol.common.model.data.DataDragon
+import com.machado001.lilol.common.model.data.Spell
 import com.machado001.lilol.rotation.model.dto.ChampionDto
 import com.machado001.lilol.rotation.model.dto.DataDragonDto
 import com.machado001.lilol.rotation.model.dto.Rotations
 import com.machado001.lilol.rotation.model.dto.RotationsDto
 import com.machado001.lilol.rotation.model.dto.SpecificChampionDto
+import com.machado001.lilol.rotation.model.dto.SpellDto
 
 fun ChampionDto.toChampion(): Champion = Champion(
     key = key,
@@ -39,6 +41,14 @@ fun SpecificChampionDto.toChampionDetails(): ChampionDetails = with(data.values.
         tags = tags,
         key = key,
         allytips = allytips,
-        enemytips = enemytips
+        enemytips = enemytips,
+        spells = spells.map { it.toSpell() }
     )
 }
+
+fun SpellDto.toSpell(): Spell = Spell(
+    id = id,
+    name = name,
+    description = description,
+    image = image
+)
