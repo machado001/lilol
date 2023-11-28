@@ -74,8 +74,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:menu="@menu/menu_bottom_nav"
-                app:layout_collapseParallaxMultiplier="2" />
+                app:layout_collapseParallaxMultiplier="2"
+                app:menu="@menu/menu_bottom_nav" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -91,13 +91,38 @@
             android:layout_height="wrap_content"
             tools:context=".rotation.view.fragment.ChampionDetailsFragment">
 
+            <TextView
+                android:id="@+id/text_details_champion_skills_title"
+                style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/skills"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_skills"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_details_champion_skills_title"
+                tools:itemCount="5"
+                tools:listitem="@layout/item_spell_rv" />
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/lore_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:animateLayoutChanges="true"
-                app:layout_constraintTop_toTopOf="@id/constraint_details_champion">
+                app:layout_constraintTop_toBottomOf="@id/rv_skills">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraint_card_wrapper"
@@ -123,12 +148,12 @@
                         android:id="@+id/icon_toggle"
                         android:layout_width="24dp"
                         android:layout_height="0dp"
+                        android:contentDescription="@string/cd_toggle_icon_champion_detail"
                         android:src="@drawable/baseline_arrow_forward_ios_24"
                         app:layout_constraintBottom_toBottomOf="@+id/text_details_champion_lore_title"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/text_details_champion_lore_title"
-                        app:tint="?attr/colorOnBackground"
-                        android:contentDescription="@string/cd_toggle_icon_champion_detail" />
+                        app:tint="?attr/colorOnBackground" />
 
                     <TextView
                         android:id="@+id/text_details_champion_lore"

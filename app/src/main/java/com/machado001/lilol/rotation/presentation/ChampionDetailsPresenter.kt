@@ -4,6 +4,7 @@ import android.util.Log
 import com.machado001.lilol.common.extensions.toChampionDetails
 import com.machado001.lilol.common.extensions.toDataDragon
 import com.machado001.lilol.common.model.data.Champion
+import com.machado001.lilol.common.view.SpellListItem
 import com.machado001.lilol.rotation.ChampionDetails
 import com.machado001.lilol.rotation.model.repository.DataDragonRepository
 
@@ -40,6 +41,28 @@ class ChampionDetailsPresenter(
                 .filter { (_, championData) ->//condition to exclude the same champion to appear in the related list
                     championData.key != championDetails.key
                 }
+
+            val spellList = championDetails.spells.mapIndexed { index, spell ->
+                SpellListItem(
+                    id = spell.id,
+                    keyboardKey = when (index) {
+                        0 -> 'Q'
+                        1 -> 'W'
+                        2 -> 'E'
+                        3 -> 'R'
+                        else -> {
+                            'K'
+                        }
+                    },
+                    spell.image,
+                )
+            }
+
+            view?.apply {
+                showSpellList(spellList)
+                setupChampionDetails(championDetails)
+                setupRecyclerView(relatedChampions)
+            }
 
             view?.setupChampionDetails(championDetails)
             view?.setupRecyclerView(relatedChampions)

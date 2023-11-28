@@ -28,5 +28,3 @@ Once you have a key, you can use it in ```com/machado001/lilol/rotation/model/ne
 - and more 😘.
 
 **Project not completed yet!**
-
-branching test

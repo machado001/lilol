@@ -4,9 +4,9 @@ import com.machado001.lilol.common.ListChampionPair
 import com.machado001.lilol.common.base.BasePresenter
 import com.machado001.lilol.common.base.BaseView
 import com.machado001.lilol.common.model.data.Champion
+import com.machado001.lilol.common.view.SpellListItem
 
 interface ChampionDetails {
-
     interface Presenter : BasePresenter {
         fun getRelatedChampions(relatedChampions: List<Champion>)
         suspend fun getChampionDetails(
@@ -25,6 +25,6 @@ interface ChampionDetails {
         fun goToMoreDetailsScreen()
         fun setupChampionDetails(championDetail: com.machado001.lilol.common.model.data.ChampionDetails)
         fun showProgress(show: Boolean)
-
+        fun showSpellList(spells: List<SpellListItem>)
     }
 }

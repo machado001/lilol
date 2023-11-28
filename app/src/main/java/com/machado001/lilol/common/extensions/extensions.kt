@@ -50,5 +50,5 @@ fun SpellDto.toSpell(): Spell = Spell(
     id = id,
     name = name,
     description = description,
-    image = image
+    image = image.full
 )

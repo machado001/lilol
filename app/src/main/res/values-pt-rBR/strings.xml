@@ -35,4 +35,5 @@
     <string name="cd_toggle_icon_champion_detail">Abrir/Fechar História</string>
     <string name="playing_against_champion">Jogando contra %1$s</string>
     <string name="no_available_tips_for_playing_against_champion">Não há dicas disponíveis ainda para jogar contra este campeão.</string>
+    <string name="skills">Habilidades</string>
 </resources>

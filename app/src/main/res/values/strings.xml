@@ -78,4 +78,5 @@
     <string name="no_available_tips_for_playing_with_champion">No available tips to play with this champion yet.</string>
     <string name="no_available_tips_for_playing_against_champion">No available tips to play against this champion yet.</string>
     <string name="cd_toggle_icon_champion_detail">Open/close Lore</string>
+    <string name="skills">Skills</string>
 </resources>

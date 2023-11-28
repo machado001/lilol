@@ -15,15 +15,19 @@ import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.machado001.lilol.Application
 import com.machado001.lilol.R
 import com.machado001.lilol.common.Constants
 import com.machado001.lilol.common.ListChampionPair
 import com.machado001.lilol.common.view.PicassoGradientTransformation
+import com.machado001.lilol.common.view.SpellListItem
 import com.machado001.lilol.databinding.FragmentChampionDetailRemakeTabBinding
 import com.machado001.lilol.rotation.ChampionDetails
 import com.machado001.lilol.rotation.presentation.ChampionDetailsPresenter
 import com.machado001.lilol.rotation.view.adapter.RotationAdapter
+import com.machado001.lilol.rotation.view.adapter.SpellsAdapter
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 import java.util.Locale
@@ -235,53 +239,6 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
                     }
                 }
             }
-
-
-//                var isLoreSectionExpanded = false
-//                var isAllySectionExpanded = false
-//                var isEnemySectionExpanded = false
-//
-//                loreCard.apply {
-//                    setOnClickListener {
-//                        isLoreSectionExpanded = !isLoreSectionExpanded
-//                        layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-//
-//                        textDetailsChampionLore.apply {
-//                            visibility = when (isLoreSectionExpanded) {
-//                                true -> View.VISIBLE
-//                                false -> View.GONE
-//                            }
-//                        }
-//                    }
-//                }
-//
-//                allyCard.apply {
-//                    setOnClickListener {
-//                        isAllySectionExpanded = !isAllySectionExpanded
-//                        layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-//
-//                        linearLayoutDetailsChampionAllyTips.apply {
-//                            visibility = when (isAllySectionExpanded) {
-//                                true -> View.VISIBLE
-//                                false -> View.GONE
-//                            }
-//                        }
-//                    }
-//                }
-//
-//                enemyCard.apply {
-//                    setOnClickListener {
-//                        isEnemySectionExpanded = !isEnemySectionExpanded
-//                        layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-//
-//                        linearLayoutDetailsChampionEnemyTips.apply {
-//                            visibility = when (isEnemySectionExpanded) {
-//                                true -> View.VISIBLE
-//                                false -> View.GONE
-//                            }
-//                        }
-//                    }
-//                }
         }
     }
 
@@ -289,7 +246,16 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
         binding?.apply {
             progressBar.visibility = if (show) View.VISIBLE else View.GONE
             constraintDetailsChampion.visibility = if (show) View.GONE else View.VISIBLE
+        }
+    }
 
+    override fun showSpellList(spells: List<SpellListItem>) {
+        binding?.apply {
+            rvSkills.apply {
+                adapter = SpellsAdapter(spells, args.championVersion)
+                layoutManager =
+                    LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+            }
         }
     }
 }
