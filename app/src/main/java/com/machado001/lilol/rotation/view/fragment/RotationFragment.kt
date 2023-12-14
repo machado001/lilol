@@ -42,7 +42,7 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
         binding?.freeWeekToolbar?.setupWithNavController(navController, appBarConfiguration)
 
         viewLifecycleOwner.lifecycleScope.launch {
-            presenter.fetchRotations()
+            presenter.displayRotations()
         }
 
     }

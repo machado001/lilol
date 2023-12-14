@@ -9,7 +9,7 @@ import com.machado001.lilol.rotation.model.dto.Rotations
 interface Rotation {
 
     interface Presenter : BasePresenter {
-        suspend fun fetchRotations()
+        suspend fun displayRotations()
         suspend fun getFreeChampions(): List<Map.Entry<String, Champion>>
         suspend fun getFreeChampionsForNewPlayers(): List<Map.Entry<String, Champion>>
 

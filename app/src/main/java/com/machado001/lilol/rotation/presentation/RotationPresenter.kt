@@ -35,19 +35,14 @@ class RotationPresenter(
         return freeChampions
     }
 
-    override suspend fun fetchRotations() {
+    override suspend fun displayRotations() {
         view?.showProgress(true)
         try {
-            val maxNewPlayerLevel = getRotations().maxNewPlayerLevel
-            val freeChampions = getFreeChampions()
-            val freeChampionsForNewPlayers = getFreeChampionsForNewPlayers()
-
             view?.showSuccess(
-                freeChampions,
-                freeChampionsForNewPlayers,
-                maxNewPlayerLevel,
+                freeChampionsMap = getFreeChampions(),
+                freeChampionForNewPlayersMap = getFreeChampionsForNewPlayers(),
+                level = getRotations().maxNewPlayerLevel,
             )
-
         } catch (e: Exception) {
             view?.showFailureMessage()
             Log.e("i caraio", e.toString())
