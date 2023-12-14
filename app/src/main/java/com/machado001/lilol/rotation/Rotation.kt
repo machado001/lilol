@@ -3,12 +3,17 @@ package com.machado001.lilol.rotation
 import com.machado001.lilol.common.ListChampionPair
 import com.machado001.lilol.common.base.BasePresenter
 import com.machado001.lilol.common.base.BaseView
+import com.machado001.lilol.common.model.data.Champion
+import com.machado001.lilol.rotation.model.dto.Rotations
 
 interface Rotation {
 
     interface Presenter : BasePresenter {
         suspend fun fetchRotations()
-        fun getImageByPath(version: String, path: String): String
+        suspend fun getFreeChampions(): List<Map.Entry<String, Champion>>
+        suspend fun getFreeChampionsForNewPlayers(): List<Map.Entry<String, Champion>>
+
+        suspend fun getRotations(): Rotations
     }
 
     interface View : BaseView<Presenter> {
@@ -27,5 +32,3 @@ interface Rotation {
         )
     }
 }
-
-//typealias k = ListChampionPair

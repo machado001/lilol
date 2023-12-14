@@ -44,6 +44,7 @@ class AllChampionsPresenter(
         }
     }
 
+
     override suspend fun getAllRoles(): Set<String> {
         val latestVersion = repository.fetchAllGameVersions().first()
         val dataDragon =
@@ -51,7 +52,6 @@ class AllChampionsPresenter(
         val allRoles = dataDragon.data.values.map {
             it.tags
         }.flatten().toSet()
-
         return allRoles
     }
 

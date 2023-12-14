@@ -67,7 +67,7 @@ class ChampionDetailsPresenter(
             view?.setupChampionDetails(championDetails)
             view?.setupRecyclerView(relatedChampions)
         } catch (e: Exception) {
-            e.message?.let { Log.e("KKK L", it) }
+            e.message?.let { Log.e("KKK", it) }
             view?.showErrorMessage()
         } finally {
             view?.showProgress(false)
@@ -76,9 +76,6 @@ class ChampionDetailsPresenter(
 
     override fun getRelatedChampions(relatedChampions: List<Champion>) {
     }
-
-    override fun getImageByPath(version: String, path: String) =
-        "https://ddragon.leagueoflegends.com/cdn/$version/img/champion/$path"
 
     override fun onDestroy() {
         view = null

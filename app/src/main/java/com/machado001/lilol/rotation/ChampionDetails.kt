@@ -14,8 +14,6 @@ interface ChampionDetails {
             lang: String,
             championName: String,
         )
-
-        fun getImageByPath(version: String, path: String): String
     }
 
     interface View : BaseView<Presenter> {
