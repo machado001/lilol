@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Space
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -121,7 +122,7 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
     }
 
     override fun setupChampionDetails(championDetail: com.machado001.lilol.common.model.data.ChampionDetails) {
-        binding?.let {
+        binding?.let { it ->
             with(it) {
                 Picasso.get()
                     .load("${Constants.DATA_DRAGON_BASE_URL}cdn/img/champion/splash/${championDetail.id}_0.jpg")
@@ -145,83 +146,27 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
                         text = getString(R.string.playing_against_champion, name)
                     }
 
-                    linearLayoutDetailsChampionAllyTips.apply {
 
-                        if (allytips.isEmpty() || allytips.contains(lore)) {
-                            val textView = TextView(
-                                requireContext(),
-                                null,
-                                0,
-                                R.style.Theme_Lilol_TextViewBase_ChampionDetail,
-                            ).apply {
-                                text =
-                                    getString(R.string.no_available_tips_for_playing_with_champion)
-                                textSize = 16.0f
-                            }
-
-                            addView(textView)
-                        } else {
-                            allytips.forEach { allyTip ->
-                                val textView = TextView(
-                                    requireContext(),
-                                    null,
-                                    0,
-                                    R.style.Theme_Lilol_TextViewBase_ChampionDetail,
-                                ).apply {
-                                    text = allyTip
-                                }
-                                val space = Space(requireContext()).apply {
-                                    layoutParams = ViewGroup.LayoutParams(0, 16)
-                                }
-                                addView(textView)
-                                if (allyTip != allytips.last()) addView(space)
-                            }
-
-                        }
-
+                    with(linearLayoutDetailsChampionAllyTips) {
+                        populateChampionsTips(allytips, lore, getString(R.string.no_available_tips_for_playing_with_champion), this)
                     }
 
-                    linearLayoutDetailsChampionEnemyTips.apply {
-
-                        if (enemytips.isEmpty() || enemytips.contains(lore)) {
-                            val textView = TextView(
-                                requireContext(),
-                                null,
-                                0,
-                                R.style.Theme_Lilol_TextViewBase_ChampionDetail,
-                            ).apply {
-                                text =
-                                    getString(R.string.no_available_tips_for_playing_against_champion)
-                                textSize = 16.0f
-                            }
-
-                            addView(textView)
-                        } else {
-                            enemytips.forEach { enemyTip ->
-                                val textView = TextView(
-                                    requireContext(),
-                                    null,
-                                    0,
-                                    R.style.Theme_Lilol_TextViewBase_ChampionDetail,
-                                ).apply {
-                                    text = enemyTip
-                                }
-                                val space = Space(requireContext()).apply {
-                                    layoutParams = ViewGroup.LayoutParams(0, 16)
-                                }
-                                addView(textView)
-                                if (enemyTip != enemytips.last()) addView(space)
-                            }
-                        }
+                    with(linearLayoutDetailsChampionEnemyTips){
+                        populateChampionsTips(enemytips, lore, getString(R.string.no_available_tips_for_playing_against_champion), this)
                     }
+
                 }
-                val sectionClickListeners = arrayOf(
+                val sectionClickListeners = listOf(
                     loreCard to { textDetailsChampionLore },
                     allyCard to { linearLayoutDetailsChampionAllyTips },
                     enemyCard to { linearLayoutDetailsChampionEnemyTips }
                 )
 
-                val sectionStates = booleanArrayOf(false, false, false)
+
+                run {
+
+                }
+                val sectionStates = mutableListOf(false, false, false)
 
                 sectionClickListeners.forEachIndexed { index, (card, content) ->
                     card.apply {
@@ -242,6 +187,7 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
         }
     }
 
+
     override fun showProgress(show: Boolean) {
         binding?.apply {
             progressBar.visibility = if (show) View.VISIBLE else View.GONE
@@ -258,7 +204,49 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
             }
         }
     }
+
+    override fun populateChampionsTips(
+        tips: List<String>,
+        lore: String,
+        noTipsMessage: String,
+        layout: LinearLayout,
+    ) {
+        if (tips.isEmpty() || tips.contains(lore)) {
+            val textView = TextView(
+                requireContext(),
+                null,
+                0,
+                R.style.Theme_Lilol_TextViewBase_ChampionDetail,
+            ).apply {
+                text = noTipsMessage
+                textSize = 16.0f
+            }
+            layout.addView(textView)
+        } else {
+            tips.map { tip ->
+                "- $tip"
+            }.forEach { tip ->
+                val textView = TextView(
+                    requireContext(),
+                    null,
+                    0,
+                    R.style.Theme_Lilol_TextViewBase_ChampionDetail,
+                ).apply {
+                    text = tip
+                }
+                val space = Space(requireContext()).apply {
+                    layoutParams = ViewGroup.LayoutParams(0, 16)
+                }
+                layout.addView(textView)
+                if (tip != tips.last()) layout.addView(space)
+            }
+        }
+    }
+
+
 }
+
+
 
 
 

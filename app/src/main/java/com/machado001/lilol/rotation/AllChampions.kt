@@ -21,6 +21,6 @@ interface AllChampions {
         fun showErrorMessage(msg: String)
         fun showProgress(enabled: Boolean)
         fun showChampions(allChampions: List<Champion>)
-        fun setupRecyclerViewAllChampions()
+        fun populateChips(championRole: String)
     }
 }

@@ -1,5 +1,6 @@
 package com.machado001.lilol.rotation
 
+import android.widget.LinearLayout
 import com.machado001.lilol.common.ListChampionPair
 import com.machado001.lilol.common.base.BasePresenter
 import com.machado001.lilol.common.base.BaseView
@@ -24,5 +25,11 @@ interface ChampionDetails {
         fun setupChampionDetails(championDetail: com.machado001.lilol.common.model.data.ChampionDetails)
         fun showProgress(show: Boolean)
         fun showSpellList(spells: List<SpellListItem>)
+        fun populateChampionsTips(
+            tips: List<String>,
+            lore: String,
+            noTipsMessage: String,
+            layout: LinearLayout
+        )
     }
 }

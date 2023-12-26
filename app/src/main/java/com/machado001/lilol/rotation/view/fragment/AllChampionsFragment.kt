@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
 import com.machado001.lilol.Application
-import com.machado001.lilol.MyNotification
 import com.machado001.lilol.R
 import com.machado001.lilol.common.model.data.Champion
 import com.machado001.lilol.databinding.FragmentAllChampionsBinding
@@ -22,6 +21,7 @@ import com.machado001.lilol.rotation.view.adapter.AllChampionsAdapter
 import kotlinx.coroutines.launch
 
 class AllChampionsFragment : Fragment(R.layout.fragment_all_champions), AllChampions.View {
+    
     private var binding: FragmentAllChampionsBinding? = null
     override lateinit var presenter: AllChampions.Presenter
 
@@ -34,45 +34,50 @@ class AllChampionsFragment : Fragment(R.layout.fragment_all_champions), AllChamp
         presenter = AllChampionsPresenter(this, repositoryImpl)
         binding?.allChampionsToolbar?.setupWithNavController(navController, appBarConfiguration)
 
-//        MyNotification(requireContext()).showNotification()
-
         viewLifecycleOwner.lifecycleScope.launch {
 
-            presenter.getAllChampions()
-            presenter.getAllRoles().map { role ->
-                binding?.chipGroup?.apply {
+            presenter.apply {
+                getAllChampions()
+                getAllRoles().map { championRole ->
+                    populateChips(championRole)
+                }
+            }
+        }
+    }
 
-                    val chipStyle = ChipDrawable.createFromAttributes(
-                        requireContext(),
-                        null,
-                        0,
-                        com.google.android.material.R.style.Widget_Material3_Chip_Filter
-                    )
-                    val chip = Chip(requireContext()).apply {
-                        setChipDrawable(chipStyle)
-                        text = role
-                        isChecked
-                        id = View.generateViewId()
+    override fun populateChips(championRole: String) {
+        binding?.chipGroup?.apply {
 
-                    }
-                    this.addView(chip)
+            val chipStyle = ChipDrawable.createFromAttributes(
+                requireContext(),
+                null,
+                0,
+                com.google.android.material.R.style.Widget_Material3_Chip_Filter
+            )
 
-                    setOnCheckedStateChangeListener { _, ints ->
-                        val selectedChips = ints.map {
-                            findViewById<Chip>(it).text
-                        }
+            val chip = Chip(requireContext()).apply {
+                setChipDrawable(chipStyle)
+                text = championRole
+                isChecked
+                id = View.generateViewId()
 
-                        viewLifecycleOwner.lifecycleScope.launch {
-                            (presenter as AllChampionsPresenter).filterChampions(selectedChips)
-                        }
-                    }
+            }
+            this.addView(chip)
+
+            setOnCheckedStateChangeListener { _, ints ->
+                val selectedChips = ints.map {
+                    findViewById<Chip>(it).text
+                }
+
+                viewLifecycleOwner.lifecycleScope.launch {
+                    (presenter as AllChampionsPresenter).filterChampions(selectedChips)
                 }
             }
         }
     }
 
     override fun showErrorMessage(msg: String) {
-//        todo
+        //todo
     }
 
     override fun onDestroyView() {
@@ -120,6 +125,4 @@ class AllChampionsFragment : Fragment(R.layout.fragment_all_champions), AllChamp
         findNavController().navigate(action)
     }
 
-    override fun setupRecyclerViewAllChampions() {
-    }
 }

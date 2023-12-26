@@ -29,13 +29,19 @@ class ChampionDetailsPresenter(
                 )
             val championDetails = championDetailsDto.toChampionDetails()
             val relatedChampions = championDetailsRepository.fetchDataDragon(version, lang)
-                .toDataDragon().data.entries.filter { (_, championData) ->
-                    championData.tags.any { championDetails.tags.contains(it) }
-                }.filter { (_, championData) ->
+                .toDataDragon().data
+                .entries
+                .filter { (_, championData) ->
+                    championData.tags.any { role ->
+                        championDetails.tags.contains(role)
+                    }
+                }
+                .filter { (_, championData) ->
                     championData.tags.any {
                         championDetails.tags.contains(it)
                     }
-                }.filter { (_, championData) -> //condition to fetch related champion
+                }
+                .filter { (_, championData) -> //condition to fetch related champion
                     championData.tags.first() == championDetails.tags.first() || championData.tags.first() == championDetails.tags.last()
                 }
                 .filter { (_, championData) ->//condition to exclude the same champion to appear in the related list
@@ -54,7 +60,7 @@ class ChampionDetailsPresenter(
                             'K'
                         }
                     },
-                    spell.image,
+                    spellImageUri = spell.image,
                 )
             }
 
@@ -64,8 +70,6 @@ class ChampionDetailsPresenter(
                 setupRecyclerView(relatedChampions)
             }
 
-            view?.setupChampionDetails(championDetails)
-            view?.setupRecyclerView(relatedChampions)
         } catch (e: Exception) {
             e.message?.let { Log.e("KKK", it) }
             view?.showErrorMessage()

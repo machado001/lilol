@@ -52,3 +52,7 @@ fun SpellDto.toSpell(): Spell = Spell(
     description = description,
     image = image.full
 )
+
+fun String.plusStart(){
+
+}
