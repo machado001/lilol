@@ -1,6 +1,7 @@
 # lilol
 
-![lilolpresentation](https://github.com/machado001/lilol/assets/101916850/0468f150-9e9f-443c-8ea1-dc447f206a05)
+![lilolpresentation](https://github.com/machado001/lilol/assets/101916850/dcc5245b-05d8-4ce5-872e-cdbc308fc39e)
+
 
 
 
