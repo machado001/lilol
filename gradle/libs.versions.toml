@@ -1,5 +1,5 @@
 [versions]
-agp = "8.3.0-alpha15"
+agp = "8.3.2"
 firebaseAdmin = "9.2.0"
 junitJupiter = "5.10.0"
 kotlin = "1.9.10"
