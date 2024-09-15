@@ -7,6 +7,11 @@ import com.machado001.lilol.common.model.data.Champion
 import com.machado001.lilol.common.view.SpellListItem
 import com.machado001.lilol.rotation.ChampionDetails
 import com.machado001.lilol.rotation.model.repository.DataDragonRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.yield
+import kotlin.coroutines.coroutineContext
 
 
 class ChampionDetailsPresenter(
@@ -27,7 +32,11 @@ class ChampionDetailsPresenter(
                     lang,
                     championName
                 )
+
+            yield()
             val championDetails = championDetailsDto.toChampionDetails()
+            yield()
+
             val relatedChampions = championDetailsRepository.fetchDataDragon(version, lang)
                 .toDataDragon().data
                 .entries
@@ -48,21 +57,27 @@ class ChampionDetailsPresenter(
                     championData.key != championDetails.key
                 }
 
-            val spellList = championDetails.spells.mapIndexed { index, spell ->
-                SpellListItem(
-                    id = spell.id,
-                    keyboardKey = when (index) {
-                        0 -> 'Q'
-                        1 -> 'W'
-                        2 -> 'E'
-                        3 -> 'R'
-                        else -> {
-                            'K'
-                        }
-                    },
-                    spellImageUri = spell.image,
-                )
+            yield()
+
+            val spellList = withContext(Dispatchers.Default) {
+                championDetails.spells.mapIndexed { index, spell ->
+                    SpellListItem(
+                        id = spell.id,
+                        keyboardKey = when (index) {
+                            0 -> 'Q'
+                            1 -> 'W'
+                            2 -> 'E'
+                            3 -> 'R'
+                            else -> {
+                                'K'
+                            }
+                        },
+                        spellImageUri = spell.image,
+                    )
+                }
             }
+
+            yield()
 
             view?.apply {
                 showSpellList(spellList)
@@ -71,6 +86,7 @@ class ChampionDetailsPresenter(
             }
 
         } catch (e: Exception) {
+            coroutineContext.ensureActive()
             e.message?.let { Log.e("KKK", it) }
             view?.showErrorMessage()
         } finally {
