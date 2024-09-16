@@ -133,9 +133,6 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
 
                 }
 
-//                txtRotationTitle.apply {
-//                    visibility = View.VISIBLE
-//                }
                 newPlayerRange.apply {
                     visibility = View.VISIBLE
                     text =

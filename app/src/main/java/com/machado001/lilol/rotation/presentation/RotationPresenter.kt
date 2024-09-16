@@ -8,7 +8,16 @@ import com.machado001.lilol.common.model.data.DataDragon
 import com.machado001.lilol.rotation.Rotation
 import com.machado001.lilol.rotation.model.dto.Rotations
 import com.machado001.lilol.rotation.model.repository.ChampionsManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.yield
 import java.util.Locale
+import kotlin.coroutines.coroutineContext
+import kotlin.system.measureTimeMillis
 
 class RotationPresenter(
     private val repository: ChampionsManager,
@@ -38,13 +47,26 @@ class RotationPresenter(
     override suspend fun displayRotations() {
         view?.showProgress(true)
         try {
-            view?.showSuccess(
-                freeChampionsMap = getFreeChampions(),
-                freeChampionForNewPlayersMap = getFreeChampionsForNewPlayers(),
-                level = getRotations().maxNewPlayerLevel,
-            )
+            coroutineScope {
+                val rotations = async(Dispatchers.IO) { getRotations() }
+                val freeChampions = async(Dispatchers.IO) { getFreeChampions() }
+                val freeChampionsForNewPlayers =
+                    async(Dispatchers.IO) { getFreeChampionsForNewPlayers() }
+
+                yield()
+
+                withContext(Dispatchers.Main.immediate) {
+                    view?.showSuccess(
+                        freeChampionsMap = freeChampions.await(),
+                        freeChampionForNewPlayersMap = freeChampionsForNewPlayers.await(),
+                        level = rotations.await().maxNewPlayerLevel,
+                    )
+                }
+            }
         } catch (e: Exception) {
+            coroutineContext.ensureActive()
             view?.showFailureMessage()
+            e.printStackTrace()
             Log.e("i caraio", e.toString())
         } finally {
             view?.showProgress(false)

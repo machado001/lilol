@@ -27,7 +27,6 @@ class DataDragonRepositoryImpl(
     private var allSupportedLanguages: List<String> = emptyList()
 
     @GuardedBy("mutex")
-
     private var cachedDetails: SpecificChampionDto? = null
 
     @GuardedBy("mutex")
