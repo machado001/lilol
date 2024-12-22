@@ -1,3 +1,5 @@
+import com.google.protobuf.gradle.id
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidApplication)
@@ -5,11 +7,12 @@ plugins {
     id("com.google.gms.google-services")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("com.google.protobuf") version "0.9.4"
 }
 
 android {
     namespace = "com.machado001.lilol"
-    compileSdk = 34
+    compileSdk = 35
 
     buildFeatures {
         viewBinding = true
@@ -19,7 +22,7 @@ android {
     defaultConfig {
         applicationId = "com.machado001.lilol"
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -59,15 +62,9 @@ dependencies {
     implementation(libs.androidx.viewpager2)
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.androidx.startup.runtime)
-
-
-    //firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
-    implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-messaging")
-//    implementation("com.google.firebase:firebase-admin:9.2.0")
-
-
+    implementation(libs.androidx.datastore)
+    implementation(libs.protobuf.kotlin.lite)
+    implementation(libs.protobuf.javalite)
 
 // Kotlin
     implementation(libs.androidx.navigation.fragment.ktx)
@@ -86,6 +83,26 @@ dependencies {
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }
+
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.24.1"
+    }
+    generateProtoTasks {
+        all().forEach { task ->
+            task.builtins {
+                id("java") {
+                    option("lite")
+                }
+                id("kotlin") {
+                    option("lite")
+                }
+            }
+        }
+    }
+}
+
 
 secrets {
     defaultPropertiesFileName = "local.defaults.properties"
