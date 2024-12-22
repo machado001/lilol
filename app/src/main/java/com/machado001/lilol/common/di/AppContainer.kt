@@ -41,11 +41,11 @@ class AppContainer(private val context: Context) {
         serializer = RotationSerializer
     )
 
-    private val rotationLocal: RotationLocalDataSource by lazy {
+    val rotationLocal: RotationLocalDataSource by lazy {
         RotationLocalDataSourceImpl(context.rotationDataStore)
     }
 
-    private val rotationApi: RotationNetworkDataSource by lazy {
+    val rotationApi: RotationNetworkDataSource by lazy {
         Retrofit.Builder()
             .baseUrl("https://br1.api.riotgames.com/")
             .addConverterFactory(GsonConverterFactory.create())

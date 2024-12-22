@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
+import com.machado001.lilol.MyNotification
 import com.machado001.lilol.R
 import com.machado001.lilol.databinding.ActivityRotationBinding
 import java.util.Locale
@@ -18,11 +19,11 @@ class RotationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupLocalLanguage()
+        MyNotification(this).createNotificationChannel()
         binding = ActivityRotationBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-
         val navController = navHostFragment.navController
         appBarConfiguration = AppBarConfiguration(navController.graph)
         binding.bottomNav.apply {

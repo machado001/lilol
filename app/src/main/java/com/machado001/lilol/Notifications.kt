@@ -1,9 +1,12 @@
 package com.machado001.lilol
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -11,17 +14,18 @@ import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.machado001.lilol.rotation.view.activity.RotationActivity
 import com.machado001.lilol.rotation.view.fragment.RotationFragment
 
 
 class MyNotification(private val ctx: Context) {
     companion object {
         const val ROTATION_CHANNEL_ID = "ROTATION_CHANNEL"
+        const val ROTATION_NOTIFICATION_ID = 12
     }
 
-    private val intent = Intent(ctx, RotationFragment::class.java).apply {
+    private val intent = Intent(ctx, RotationActivity::class.java).apply {
         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
     }
 
     private val pendingIntent: PendingIntent =
@@ -35,7 +39,7 @@ class MyNotification(private val ctx: Context) {
         .setAutoCancel(true)
         .setContentIntent(pendingIntent)
 
-    private fun createNotificationChannel() {
+    fun createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is not in the Support Library.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -52,16 +56,8 @@ class MyNotification(private val ctx: Context) {
         }
     }
 
+    @SuppressLint("MissingPermission")
     fun showNotification() = with(NotificationManagerCompat.from(ctx)) {
-        createNotificationChannel()
-        // notificationId is a unique int for each notification that you must define.
-        if (ActivityCompat.checkSelfPermission(
-                ctx,
-                Manifest.permission.POST_NOTIFICATIONS
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
-        notify(12, builder.build())
+        notify(ROTATION_NOTIFICATION_ID, builder.build())
     }
 }

@@ -2,7 +2,9 @@ package com.machado001.lilol.rotation.model.repository
 
 import android.content.Context
 import android.util.Log
+import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.machado001.lilol.BuildConfig
@@ -45,10 +47,9 @@ class RotationRepositoryImpl(
     }
 
     private fun implementTask() {
-        val repeatInterval = if (BuildConfig.DEBUG) TimeUnit.MINUTES else TimeUnit.HOURS
 
         val worker = PeriodicWorkRequestBuilder<RotationWorker>(
-            15, repeatInterval,
+            1, TimeUnit.DAYS,
             15, TimeUnit.MINUTES,
         )
             .addTag("Rotation")
@@ -57,5 +58,10 @@ class RotationRepositoryImpl(
         WorkManager.getInstance(context).enqueueUniquePeriodicWork(
             "RotationWork", ExistingPeriodicWorkPolicy.KEEP, worker
         )
+
+//        val worker = OneTimeWorkRequestBuilder<RotationWorker>()
+//            .build()
+//
+//        WorkManager.getInstance(context).enqueue(worker)
     }
 }
