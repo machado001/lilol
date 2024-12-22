@@ -3,6 +3,8 @@ package com.machado001.lilol.common.di
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
+import androidx.work.Constraints
+import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequest
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
@@ -44,7 +46,7 @@ class AppContainer(private val context: Context) : Container {
     }
 
     private val Context.rotationDataStore: DataStore<LocalRotation> by dataStore(
-        fileName = "rotation.pb",
+        fileName = DATASTORE_DESTINATION_FILE_NAME,
         serializer = RotationSerializer
     )
 
@@ -54,7 +56,7 @@ class AppContainer(private val context: Context) : Container {
 
     private val rotationApi: RotationNetworkDataSource by lazy {
         Retrofit.Builder()
-            .baseUrl("https://br1.api.riotgames.com/")
+            .baseUrl(API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(httpClient())
             .build()
@@ -72,10 +74,16 @@ class AppContainer(private val context: Context) : Container {
 
 
     private val workerRequest: PeriodicWorkRequest.Builder by lazy {
+
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
         PeriodicWorkRequestBuilder<RotationWorker>(
-            15, TimeUnit.MINUTES,
-            15, TimeUnit.MINUTES,
+            WORK_REPEAT_INTERVAL_IN_MINUTES, TimeUnit.MINUTES,
+            WORK_FLEX_TIME_INTERVAL_IN_MINUTES, TimeUnit.MINUTES,
         )
+            .setConstraints(constraints)
             .addTag(TAG_WORK)
     }
 
@@ -84,7 +92,7 @@ class AppContainer(private val context: Context) : Container {
         RotationBackgroundTaskManager(workManager, workerRequest)
     }
 
-     override val rotationRepository: RotationRepository by lazy {
+    override val rotationRepository: RotationRepository by lazy {
         RotationRepositoryImpl(
             apiDataSource = rotationApi,
             localDataSource = rotationLocal,
@@ -106,5 +114,9 @@ class AppContainer(private val context: Context) : Container {
 
     companion object {
         const val TAG_WORK = "Rotation"
+        const val WORK_REPEAT_INTERVAL_IN_MINUTES = 15L
+        const val WORK_FLEX_TIME_INTERVAL_IN_MINUTES = 15L
+        const val API_BASE_URL = "https://br1.api.riotgames.com/"
+        const val DATASTORE_DESTINATION_FILE_NAME = "rotation.pb"
     }
 }
