@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package com.machado001.lilol;
+
+message LocalRotation {
+  string rotation_current = 1;
+}

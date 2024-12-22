@@ -13,12 +13,12 @@ object PicassoGradientTransformation : Transformation {
     private val startColor = Color.argb(240, 0, 0, 0)
     private const val END_COLOR = Color.TRANSPARENT
 
-    override fun transform(source: Bitmap): Bitmap {
+    override fun transform(source: Bitmap): Bitmap? {
         val x = source.width
         val y = source.height
 
-        val gradientBitmap = source.copy(source.config, true)
-        val canvas = Canvas(gradientBitmap)
+        val gradientBitmap = source.config?.let { source.copy(it, true) }
+        val canvas = gradientBitmap?.let { Canvas(it) }
 
         // Create a linear gradient from the center of the image to the top
         val grad = LinearGradient(
@@ -33,7 +33,7 @@ object PicassoGradientTransformation : Transformation {
             isDither = true
             isFilterBitmap = true
             shader = grad
-            canvas.drawPaint(this)
+            canvas?.drawPaint(this)
         }
 
         source.recycle()

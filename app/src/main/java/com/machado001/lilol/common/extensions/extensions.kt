@@ -53,6 +53,4 @@ fun SpellDto.toSpell(): Spell = Spell(
     image = image.full
 )
 
-fun String.plusStart(){
-
-}
+val Any.TAG: String get() = this.javaClass.simpleName

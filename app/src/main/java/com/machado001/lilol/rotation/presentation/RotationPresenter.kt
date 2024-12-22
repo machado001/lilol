@@ -12,12 +12,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.ensureActive
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import java.util.Locale
 import kotlin.coroutines.coroutineContext
-import kotlin.system.measureTimeMillis
 
 class RotationPresenter(
     private val repository: ChampionsManager,
@@ -32,14 +30,15 @@ class RotationPresenter(
         repository.getRotations().toRotations()
 
 
-    override suspend fun getFreeChampionsForNewPlayers() =
-        getDataDragon().data.entries.filter { entry ->
-            getRotations().freeChampionIdsForNewPlayers.contains(entry.value.key.toInt())
+    override suspend fun getFreeChampionsForNewPlayers(rotations: Rotations): List<Map.Entry<String, Champion>> {
+        return getDataDragon().data.entries.filter { entry ->
+            rotations.freeChampionIdsForNewPlayers.contains(entry.value.key.toInt())
         }
+    }
 
-    override suspend fun getFreeChampions(): List<Map.Entry<String, Champion>> {
+    override suspend fun getFreeChampions(rotations: Rotations): List<Map.Entry<String, Champion>> {
         val freeChampions = getDataDragon().data.entries.filter { (_, value) ->
-            getRotations().freeChampionIds.contains(value.key.toInt())
+            rotations.freeChampionIds.contains(value.key.toInt())
         }
         return freeChampions
     }
@@ -49,9 +48,9 @@ class RotationPresenter(
         try {
             coroutineScope {
                 val rotations = async(Dispatchers.IO) { getRotations() }
-                val freeChampions = async(Dispatchers.IO) { getFreeChampions() }
+                val freeChampions = async(Dispatchers.IO) { getFreeChampions(rotations.await()) }
                 val freeChampionsForNewPlayers =
-                    async(Dispatchers.IO) { getFreeChampionsForNewPlayers() }
+                    async(Dispatchers.IO) { getFreeChampionsForNewPlayers(rotations.await()) }
 
                 yield()
 

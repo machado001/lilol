@@ -1,7 +1,13 @@
 package com.machado001.lilol.common.di
 
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.dataStore
+import com.machado001.lilol.Rotation.LocalRotation
 import com.machado001.lilol.common.Constants
+import com.machado001.lilol.rotation.model.local.RotationLocalDataSource
+import com.machado001.lilol.rotation.model.local.RotationLocalDataSourceImpl
+import com.machado001.lilol.rotation.model.local.RotationSerializer
 import com.machado001.lilol.rotation.model.local.SettingsLocalDataSourceImpl
 import com.machado001.lilol.rotation.model.network.DataDragonNetworkDataSource
 import com.machado001.lilol.rotation.model.network.RotationNetworkDataSource
@@ -30,6 +36,15 @@ class AppContainer(private val context: Context) {
             .build()
     }
 
+    private val Context.rotationDataStore: DataStore<LocalRotation> by dataStore(
+        fileName = "rotation.pb",
+        serializer = RotationSerializer
+    )
+
+    private val rotationLocal: RotationLocalDataSource by lazy {
+        RotationLocalDataSourceImpl(context.rotationDataStore)
+    }
+
     private val rotationApi: RotationNetworkDataSource by lazy {
         Retrofit.Builder()
             .baseUrl("https://br1.api.riotgames.com/")
@@ -51,6 +66,8 @@ class AppContainer(private val context: Context) {
     private val rotationRepository: RotationRepository by lazy {
         RotationRepositoryImpl(
             apiDataSource = rotationApi,
+            localDataSource = rotationLocal,
+            context = context
         )
     }
 

@@ -1,7 +1,6 @@
 package com.machado001.lilol
 
 import android.Manifest
-import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -9,14 +8,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
-import androidx.core.app.ComponentActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
-import com.machado001.lilol.rotation.view.activity.RotationActivity
+import com.machado001.lilol.rotation.view.fragment.RotationFragment
 
 
 class MyNotification(private val ctx: Context) {
@@ -24,14 +19,15 @@ class MyNotification(private val ctx: Context) {
         const val ROTATION_CHANNEL_ID = "ROTATION_CHANNEL"
     }
 
-    private val intent = Intent(ctx, RotationActivity::class.java).apply {
+    private val intent = Intent(ctx, RotationFragment::class.java).apply {
         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
     }
 
     private val pendingIntent: PendingIntent =
         PendingIntent.getActivity(ctx, 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
-    var builder = NotificationCompat.Builder(ctx, ROTATION_CHANNEL_ID)
+    private var builder = NotificationCompat.Builder(ctx, ROTATION_CHANNEL_ID)
         .setSmallIcon(R.drawable.baseline_360_24)
         .setContentTitle(ctx.resources.getString(R.string.new_rotation_notification_title))
         .setContentText(ctx.resources.getString(R.string.new_rotation_notification_desc))

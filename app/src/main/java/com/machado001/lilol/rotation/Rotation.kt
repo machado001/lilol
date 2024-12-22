@@ -5,13 +5,14 @@ import com.machado001.lilol.common.base.BasePresenter
 import com.machado001.lilol.common.base.BaseView
 import com.machado001.lilol.common.model.data.Champion
 import com.machado001.lilol.rotation.model.dto.Rotations
+import kotlinx.coroutines.Job
 
 interface Rotation {
 
     interface Presenter : BasePresenter {
         suspend fun displayRotations()
-        suspend fun getFreeChampions(): List<Map.Entry<String, Champion>>
-        suspend fun getFreeChampionsForNewPlayers(): List<Map.Entry<String, Champion>>
+        suspend fun getFreeChampions(rotations:Rotations): List<Map.Entry<String, Champion>>
+        suspend fun getFreeChampionsForNewPlayers(rotations:Rotations): List<Map.Entry<String, Champion>>
 
         suspend fun getRotations(): Rotations
     }
