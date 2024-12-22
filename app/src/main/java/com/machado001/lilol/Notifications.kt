@@ -1,21 +1,15 @@
 package com.machado001.lilol
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
-import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.machado001.lilol.rotation.view.activity.RotationActivity
-import com.machado001.lilol.rotation.view.fragment.RotationFragment
 
 
 class MyNotification(private val ctx: Context) {

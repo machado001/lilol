@@ -1,29 +1,28 @@
-package com.machado001.lilol.common.background
+package com.machado001.lilol.rotation.model.background
 
 import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.machado001.lilol.Application
 import com.machado001.lilol.MyNotification
 import com.machado001.lilol.common.extensions.TAG
 import com.machado001.lilol.common.extensions.toRotations
-import com.machado001.lilol.rotation.model.dto.Rotations
-import com.machado001.lilol.rotation.model.local.RotationLocalDataSource
+import com.machado001.lilol.rotation.model.repository.RotationRepository
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 
 class RotationWorker(
     private val appContext: Context,
     workerParams: WorkerParameters,
+    private val repository: RotationRepository
 ) :
     CoroutineWorker(appContext, workerParams) {
 
     override suspend fun doWork(): Result {
         return try {
-            (appContext as Application).container.run {
-                val localSource = rotationLocal
-                val networkSource = rotationApi.fetchRotations().toRotations()
+            inputData.run {
+                val localSource = inputData.getString("local")!!
+                val networkSource = repository.fetchRotations().toRotations().toString()
                 compareLocalAndNetworkData(networkSource, localSource)
             }
             Result.success()
@@ -34,14 +33,12 @@ class RotationWorker(
         }
     }
 
-    private suspend fun compareLocalAndNetworkData(
-        networkDataSource: Rotations,
-        localDataSource: RotationLocalDataSource
+    private fun compareLocalAndNetworkData(
+        networkDataSource: String,
+        localDataSource: String
     ) {
-        localDataSource.rotation.collect { local ->
-            if (networkDataSource.toString() != local) {
-                MyNotification(appContext).showNotification()
-            }
+        if (networkDataSource != localDataSource) {
+            MyNotification(appContext).showNotification()
         }
     }
 }

@@ -3,8 +3,14 @@ package com.machado001.lilol.common.di
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
+import androidx.work.PeriodicWorkRequest
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.machado001.lilol.Rotation.LocalRotation
 import com.machado001.lilol.common.Constants
+import com.machado001.lilol.rotation.model.background.BackgroundTaskManager
+import com.machado001.lilol.rotation.model.background.RotationBackgroundTaskManager
+import com.machado001.lilol.rotation.model.background.RotationWorker
 import com.machado001.lilol.rotation.model.local.RotationLocalDataSource
 import com.machado001.lilol.rotation.model.local.RotationLocalDataSourceImpl
 import com.machado001.lilol.rotation.model.local.RotationSerializer
@@ -24,8 +30,9 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
+import java.util.concurrent.TimeUnit
 
-class AppContainer(private val context: Context) {
+class AppContainer(private val context: Context) : Container {
 
     private fun httpClient(): OkHttpClient {
         val logging = HttpLoggingInterceptor()
@@ -41,11 +48,11 @@ class AppContainer(private val context: Context) {
         serializer = RotationSerializer
     )
 
-    val rotationLocal: RotationLocalDataSource by lazy {
+    private val rotationLocal: RotationLocalDataSource by lazy {
         RotationLocalDataSourceImpl(context.rotationDataStore)
     }
 
-    val rotationApi: RotationNetworkDataSource by lazy {
+    private val rotationApi: RotationNetworkDataSource by lazy {
         Retrofit.Builder()
             .baseUrl("https://br1.api.riotgames.com/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -63,23 +70,41 @@ class AppContainer(private val context: Context) {
             .create()
     }
 
-    private val rotationRepository: RotationRepository by lazy {
+
+    private val workerRequest: PeriodicWorkRequest.Builder by lazy {
+        PeriodicWorkRequestBuilder<RotationWorker>(
+            15, TimeUnit.MINUTES,
+            15, TimeUnit.MINUTES,
+        )
+            .addTag(TAG_WORK)
+    }
+
+    private val backgroundTaskManager: BackgroundTaskManager by lazy {
+        val workManager = WorkManager.getInstance(context)
+        RotationBackgroundTaskManager(workManager, workerRequest)
+    }
+
+     override val rotationRepository: RotationRepository by lazy {
         RotationRepositoryImpl(
             apiDataSource = rotationApi,
             localDataSource = rotationLocal,
-            context = context
+            backgroundTaskManager = backgroundTaskManager
         )
     }
 
-    val dataDragonRepository: DataDragonRepository by lazy {
+    override val dataDragonRepository: DataDragonRepository by lazy {
         DataDragonRepositoryImpl(dataSource = dataDragonApi)
     }
 
-    val championsManager: ChampionsManager by lazy {
+    override val championsManager: ChampionsManager by lazy {
         ChampionsManagerImpl(dataDragonRepository, rotationRepository)
     }
 
-    val settingsRepository: SettingsRepository by lazy {
+    override val settingsRepository: SettingsRepository by lazy {
         SettingsRepositoryImpl(SettingsLocalDataSourceImpl(context), dataDragonApi)
+    }
+
+    companion object {
+        const val TAG_WORK = "Rotation"
     }
 }
