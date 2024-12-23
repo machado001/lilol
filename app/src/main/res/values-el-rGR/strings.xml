@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Lilol</string>
+    <string name="hello_blank_fragment">Γεια, κενό απόσπασμα</string>
+    <string name="week_rotation">Τρέχουσα λίστα δωρεάν πρωταθλητών αυτής της εβδομάδας</string>
+    <string name="week_rotation_two">Για νέους παίκτες (έως επίπεδο %1$s)</string>
+    <string name="disclaimer_rotation">Δήλωση αποποίησης: επί του παρόντος, η Riot θεωρεί έναν παίκτη αρχάριο έως το επίπεδο %1$s</string>
+    <string name="error_request">Κάτι πήγε στραβά! 🫠\nΕλέγξτε τη σύνδεση στο διαδίκτυο ή δοκιμάστε αργότερα!</string>
+    <string name="new_player_range"><![CDATA[0 < επίπεδο ≤ %1$d (%2$d πρωταθλητές)]]></string>
+    <string name="normal_player_range"><![CDATA[ επίπεδο %1$d+ (%2$d πρωταθλητές)]]></string>
+    <string name="related_champions">Σχετικοί πρωταθλητές</string>
+    <string name="view_more">δείτε περισσότερα</string>
+    <string name="home">Αρχική</string>
+    <string name="settings">Ρυθμίσεις</string>
+    <string name="portuguese">Πορτογαλικά</string>
+    <string name="language_array_title">Γλώσσα</string>
+    <string name="change_language">αλλαγή γλώσσας σε %1$s</string>
+    <string name="change_language_confirm">Κατά την αλλαγή γλώσσας, η εφαρμογή θα κλείσει. Επιστρέψτε για να δείτε τις αλλαγές.</string>
+    <string name="yes">Εντάξει</string>
+    <string name="no">το ξέχασα</string>
+    <string name="free_champions">Δωρεάν εβδομάδα</string>
+    <string name="champion">Πρωταθλητής</string>
+    <string name="all_champions">Πρωταθλητές</string>
+    <string name="ordering_by">Ταξινομημένο κατά: %1$s</string>
+    <string name="search_hint">Αναζήτηση πρωταθλητή</string>
+    <string name="title_activity_searchable">ΔραστηριότηταΑναζήτησης</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Πρώτο Απόσπασμα</string>
+    <string name="second_fragment_label">Δεύτερο Απόσπασμα</string>
+    <string name="next">Επόμενο</string>
+    <string name="previous">Προηγούμενο</string>
+
+    <string name="patch">Ενημέρωση %1$s</string>
+    <string name="home_free_week_tip">Ελέγξτε τους τρέχοντες δωρεάν πρωταθλητές εβδομάδας</string>
+    <string name="home_all_champions_tip">Μεταβείτε σε μια λίστα με όλους τους διαθέσιμους πρωταθλητές στην τρέχουσα ενημέρωση</string>
+    <string name="lore">Ιστορία</string>
+    <string name="tools_lore" translatable="false">Weaponized to operate outside the boundaries of the law, Camille is the Principal Intelligencer of Clan Ferros—an elegant and elite agent who ensures the Piltover machine and its Zaunite underbelly runs smoothly. Adaptable and precise, she views sloppy technique as an embarrassment that must be put to order. With a mind as sharp as the blades she bears, Camille\'s pursuit of superiority through hextech body augmentation has left many to wonder if she is now more machine than woman.</string>
+    <string name="free_week">Δωρεάν Εβδομάδα</string>
+    <string name="new_rotation_notification_title">Νέα περιστροφή διαθέσιμη!</string>
+    <string name="new_rotation_notification_desc">Ελέγξτε τους επιλεγμένους πρωταθλητές της εβδομάδας!</string>
+    <string name="playing_with_champion">Παίζετε με %1$s</string>
+    <string name="playing_against_champion">Παίζετε εναντίον %1$s</string>
+    <string name="no_available_tips_for_playing_with_champion">Δεν υπάρχουν διαθέσιμες συμβουλές για αυτόν τον πρωταθλητή ακόμα.</string>
+    <string name="no_available_tips_for_playing_against_champion">Δεν υπάρχουν διαθέσιμες συμβουλές για το πώς να παίξετε εναντίον αυτού του πρωταθλητή ακόμα.</string>
+    <string name="cd_toggle_icon_champion_detail">Άνοιγμα/κλείσιμο Ιστορίας</string>
+    <string name="skills">Δεξιότητες</string>
+</resources>
