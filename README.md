@@ -7,6 +7,7 @@
 
 - Check the current League of Legends free-week champions with real data from [Riot Games](https://developer.riotgames.com/docs/portal) APIs.
 - data available in all languages supported by the official game.
+- Get a notification when a new rotation is available.
 ## How to Run
 You'll need to pick one Developer API key from Riot Games. You can read the link above for more information.
 
