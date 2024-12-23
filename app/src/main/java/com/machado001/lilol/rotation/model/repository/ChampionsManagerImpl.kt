@@ -15,7 +15,7 @@ class ChampionsManagerImpl(
 
     override suspend fun getRotations(): RotationsDto {
         return rotationRepository.run {
-            fetchRotations()
+            fetchRemoteRotations()
         }
     }
 }

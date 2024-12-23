@@ -24,6 +24,7 @@ class Application : Application(), Configuration.Provider {
     override fun onCreate() {
         super.onCreate()
         val appContainer = AppContainer(this)
+        MyNotification(this).createNotificationChannel()
         container = appContainer
         WorkManager.initialize(this, workManagerConfiguration)
     }

@@ -74,6 +74,7 @@ dependencies {
     // Feature module Support
     implementation(libs.androidx.navigation.dynamic.features.fragment)
     implementation(libs.androidx.junit.ktx)
+    implementation(libs.androidx.uiautomator)
     testImplementation(libs.junit.jupiter)
 
     // Testing Navigation

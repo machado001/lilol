@@ -1,14 +1,15 @@
 package com.machado001.lilol.rotation.view.activity
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
-import com.machado001.lilol.MyNotification
 import com.machado001.lilol.R
 import com.machado001.lilol.databinding.ActivityRotationBinding
 import java.util.Locale
@@ -16,10 +17,11 @@ import java.util.Locale
 class RotationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRotationBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
+
+    @SuppressLint("InlinedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupLocalLanguage()
-        MyNotification(this).createNotificationChannel()
         binding = ActivityRotationBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val navHostFragment =

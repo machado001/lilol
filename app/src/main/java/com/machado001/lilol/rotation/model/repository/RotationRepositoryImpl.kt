@@ -1,7 +1,6 @@
 package com.machado001.lilol.rotation.model.repository
 
 import android.util.Log
-import androidx.work.Data
 import com.machado001.lilol.common.extensions.TAG
 import com.machado001.lilol.common.extensions.toRotations
 import com.machado001.lilol.rotation.model.background.BackgroundTaskManager
@@ -11,6 +10,7 @@ import com.machado001.lilol.rotation.model.network.RotationNetworkDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -26,20 +26,16 @@ class RotationRepositoryImpl(
     private val cacheMutex = Mutex()
     private var rotationsDto: RotationsDto? = null
 
-    override suspend fun fetchRotations(refresh: Boolean): RotationsDto {
+    override suspend fun fetchRemoteRotations(refresh: Boolean): RotationsDto {
         if (rotationsDto == null || refresh) {
             withContext(ioDispatcher) {
                 val networkResult = apiDataSource.fetchRotations()
                 cacheMutex.withLock {
                     rotationsDto = networkResult
-                    localDataSource.setRotation(networkResult.toRotations())
+                    localDataSource.setRotation(rotationsDto!!.toRotations())
                 }
                 try {
-                    val data = Data.Builder()
-                        .putString("local", localDataSource.rotation.toString())
-                        .build()
-
-                    backgroundTaskManager.scheduleTask(data)
+                    backgroundTaskManager.scheduleTask()
                 } catch (e: Exception) {
                     ensureActive()
                     Log.d(TAG, "fetchRotations: $e")
@@ -47,6 +43,10 @@ class RotationRepositoryImpl(
             }
         }
         return rotationsDto!!
+    }
+
+    override suspend fun fetchLocalRotations(): Flow<String> {
+        return localDataSource.rotation
     }
 
 }

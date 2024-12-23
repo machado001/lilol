@@ -80,7 +80,7 @@ class AppContainer(private val context: Context) : Container {
             .build()
 
         PeriodicWorkRequestBuilder<RotationWorker>(
-            WORK_REPEAT_INTERVAL_IN_MINUTES, TimeUnit.MINUTES,
+            WORK_REPEAT_INTERVAL_IN_DAYS, TimeUnit.DAYS,
             WORK_FLEX_TIME_INTERVAL_IN_MINUTES, TimeUnit.MINUTES,
         )
             .setConstraints(constraints)
@@ -114,7 +114,7 @@ class AppContainer(private val context: Context) : Container {
 
     companion object {
         const val TAG_WORK = "Rotation"
-        const val WORK_REPEAT_INTERVAL_IN_MINUTES = 15L
+        const val WORK_REPEAT_INTERVAL_IN_DAYS = 1L
         const val WORK_FLEX_TIME_INTERVAL_IN_MINUTES = 15L
         const val API_BASE_URL = "https://br1.api.riotgames.com/"
         const val DATASTORE_DESTINATION_FILE_NAME = "rotation.pb"

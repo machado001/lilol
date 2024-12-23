@@ -1,4 +1,4 @@
-package com.machado001.lilol.common.background
+package com.machado001.lilol.common.background.doubles.dummies
 
 import com.machado001.lilol.rotation.model.dto.DataDragonDto
 import com.machado001.lilol.rotation.model.dto.RotationsDto

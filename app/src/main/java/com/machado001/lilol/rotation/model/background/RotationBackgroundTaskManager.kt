@@ -1,6 +1,5 @@
 package com.machado001.lilol.rotation.model.background
 
-import androidx.work.Data
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
@@ -10,12 +9,11 @@ class RotationBackgroundTaskManager(
     private val workRequest: PeriodicWorkRequest.Builder
 ) : BackgroundTaskManager {
 
-    override fun scheduleTask(data: Data) {
+    override fun scheduleTask() {
         workManager.enqueueUniquePeriodicWork(
             uniqueWorkName = ROTATION_WORK_NAME,
             existingPeriodicWorkPolicy = ExistingPeriodicWorkPolicy.KEEP,
             request = workRequest
-                .setInputData(data)
                 .build()
         )
     }

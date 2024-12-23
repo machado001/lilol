@@ -4,9 +4,12 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.UiDevice
 import androidx.work.Data
 import androidx.work.ListenableWorker
 import androidx.work.testing.TestListenableWorkerBuilder
+import com.machado001.lilol.common.background.doubles.fakes.FakeContainer
 import com.machado001.lilol.rotation.model.background.RotationWorker
 import com.machado001.lilol.rotation.model.background.RotationWorkerFactory
 import kotlinx.coroutines.runBlocking
@@ -22,6 +25,8 @@ class RotationWorkerTest {
     @Before
     fun setUp() {
         context = ApplicationProvider.getApplicationContext()
+        UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+            .executeShellCommand("pm grant com.machado001.lilol android.permission.POST_NOTIFICATIONS")
     }
 
     private val fakeRotationRepository = FakeContainer()
@@ -29,14 +34,8 @@ class RotationWorkerTest {
     @Test
     fun testRotationWorker() {
 
-        val data =
-            Data.Builder()
-                .putString("local", "Rotations(freeChampionIds=[10, 20, 30, 40, 50, 6, 7, 8], freeChampionIdsForNewPlayers=[9, 10, 11, 12, 13, 14, 15, 16], maxNewPlayerLevel=30)")
-                .build()
-
         val worker = TestListenableWorkerBuilder<RotationWorker>(context)
             .setWorkerFactory(RotationWorkerFactory(fakeRotationRepository))
-            .setInputData(data)
             .build()
 
 

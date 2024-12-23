@@ -7,8 +7,10 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.machado001.lilol.common.extensions.TAG
 import com.machado001.lilol.rotation.view.activity.RotationActivity
 
 
@@ -17,6 +19,9 @@ class MyNotification(private val ctx: Context) {
         const val ROTATION_CHANNEL_ID = "ROTATION_CHANNEL"
         const val ROTATION_NOTIFICATION_ID = 12
     }
+
+    val notificationManager: NotificationManager =
+        ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     private val intent = Intent(ctx, RotationActivity::class.java).apply {
         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -44,14 +49,14 @@ class MyNotification(private val ctx: Context) {
                 description = descriptionText
             }
             // Register the channel with the system.
-            val notificationManager: NotificationManager =
-                ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
     }
 
     @SuppressLint("MissingPermission")
     fun showNotification() = with(NotificationManagerCompat.from(ctx)) {
-        notify(ROTATION_NOTIFICATION_ID, builder.build())
+        Log.d(TAG, "showNotification: ${notificationManager.areNotificationsEnabled()}")
+
+        notificationManager.notify(ROTATION_NOTIFICATION_ID, builder.build())
     }
 }

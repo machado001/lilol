@@ -10,6 +10,7 @@ import com.machado001.lilol.common.extensions.toRotations
 import com.machado001.lilol.rotation.model.repository.RotationRepository
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.flow.last
 
 class RotationWorker(
     private val appContext: Context,
@@ -20,12 +21,12 @@ class RotationWorker(
 
     override suspend fun doWork(): Result {
         return try {
-            inputData.run {
-                val localSource = inputData.getString("local")!!
-                val networkSource = repository.fetchRotations().toRotations().toString()
+            with(repository) {
+                val networkSource = fetchRemoteRotations().toRotations().toString()
+                val localSource = fetchLocalRotations().last()
                 compareLocalAndNetworkData(networkSource, localSource)
+                Result.success()
             }
-            Result.success()
         } catch (e: Exception) {
             Log.d(TAG, "fail: $e")
             currentCoroutineContext().ensureActive()
