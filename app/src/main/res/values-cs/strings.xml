@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lilol</string>
+    <string name="hello_blank_fragment">Ahoj, prázdný fragment</string>
+    <string name="week_rotation">Seznam aktuálních šampionů zdarma tento týden</string>
+    <string name="week_rotation_two">Pro nové hráče (do úrovně %1$s)</string>
+    <string name="disclaimer_rotation">Upozornění: Riot aktuálně považuje hráče za nováčka do úrovně %1$s</string>
+    <string name="error_request">Něco se pokazilo! 🫠\nZkontrolujte připojení k internetu nebo to zkuste později!</string>
+    <string name="new_player_range"><![CDATA[0 < úroveň ≤ %1$d (%2$d šampionů)]]></string>
+    <string name="normal_player_range"><![CDATA[ úroveň %1$d+ (%2$d šampionů)]]></string>
+    <string name="related_champions">Související šampioni</string>
+    <string name="view_more">zobrazit více</string>
+    <string name="home">Domů</string>
+    <string name="settings">Nastavení</string>
+    <string name="portuguese">Portugalština</string>
+    <string name="language_array_title">Jazyk</string>
+    <string name="change_language">změnit jazyk na %1$s</string>
+    <string name="change_language_confirm">Při přepnutí jazyka se aplikace zavře. Vraťte se zpět, abyste viděli změny.</string>
+    <string name="yes">OK</string>
+    <string name="no">zapomněl jsem</string>
+    <string name="free_champions">Týden zdarma</string>
+    <string name="champion">Šampion</string>
+    <string name="all_champions">Šampioni</string>
+    <string name="ordering_by">Seřazeno podle: %1$s</string>
+    <string name="search_hint">Vyhledat šampiona</string>
+    <string name="title_activity_searchable">VyhledávacíAktivita</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">První Fragment</string>
+    <string name="second_fragment_label">Druhý Fragment</string>
+    <string name="next">Další</string>
+    <string name="previous">Předchozí</string>
+    <string name="patch">Verze %1$s</string>
+    <string name="home_free_week_tip">Podívejte se na aktuální šampiony týdne zdarma</string>
+    <string name="home_all_champions_tip">Přejděte na seznam všech dostupných šampionů v aktuální verzi</string>
+    <string name="lore">Příběh</string>
+    <string name="tools_lore" translatable="false">Weaponized to operate outside the boundaries of the law, Camille is the Principal Intelligencer of Clan Ferros—an elegant and elite agent who ensures the Piltover machine and its Zaunite underbelly runs smoothly. Adaptable and precise, she views sloppy technique as an embarrassment that must be put to order. With a mind as sharp as the blades she bears, Camille\'s pursuit of superiority through hextech body augmentation has left many to wonder if she is now more machine than woman.</string>
+    <string name="free_week">Týden zdarma</string>
+    <string name="new_rotation_notification_title">Nová rotace je k dispozici!</string>
+    <string name="new_rotation_notification_desc">Podívejte se na vybrané šampiony týdne!</string>
+    <string name="playing_with_champion">Hrajete za %1$s</string>
+    <string name="playing_against_champion">Hrajete proti %1$s</string>
+    <string name="no_available_tips_for_playing_with_champion">Zatím nejsou k dispozici žádné tipy na hraní s tímto šampionem.</string>
+    <string name="no_available_tips_for_playing_against_champion">Zatím nejsou k dispozici žádné tipy na hraní proti tomuto šampionovi.</string>
+    <string name="cd_toggle_icon_champion_detail">Otevřít/zavřít příběh</string>
+    <string name="skills">Schopnosti</string>
+</resources>
