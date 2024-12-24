@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 
 
 class RotationRepositoryImpl(
@@ -29,24 +30,24 @@ class RotationRepositoryImpl(
     override suspend fun fetchRemoteRotations(refresh: Boolean): RotationsDto {
         if (rotationsDto == null || refresh) {
             withContext(ioDispatcher) {
-                val networkResult = apiDataSource.fetchRotations()
-                cacheMutex.withLock {
-                    rotationsDto = networkResult
-                    localDataSource.setRotation(rotationsDto!!.toRotations())
-                }
                 try {
-                    backgroundTaskManager.scheduleTask()
+                    val networkResult = apiDataSource.fetchRotations()
+                    cacheMutex.withLock {
+                        rotationsDto = networkResult
+                        localDataSource.setRotation(rotationsDto!!.toRotations())
+                        backgroundTaskManager.scheduleTask()
+                    }
+                } catch (e: HttpException) {
+                    Log.d(TAG, "fetchRemoteRotations: $e")
                 } catch (e: Exception) {
                     ensureActive()
-                    Log.d(TAG, "fetchRotations: $e")
+                    Log.d(TAG, "fetchRemoteRotations: $e")
                 }
             }
         }
         return rotationsDto!!
     }
 
-    override suspend fun fetchLocalRotations(): Flow<String> {
-        return localDataSource.rotation
-    }
+    override val localRotations: Flow<String> = localDataSource.rotation
 
 }

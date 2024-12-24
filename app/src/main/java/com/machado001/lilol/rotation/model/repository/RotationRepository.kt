@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface RotationRepository {
     suspend fun fetchRemoteRotations(refresh: Boolean = false): RotationsDto
-    suspend fun fetchLocalRotations(): Flow<String>
+    val localRotations: Flow<String>
 }

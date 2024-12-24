@@ -2,8 +2,8 @@ package com.machado001.lilol.rotation.view.fragment
 
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.machado001.lilol.Application
 import com.machado001.lilol.R
 import com.machado001.lilol.common.ListChampionPair
@@ -43,40 +44,35 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
 
         viewLifecycleOwner.lifecycleScope.launch {
             presenter.displayRotations()
+            askNotificationPermission()
         }
 
     }
 
-    // Declare the launcher at the top of your Activity/Fragment:
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-            // FCM SDK (and your app) can post notifications.
-        } else {
-            // TODO: Inform user that that your app will not show notifications.
-        }
-    }
+    ) { _: Boolean -> }
 
+
+    @SuppressLint("InlinedApi")
     private fun askNotificationPermission() {
-        // This is only necessary for API level >= 33 (TIRAMISU)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.POST_NOTIFICATIONS
-                ) ==
-                PackageManager.PERMISSION_GRANTED
-            ) {
-                // FCM SDK (and your app) can post notifications.
-            } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
-                // TODO: display an educational UI explaining to the user the features that will be enabled
-                //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
-                //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
-                //       If the user selects "No thanks," allow the user to continue without notifications.
-            } else {
-                // Directly ask for the permission
-                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-            }
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.POST_NOTIFICATIONS
+            ) !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            MaterialAlertDialogBuilder(requireContext())
+                .setMessage("If you want to receive new rotations in the future, please, allow notifications permission. ")
+                .setPositiveButton(
+                    "OK"
+                ) { _, _ ->
+                    requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
+                .setNegativeButton(
+                    "NOT NOW"
+                ) { _, _ -> Unit }
+                .show()
         }
     }
 
@@ -118,7 +114,11 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
                 rvRotationMain.apply {
                     adapter =
                         RotationAdapter(freeChampionsMap) { championKey, championName, championVersion ->
-                            goToChampionDetailsScreen(championKey, championName, championVersion)
+                            goToChampionDetailsScreen(
+                                championKey,
+                                championName,
+                                championVersion
+                            )
                         }
                     layoutManager =
                         GridLayoutManager(requireContext(), 5)
@@ -126,7 +126,11 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
                 rvRotationNewPlayers.apply {
                     adapter =
                         RotationAdapter(freeChampionForNewPlayersMap) { championKey, championName, championVersion ->
-                            goToChampionDetailsScreen(championKey, championName, championVersion)
+                            goToChampionDetailsScreen(
+                                championKey,
+                                championName,
+                                championVersion
+                            )
                         }
                     layoutManager =
                         GridLayoutManager(requireContext(), 5)

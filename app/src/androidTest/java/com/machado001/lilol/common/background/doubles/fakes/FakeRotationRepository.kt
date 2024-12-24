@@ -14,8 +14,16 @@ class FakeRotationRepository : RotationRepository {
         )
     }
 
-    override suspend fun fetchLocalRotations(): Flow<String> {
-        return listOf("Rotations(freeChampionIds=[10, 20, 30, 40, 50, 6, 7, 8], freeChampionIdsForNewPlayers=[9, 10, 11, 12, 13, 14, 15, 16], maxNewPlayerLevel=30)").asFlow()
-    }
+    override val localRotations: Flow<String> =
+        listOf(
+            """
+             Rotations(
+             freeChampionIds=[10, 20, 30, 40, 50, 6, 7, 8],
+             freeChampionIdsForNewPlayers=[9, 10, 11, 12, 13, 14, 15, 16], 
+             maxNewPlayerLevel=30
+              )
+         """.trimIndent()
+        ).asFlow()
+
 
 }
