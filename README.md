@@ -16,7 +16,7 @@ check [contribute.md](https://github.com/machado001/lilol/blob/main/contribute.m
 ## How to Run
 You'll need to pick one Developer API key from Riot Games. You can read the link above for more information.
 
-Once you have a key, you can use it in ```com/machado001/lilol/rotation/model/network/RotationNetworkDataSource.kt``` in the @Query parameter.
+Once you have a key, you can use it in go to `local.defaults.properties`, and in the `API_ROTATIONS_KEY`, include your development key.
 
 ## Project
  This repo is using an MVP approach, and:
