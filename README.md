@@ -9,6 +9,8 @@
 - data available in all languages supported by the official game.
 - Get a notification when a new rotation is available.
 
+## Contributing
+check `contribute.md` file
 ## Kanban Board
  To access kanban board, [click here](https://github.com/users/machado001/projects/3/views/1).
 ## How to Run
