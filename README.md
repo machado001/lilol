@@ -10,7 +10,7 @@
 - Get a notification when a new rotation is available.
 
 ## Contributing
-check `contribute.md` file
+check [contribute.md](https://github.com/machado001/lilol/blob/main/contribute.md) file
 ## Kanban Board
  To access kanban board, [click here](https://github.com/users/machado001/projects/3/views/1).
 ## How to Run
