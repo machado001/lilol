@@ -28,10 +28,12 @@ jobs:
         with:
           java-version: '17'
 
-      - name: Run espresso tests
-        uses: reactivecircus/android-emulator-runner@v2 # 3rd party tool
+      - name: Run instrumented tests
+        uses: ReactiveCircus/android-emulator-runner@v2.33.0
+
+        # 3rd party tool
         with:
-          api-level: 29
+          api-level: 35
           script: ./gradlew connectedCheck
 
       - name: Upload Instrumentation Test report
