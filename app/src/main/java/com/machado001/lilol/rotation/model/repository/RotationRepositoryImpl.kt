@@ -45,7 +45,7 @@ class RotationRepositoryImpl(
                 }
             }
         }
-        return rotationsDto!!
+        return rotationsDto ?: RotationsDto(emptyList(), emptyList(), 0)
     }
 
     override val localRotations: Flow<String> = localDataSource.rotation
