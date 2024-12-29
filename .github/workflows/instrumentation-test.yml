@@ -20,7 +20,7 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
-      - name: Android Emulator Runner For Instrumented Test
+      - name: instrumentation-test
         uses: ReactiveCircus/android-emulator-runner@v2.33.0
         with:
           api-level: 30
