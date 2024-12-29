@@ -1,6 +1,7 @@
 package com.machado001.lilol.rotation.presentation
 
 import android.util.Log
+import com.machado001.lilol.common.extensions.TAG
 import com.machado001.lilol.common.extensions.toDataDragon
 import com.machado001.lilol.common.extensions.toRotations
 import com.machado001.lilol.common.model.data.Champion
@@ -14,6 +15,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
+import java.security.InvalidParameterException
 import java.util.Locale
 import kotlin.coroutines.coroutineContext
 
@@ -54,6 +56,8 @@ class RotationPresenter(
 
                 yield()
 
+                if (rotations.await().freeChampionIds.isEmpty()) throw InvalidParameterException()
+
                 withContext(Dispatchers.Main.immediate) {
                     view?.showSuccess(
                         freeChampionsMap = freeChampions.await(),
@@ -66,7 +70,7 @@ class RotationPresenter(
             coroutineContext.ensureActive()
             view?.showFailureMessage()
             e.printStackTrace()
-            Log.e("i caraio", e.toString())
+            Log.e(TAG, e.toString())
         } finally {
             view?.showProgress(false)
         }
