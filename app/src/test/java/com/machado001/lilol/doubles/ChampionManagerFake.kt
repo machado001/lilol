@@ -18,10 +18,6 @@ object ChampionManagerFake : ChampionsManager {
         "it_IT", "fr_FR", "ja_JP", "ko_KR", "pt_BR", "en_US",
     )
 
-    private val fakeDataDragonDto: DataDragonDto = DataDragonDto(
-        VERSION,
-        "",
-    )
 
     override suspend fun getSupportedLanguages() = fakeSupportedLanguages
     override suspend fun getCurrentVersion() = VERSION
