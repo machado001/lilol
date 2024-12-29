@@ -1,29 +1,27 @@
 [versions]
-agp = "8.3.2"
+agp = "8.7.3"
 datastore = "1.1.1"
-firebaseAdmin = "9.2.0"
 junitJupiter = "5.10.0"
-kotlin = "1.9.10"
+kotlin = "2.0.20"
 core-ktx = "1.15.0"
 junit = "4.13.2"
-androidx-test-ext-junit = "1.1.5"
-kotlinxCoroutinesCore = "1.8.0"
+androidx-test-ext-junit = "1.2.1"
+kotlinxCoroutinesCore = "1.10.0"
 lifecycle-runtime-ktx = "2.8.7"
-espresso-core = "3.5.1"
+espresso-core = "3.6.1"
 appcompat = "1.7.0"
 logging-interceptor = "4.12.0"
-material = "1.10.0"
-constraintlayout = "2.1.4"
+material = "1.12.0"
+constraintlayout = "2.2.0"
 navVersion = "2.8.5"
 picasso = "2.71828"
 preferenceKtx = "1.2.1"
-protobufKotlinLite = "4.26.1"
-retrofit = "2.9.0"
+protobufKotlinLite = "4.29.2"
+retrofit = "2.11.0"
 secrets-gradle-plugin = "2.0.1"
 startupRuntime = "1.2.0"
 swiperefreshlayout = "1.1.0"
-junitKtx = "1.1.5"
-viewpager2 = "1.0.0"
+junitKtx = "1.2.1"
 workRuntimeKtx = "2.10.0"
 uiautomator = "2.3.0"
 
@@ -37,12 +35,10 @@ androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx",
 androidx-preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preferenceKtx" }
 androidx-startup-runtime = { module = "androidx.startup:startup-runtime", version.ref = "startupRuntime" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
-androidx-viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2" }
 androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }
 androidx-work-testing = { module = "androidx.work:work-testing", version.ref = "workRuntimeKtx" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
-firebase-admin = { module = "com.google.firebase:firebase-admin", version.ref = "firebaseAdmin" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
