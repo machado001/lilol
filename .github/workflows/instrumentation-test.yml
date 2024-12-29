@@ -23,5 +23,5 @@ jobs:
       - name: instrumentation-test
         uses: ReactiveCircus/android-emulator-runner@v2.33.0
         with:
-          api-level: 30
+          api-level: 35
           script: ./gradlew connectedCheck
