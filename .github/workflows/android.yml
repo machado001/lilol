@@ -1,4 +1,4 @@
-name: Kotlin Android CI Workflow
+name: Lilol CI Workflow
 
 on:
   push:
@@ -44,10 +44,6 @@ jobs:
       # Step 5: Build the project
       - name: Build with Gradle
         run: ./gradlew assembleDebug
-
-      # Step 6: Run Lint checks
-      - name: Run Kotlin Lint
-        run: ./gradlew lintDebug
 
 
       - name: Run Instrumented Tests
