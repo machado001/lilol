@@ -4,8 +4,12 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import androidx.activity.result.contract.ActivityResultContracts
+import android.view.ViewGroup
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -20,9 +24,11 @@ class RotationActivity : AppCompatActivity() {
 
     @SuppressLint("InlinedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setupLocalLanguage()
         binding = ActivityRotationBinding.inflate(layoutInflater)
+        configureWindowInsets(binding.root)
         setContentView(binding.root)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -41,6 +47,20 @@ class RotationActivity : AppCompatActivity() {
         }
     }
 
+    private fun configureWindowInsets(view: View) {
+        ViewCompat.setOnApplyWindowInsetsListener(view) { v, windowInsets ->
+            windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).apply {
+                v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                    topMargin = top
+                    leftMargin = left
+                    bottomMargin = bottom
+                    rightMargin = right
+                }
+            }
+            WindowInsetsCompat.CONSUMED
+        }
+    }
+
     private fun setupLocalLanguage() {
         val langPref = PreferenceManager.getDefaultSharedPreferences(this)
         val defaultLocale = Locale.getDefault()
@@ -51,9 +71,7 @@ class RotationActivity : AppCompatActivity() {
         Locale.setDefault(locale)
         val config = resources.configuration
         config.setLocale(locale)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            createConfigurationContext(config)
-        }
+        createConfigurationContext(config)
         resources.updateConfiguration(config, resources.displayMetrics)
     }
 }
