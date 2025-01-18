@@ -17,7 +17,7 @@ data class SpellDto(
     val vars: List<Any>,
     val costType: String,
     val maxammo: String,
-    val range: List<Int>,
+    val range: List<Long>,
     val rangeBurn: String,
     val image: ImageDto,
     val resource: String
