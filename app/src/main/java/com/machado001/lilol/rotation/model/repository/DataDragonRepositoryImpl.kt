@@ -4,14 +4,10 @@ import androidx.annotation.GuardedBy
 import com.machado001.lilol.rotation.model.dto.DataDragonDto
 import com.machado001.lilol.rotation.model.dto.SpecificChampionDto
 import com.machado001.lilol.rotation.model.network.DataDragonNetworkDataSource
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlinx.coroutines.withContext
 
 class DataDragonRepositoryImpl(
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val dataSource: DataDragonNetworkDataSource,
 ) : DataDragonRepository {
 
@@ -54,12 +50,9 @@ class DataDragonRepositoryImpl(
 
     override suspend fun getAllSupportedLanguages(): List<String> {
         if (allSupportedLanguages.isEmpty()) {
-
-            withContext(ioDispatcher) {
-                val networkResult = dataSource.getSupportedLanguages()
-                mutex.withLock {
-                    this@DataDragonRepositoryImpl.allSupportedLanguages = networkResult
-                }
+            val networkResult = dataSource.getSupportedLanguages()
+            mutex.withLock {
+                this@DataDragonRepositoryImpl.allSupportedLanguages = networkResult
             }
         }
         return mutex.withLock { allSupportedLanguages }
@@ -71,11 +64,9 @@ class DataDragonRepositoryImpl(
         championName: String,
     ): SpecificChampionDto {
         if (cachedDetails == null || championName != cachedDetails?.data?.values?.first()?.name) {
-            withContext(ioDispatcher) {
-                val networkResult =
-                    dataSource.getChampDetails(version, lang, championName)
-                mutex.withLock { cachedDetails = networkResult }
-            }
+            val networkResult =
+                dataSource.getChampDetails(version, lang, championName)
+            mutex.withLock { cachedDetails = networkResult }
         }
         return mutex.withLock { cachedDetails!! }
     }
@@ -84,11 +75,9 @@ class DataDragonRepositoryImpl(
         championNameAsId: String,
     ): String {
         if (cachedImage == null) {
-            withContext(ioDispatcher) {
-                val networkResult =
-                    dataSource.getChampionSplashURL(championNameAsId)
-                mutex.withLock { cachedImage = networkResult }
-            }
+            val networkResult =
+                dataSource.getChampionSplashURL(championNameAsId)
+            mutex.withLock { cachedImage = networkResult }
         }
         return mutex.withLock { cachedImage!! }
     }
