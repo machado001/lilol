@@ -23,8 +23,8 @@ android {
         applicationId = "com.machado001.lilol"
         minSdk = 24
         targetSdk = 35
-        versionCode = 8
-        versionName = "1.0.1"
+        versionCode = 10
+        versionName = "1.0.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
