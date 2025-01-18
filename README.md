@@ -35,5 +35,3 @@ Once you have a key, you can use it in go to `local.defaults.properties`, and in
 - Data Store;
 - WorkManager;
 - and more 😘.
-
-**Project not completed yet!**
