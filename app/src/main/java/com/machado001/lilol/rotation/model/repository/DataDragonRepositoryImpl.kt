@@ -35,26 +35,18 @@ class DataDragonRepositoryImpl(
     override suspend fun fetchDataDragon(version: String, region: String): DataDragonDto {
 
         if (dataDragonDto == null) {
-
-            withContext(ioDispatcher) {
-                val networkResult = dataSource.fetchDataDragon(version, region)
-                mutex.withLock { this@DataDragonRepositoryImpl.dataDragonDto = networkResult }
-            }
+            val networkResult = dataSource.fetchDataDragon(version, region)
+            mutex.withLock { this@DataDragonRepositoryImpl.dataDragonDto = networkResult }
         }
         return mutex.withLock { dataDragonDto!! }
     }
 
     override suspend fun fetchAllGameVersions(): List<String> {
-
         if (allGamesVersion.isEmpty()) {
-
-            withContext(ioDispatcher) {
-                val networkResult = dataSource.getAllGameVersion()
-                mutex.withLock {
-                    this@DataDragonRepositoryImpl.allGamesVersion = networkResult
-                }
+            val networkResult = dataSource.getAllGameVersion()
+            mutex.withLock {
+                this@DataDragonRepositoryImpl.allGamesVersion = networkResult
             }
-
 
         }
         return mutex.withLock { allGamesVersion }

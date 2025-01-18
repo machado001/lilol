@@ -14,7 +14,6 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.yield
 import java.security.InvalidParameterException
 import java.util.Locale
 import kotlin.coroutines.coroutineContext
@@ -53,8 +52,6 @@ class RotationPresenter(
                 val freeChampions = async(Dispatchers.IO) { getFreeChampions(rotations.await()) }
                 val freeChampionsForNewPlayers =
                     async(Dispatchers.IO) { getFreeChampionsForNewPlayers(rotations.await()) }
-
-                yield()
 
                 if (rotations.await().freeChampionIds.isEmpty()) throw InvalidParameterException()
 
