@@ -35,10 +35,9 @@ class AllChampionsFragment : Fragment(R.layout.fragment_all_champions), AllChamp
         binding?.allChampionsToolbar?.setupWithNavController(navController, appBarConfiguration)
 
         viewLifecycleOwner.lifecycleScope.launch {
-
             presenter.apply {
                 getAllChampions()
-                getAllRoles().map { championRole ->
+                getAllRoles().onEach { championRole ->
                     populateChips(championRole)
                 }
             }

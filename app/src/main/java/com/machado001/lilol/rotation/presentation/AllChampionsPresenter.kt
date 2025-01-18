@@ -3,10 +3,11 @@ package com.machado001.lilol.rotation.presentation
 import com.machado001.lilol.common.extensions.toDataDragon
 import com.machado001.lilol.rotation.AllChampions
 import com.machado001.lilol.rotation.model.repository.DataDragonRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.ensureActive
-import kotlinx.coroutines.yield
 import java.util.Locale
 import kotlin.coroutines.coroutineContext
 
@@ -16,26 +17,22 @@ class AllChampionsPresenter(
 
     ) : AllChampions.Presenter {
 
+    private fun latestVersion() = CoroutineScope(SupervisorJob()).async {
+        repository.fetchAllGameVersions().first()
+    }
+
+    private fun dataDragon() = CoroutineScope(SupervisorJob()).async {
+        repository.fetchDataDragon(
+            latestVersion().await(),
+            Locale.getDefault().toString()
+        ).toDataDragon()
+    }
+
     override suspend fun getAllChampions() {
         view?.showProgress(true)
         try {
-            coroutineScope {
-                val latestVersion = async {
-                    repository.fetchAllGameVersions().first()
-                }
-
-                yield()
-                val dataDragon = async {
-                    repository.fetchDataDragon(
-                        latestVersion.await(),
-                        Locale.getDefault().toString()
-                    ).toDataDragon()
-                }
-
-                yield()
-                val allChampions = dataDragon.await().data.values.toList()
-                view?.showChampions(allChampions)
-            }
+            val allChampions = dataDragon().await().data.values.toList()
+            view?.showChampions(allChampions)
         } catch (e: Exception) {
             coroutineContext.ensureActive()
             e.message?.let { view?.showErrorMessage(it) }
@@ -45,28 +42,21 @@ class AllChampionsPresenter(
     }
 
     override suspend fun filterChampions(roles: List<CharSequence>) {
-        val latestVersion = repository.fetchAllGameVersions().first()
-        val dataDragon =
-            repository.fetchDataDragon(latestVersion, Locale.getDefault().toString()).toDataDragon()
-        val allChampions = dataDragon.data.values.toList()
+        coroutineScope {
+            val allChampions = dataDragon().await().data.values.toList()
+            val filteredChampions = dataDragon().await().data.values.filter {
+                roles.any { role -> it.tags.first() == role }
+            }
 
-        val filteredChampions = dataDragon.data.values.filter {
-            roles.any { role -> it.tags.first() == role }
-        }
+            val championToBeDisplayed = if (roles.isEmpty()) allChampions else filteredChampions
 
-        if (roles.isEmpty()) {
-            view?.showChampions(allChampions)
-        } else {
-            view?.showChampions(filteredChampions)
+            view?.showChampions(championToBeDisplayed)
         }
     }
 
 
     override suspend fun getAllRoles(): Set<String> {
-        val latestVersion = repository.fetchAllGameVersions().first()
-        val dataDragon =
-            repository.fetchDataDragon(latestVersion, Locale.getDefault().toString()).toDataDragon()
-        val allRoles = dataDragon.data.values.map {
+        val allRoles = dataDragon().await().data.values.map {
             it.tags
         }.flatten().toSet()
         return allRoles
