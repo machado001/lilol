@@ -1,18 +1,12 @@
 package com.machado001.lilol
 
 import android.app.Application
-import android.util.Log
+import android.os.StrictMode
 import androidx.work.Configuration
 import androidx.work.WorkManager
-import androidx.work.WorkerFactory
 import com.machado001.lilol.common.di.AppContainer
 import com.machado001.lilol.common.di.Container
-import com.machado001.lilol.common.extensions.TAG
 import com.machado001.lilol.rotation.model.background.RotationWorkerFactory
-import com.machado001.lilol.rotation.model.repository.ChampionsManager
-import com.machado001.lilol.rotation.model.repository.DataDragonRepository
-import com.machado001.lilol.rotation.model.repository.RotationRepository
-import com.machado001.lilol.rotation.model.repository.SettingsRepository
 
 /**
  * Application to apply Manual DI.
@@ -23,6 +17,7 @@ class Application : Application(), Configuration.Provider {
 
     override fun onCreate() {
         super.onCreate()
+        configureStrictModePolicy()
         val appContainer = AppContainer(this)
         MyNotification(this).createNotificationChannel()
         container = appContainer
@@ -33,4 +28,17 @@ class Application : Application(), Configuration.Provider {
         get() = Configuration.Builder()
             .setWorkerFactory(RotationWorkerFactory(container))
             .build()
+
+    private fun configureStrictModePolicy() {
+        StrictMode.setThreadPolicy(
+            StrictMode.ThreadPolicy.Builder()
+                .detectAll()
+                .build()
+        )
+        StrictMode.setVmPolicy(
+            StrictMode.VmPolicy.Builder()
+                .detectAll()
+                .build()
+        )
+    }
 }
