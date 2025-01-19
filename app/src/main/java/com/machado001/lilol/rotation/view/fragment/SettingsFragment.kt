@@ -49,11 +49,10 @@ class SettingsFragment : PreferenceFragmentCompat(), Settings.View {
                         .setMessage(getString(R.string.change_language_confirm))
                         .setPositiveButton(getString(R.string.yes)) { _, _ ->
                             val intent =
-                                requireActivity().intent // use Intent intent = getActivity().getIntent() in Java
+                                requireActivity().intent
                             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                            requireActivity().finish() // use getActivity() again
+                            requireActivity().finish()
                             startActivity(intent)
-//                            Process.killProcess(Process.myPid())
                         }
                         .setNegativeButton(getString(R.string.no), null)
                         .show()
