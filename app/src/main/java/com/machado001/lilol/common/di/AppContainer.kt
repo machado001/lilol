@@ -16,7 +16,6 @@ import com.machado001.lilol.rotation.model.background.RotationWorker
 import com.machado001.lilol.rotation.model.local.RotationLocalDataSource
 import com.machado001.lilol.rotation.model.local.RotationLocalDataSourceImpl
 import com.machado001.lilol.rotation.model.local.RotationSerializer
-import com.machado001.lilol.rotation.model.local.SettingsLocalDataSourceImpl
 import com.machado001.lilol.rotation.model.network.DataDragonNetworkDataSource
 import com.machado001.lilol.rotation.model.network.RotationNetworkDataSource
 import com.machado001.lilol.rotation.model.repository.ChampionsManager
@@ -110,7 +109,7 @@ class AppContainer(private val context: Context) : Container {
     }
 
     override val settingsRepository: SettingsRepository by lazy {
-        SettingsRepositoryImpl(SettingsLocalDataSourceImpl(context), dataDragonApi)
+        SettingsRepositoryImpl(dataDragonApi)
     }
 
     companion object {
