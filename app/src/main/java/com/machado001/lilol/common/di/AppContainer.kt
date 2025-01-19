@@ -36,13 +36,14 @@ import java.util.concurrent.TimeUnit
 
 class AppContainer(private val context: Context) : Container {
 
-    private fun httpClient(): OkHttpClient {
-        val logging = HttpLoggingInterceptor()
-        logging.level = HttpLoggingInterceptor.Level.BODY
+    private val httpClient: OkHttpClient by lazy {
+        HttpLoggingInterceptor().run {
+            level = HttpLoggingInterceptor.Level.BODY
 
-        return OkHttpClient.Builder()
-            .addInterceptor(logging)
-            .build()
+            OkHttpClient.Builder()
+                .addInterceptor(this)
+                .build()
+        }
     }
 
     private val Context.rotationDataStore: DataStore<LocalRotation> by dataStore(
@@ -58,7 +59,7 @@ class AppContainer(private val context: Context) : Container {
         Retrofit.Builder()
             .baseUrl(API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .client(httpClient())
+            .client(httpClient)
             .build()
             .create()
     }
@@ -67,7 +68,7 @@ class AppContainer(private val context: Context) : Container {
         Retrofit.Builder()
             .baseUrl(Constants.DATA_DRAGON_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .client(httpClient())
+            .client(httpClient)
             .build()
             .create()
     }
