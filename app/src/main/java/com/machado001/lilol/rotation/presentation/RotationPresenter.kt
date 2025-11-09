@@ -12,11 +12,11 @@ import com.machado001.lilol.rotation.model.repository.ChampionsManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import java.security.InvalidParameterException
 import java.util.Locale
-import kotlin.coroutines.coroutineContext
 
 class RotationPresenter(
     private val repository: ChampionsManager,
@@ -64,7 +64,7 @@ class RotationPresenter(
                 }
             }
         } catch (e: Exception) {
-            coroutineContext.ensureActive()
+            currentCoroutineContext().ensureActive()
             view?.showFailureMessage()
             e.printStackTrace()
             Log.e(TAG, e.toString())
