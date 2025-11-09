@@ -8,6 +8,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("com.google.protobuf") version "0.9.4"
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -88,6 +89,7 @@ dependencies {
     //Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
 }
 
 
