@@ -13,7 +13,7 @@ plugins {
 
 android {
     namespace = "com.machado001.lilol"
-    compileSdk = 35
+    compileSdk = 36
 
     buildFeatures {
         viewBinding = true
@@ -23,7 +23,7 @@ android {
     defaultConfig {
         applicationId = "com.machado001.lilol"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 10
         versionName = "1.0.2"
 
