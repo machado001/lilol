@@ -8,6 +8,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("com.google.protobuf") version "0.9.4"
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -66,7 +67,7 @@ dependencies {
     implementation(libs.protobuf.kotlin.lite)
     implementation(libs.protobuf.javalite)
 
-// Kotlin
+  // Kotlin
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.kotlinx.coroutines.core)
@@ -84,6 +85,11 @@ dependencies {
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.androidx.work.testing)
+
+    //Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
 }
 
 
