@@ -11,10 +11,9 @@ import com.machado001.lilol.rotation.model.repository.DataDragonRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.yield
-import kotlin.coroutines.coroutineContext
 
 
 class ChampionDetailsPresenter(
@@ -30,7 +29,7 @@ class ChampionDetailsPresenter(
 
         try {
             coroutineScope {
-                val championDetailsDto = async {
+                val championDetailsDeferred = async {
                     championDetailsRepository.getSpecificChampion(
                         version,
                         lang,
@@ -38,32 +37,32 @@ class ChampionDetailsPresenter(
                     ).toChampionDetails()
                 }
 
-                val relatedChampions = async {
+                val allChampionsDeferred = async {
                     championDetailsRepository.fetchDataDragon(version, lang)
-                        .toDataDragon().data
-                        .entries
-                        .filter { (_, championData) ->
-                            championData.tags.any { role ->
-                                yield()
-                                championDetailsDto.await().tags.contains(role)
-                            }
-                        }
-                        .filter { (_, championData) ->
-                            yield()
-                            championData.tags.first() == championDetailsDto.await().tags.first() || championData.tags.first() == championDetailsDto.await().tags.last()
-                        }
-                        .filter { (_, championData) ->//condition to exclude the same champion to appear in the related list
-                            yield()
-                            championData.key != championDetailsDto.await().key
-                        }
-                        .shuffled()
-                        .subList(0, 16)
+                        .toDataDragon()
                 }
 
+                val championDetails = championDetailsDeferred.await()
+                val allChampionsMap = allChampionsDeferred.await().data
+
+                val relatedChampions = withContext(Dispatchers.Default) {
+                     allChampionsMap.entries
+                        .asSequence()
+                        .filter { it.value.key != championDetails.key } // Exclude self
+                        .filter { entry ->
+                            // logic: Candidate's primary role must be one of the Target's roles.
+                            // This implies they share at least one tag (intersection), specifically the candidate's main one.
+                            val candidate = entry.value
+                            candidate.tags.firstOrNull() in championDetails.tags
+                        }
+                        .toList()
+                        .shuffled()
+                        .take(16)
+                }
 
                 withContext(Dispatchers.Main.immediate) {
                     val spellList =
-                        championDetailsDto.await().spells.mapIndexed { index, spell ->
+                        championDetails.spells.mapIndexed { index, spell ->
                             SpellListItem(
                                 id = spell.id,
                                 keyboardKey = when (index) {
@@ -78,13 +77,13 @@ class ChampionDetailsPresenter(
                         }
                     view?.apply {
                         showSpellList(spellList)
-                        setupChampionDetails(championDetailsDto.await())
-                        setupRecyclerView(relatedChampions.await())
+                        setupChampionDetails(championDetails)
+                        setupRecyclerView(relatedChampions)
                     }
                 }
             }
         } catch (e: Exception) {
-            coroutineContext.ensureActive()
+            currentCoroutineContext().ensureActive()
             e.message?.let { Log.e(TAG, it) }
             view?.showErrorMessage()
         } finally {
