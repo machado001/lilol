@@ -1,5 +1,8 @@
 package com.machado001.lilol.rotation.model.dto
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class RotationsDto(
     val freeChampionIds: List<Int>,
     val freeChampionIdsForNewPlayers: List<Int>,

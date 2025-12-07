@@ -1,5 +1,9 @@
 package com.machado001.lilol.rotation.model.dto
 
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
+
+@Serializable
 data class ChampionDetailsDto(
     val id: String,
     val key: String,
@@ -17,5 +21,5 @@ data class ChampionDetailsDto(
     val stats: StatsDto? = null,
     val passive: PassiveDto? = null,
     val spells: List<SpellDto> = emptyList(),
-    val recommended: List<Any?> = emptyList()
+    val recommended: List<JsonElement> = emptyList()
 )

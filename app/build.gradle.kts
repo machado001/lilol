@@ -3,6 +3,7 @@ import com.google.protobuf.gradle.id
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.kotlinSerialization)
     id("com.google.gms.google-services")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.protobuf") version "0.9.4"
@@ -36,7 +37,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -52,7 +52,8 @@ dependencies {
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.picasso)
     implementation(libs.logging.interceptor)
-    implementation(libs.converter.gson)
+    implementation(libs.retrofit.kotlinx.serialization.converter)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.retrofit)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.core.ktx)
