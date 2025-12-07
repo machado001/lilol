@@ -58,7 +58,7 @@ class AppContainer(private val context: Context) : Container {
         Retrofit.Builder()
             .baseUrl(API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .client(httpClient)
+            .also { if (BuildConfig.DEBUG) it.client(httpClient) }
             .build()
             .create()
     }
