@@ -2,32 +2,38 @@ package com.machado001.lilol
 
 import android.app.Application
 import android.os.StrictMode
-import androidx.work.Configuration
-import androidx.work.WorkManager
+import com.google.firebase.Firebase
+import com.google.firebase.appcheck.appCheck
+import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
+import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
 import com.machado001.lilol.common.di.AppContainer
 import com.machado001.lilol.common.di.Container
-import com.machado001.lilol.rotation.model.background.RotationWorkerFactory
 
 /**
  * Application to apply Manual DI.
  */
-class Application : Application(), Configuration.Provider {
+class Application : Application() {
 
     lateinit var container: Container
 
     override fun onCreate() {
         super.onCreate()
         configureStrictModePolicy()
+        initAppCheck()
         val appContainer = AppContainer(this)
         MyNotification(this).createNotificationChannel()
         container = appContainer
-        WorkManager.initialize(this, workManagerConfiguration)
     }
 
-    override val workManagerConfiguration: Configuration
-        get() = Configuration.Builder()
-            .setWorkerFactory(RotationWorkerFactory(container))
-            .build()
+    private fun initAppCheck() {
+        Firebase.appCheck.installAppCheckProviderFactory(
+            if (BuildConfig.DEBUG) {
+                DebugAppCheckProviderFactory.getInstance()
+            } else {
+                PlayIntegrityAppCheckProviderFactory.getInstance()
+            }
+        )
+    }
 
     private fun configureStrictModePolicy() {
         StrictMode.setThreadPolicy(

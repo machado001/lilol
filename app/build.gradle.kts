@@ -1,12 +1,10 @@
 import com.google.protobuf.gradle.id
 
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     id("com.google.gms.google-services")
     id("androidx.navigation.safeargs.kotlin")
-    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("com.google.protobuf") version "0.9.4"
     id("com.google.firebase.crashlytics")
 }
@@ -38,6 +36,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -61,7 +60,6 @@ dependencies {
     implementation(libs.material)
     implementation(libs.constraintlayout)
     implementation(libs.androidx.preference.ktx)
-    implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.androidx.startup.runtime)
     implementation(libs.androidx.datastore)
     implementation(libs.protobuf.kotlin.lite)
@@ -71,11 +69,11 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.kotlinx.coroutines.core)
-
     // Feature module Support
     implementation(libs.androidx.navigation.dynamic.features.fragment)
     implementation(libs.androidx.junit.ktx)
     implementation(libs.androidx.uiautomator)
+    implementation(libs.google.firebase.appcheck.debug)
     testImplementation(libs.junit.jupiter)
 
     // Testing Navigation
@@ -84,12 +82,14 @@ dependencies {
 
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    androidTestImplementation(libs.androidx.work.testing)
 
     //Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.functions)
+    implementation(libs.firebase.appcheck.playintegrity)
+    debugImplementation(libs.firebase.appcheck.debug)
 }
 
 
@@ -109,9 +109,4 @@ protobuf {
             }
         }
     }
-}
-
-
-secrets {
-    defaultPropertiesFileName = "local.defaults.properties"
 }

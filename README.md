@@ -15,9 +15,6 @@ check [contribute.md](https://github.com/machado001/lilol/blob/main/contribute.m
  To access kanban board, [click here](https://github.com/users/machado001/projects/3/views/1).
 ## How to Run
 You'll need to pick one Developer API key from Riot Games. You can read the link above for more information.
-
-Once you have a key, you can use it in go to `local.defaults.properties`, and in the `API_ROTATIONS_KEY`, include your development key.
-
 ## Project
  This repo is using an MVP approach, and:
 

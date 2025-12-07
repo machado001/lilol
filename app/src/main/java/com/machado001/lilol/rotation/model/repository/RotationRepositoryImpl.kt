@@ -3,7 +3,6 @@ package com.machado001.lilol.rotation.model.repository
 import android.util.Log
 import com.machado001.lilol.common.extensions.TAG
 import com.machado001.lilol.common.extensions.toRotations
-import com.machado001.lilol.rotation.model.background.BackgroundTaskManager
 import com.machado001.lilol.rotation.model.dto.RotationsDto
 import com.machado001.lilol.rotation.model.local.RotationLocalDataSource
 import com.machado001.lilol.rotation.model.network.RotationNetworkDataSource
@@ -20,8 +19,7 @@ import retrofit2.HttpException
 class RotationRepositoryImpl(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val apiDataSource: RotationNetworkDataSource,
-    private val localDataSource: RotationLocalDataSource,
-    private val backgroundTaskManager: BackgroundTaskManager
+    private val localDataSource: RotationLocalDataSource
 ) : RotationRepository {
 
     private val cacheMutex = Mutex()
@@ -35,7 +33,6 @@ class RotationRepositoryImpl(
                     cacheMutex.withLock {
                         rotationsDto = networkResult
                         localDataSource.setRotation(rotationsDto!!.toRotations())
-                        backgroundTaskManager.scheduleTask()
                     }
                 } catch (e: HttpException) {
                     Log.d(TAG, "fetchRemoteRotations: $e")
