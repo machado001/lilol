@@ -1,7 +1,7 @@
 package com.machado001.lilol.rotation.view.activity
 
 import android.annotation.SuppressLint
-import android.os.Build
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -22,11 +22,29 @@ class RotationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRotationBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
 
+    override fun attachBaseContext(newBase: Context) {
+        val langPref = PreferenceManager.getDefaultSharedPreferences(newBase)
+        val defaultLocale = Locale.getDefault()
+        val lang = langPref.getString("appLanguage", defaultLocale.toString()) ?: defaultLocale.toString()
+        val (code, country) = if (lang.contains("_")) {
+            lang.split("_")
+        } else {
+            listOf(lang, "")
+        }
+        val locale = if (country.isNotEmpty()) Locale(code, country) else Locale(code)
+        
+        val config = newBase.resources.configuration
+        Locale.setDefault(locale)
+        config.setLocale(locale)
+        
+        super.attachBaseContext(newBase.createConfigurationContext(config))
+    }
+
     @SuppressLint("InlinedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        setupLocalLanguage()
+        // Locale setup is now handled in attachBaseContext
         binding = ActivityRotationBinding.inflate(layoutInflater)
         configureWindowInsets(binding.root)
         setContentView(binding.root)
@@ -59,19 +77,5 @@ class RotationActivity : AppCompatActivity() {
             }
             WindowInsetsCompat.CONSUMED
         }
-    }
-
-    private fun setupLocalLanguage() {
-        val langPref = PreferenceManager.getDefaultSharedPreferences(this)
-        val defaultLocale = Locale.getDefault()
-        val lang =
-            langPref.getString("appLanguage", defaultLocale.toString()) ?: defaultLocale.toString()
-        val (code, country) = lang.split("_")
-        val locale = Locale(code, country)
-        Locale.setDefault(locale)
-        val config = resources.configuration
-        config.setLocale(locale)
-        createConfigurationContext(config)
-        resources.updateConfiguration(config, resources.displayMetrics)
     }
 }

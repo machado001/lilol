@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Lilol</string>
+    <string name="hello_blank_fragment">Ahlan</string>
+    <string name="week_rotation">الأبطال المجانيين لهذا الأسبوع</string>
+    <string name="week_rotation_two">للاعبين الجدد (حتى مستوى %1$s)</string>
+    <string name="disclaimer_rotation">ملاحظة: تعتبر Riot اللاعب جديداً حتى مستوى %1$s</string>
+    <string name="error_request">حدث خطأ ما! 🫠</string>
+    <string name="new_player_range"><![CDATA[0 < م ≤ %1$d (%2$d بطل)]]></string>
+    <string name="normal_player_range"><![CDATA[ م %1$d+ (%2$d بطل)]]></string>
+    <string name="related_champions">أبطال مشابهون</string>
+    <string name="view_more">عرض المزيد</string>
+    <string name="home">الرئيسية</string>
+    <string name="settings">الإعدادات</string>
+    <string name="portuguese">البرتغالية</string>
+    <string name="language_array_title">اللغة</string>
+    <string name="change_language">تغيير اللغة إلى %1$s</string>
+    <string name="change_language_confirm">يجب إعادة تحميل التطبيق لتغيير اللغة. ستعود للشاشة الرئيسية.</string>
+    <string name="yes">موافق</string>
+    <string name="no">إلغاء</string>
+    <string name="free_champions">تدوير مجاني</string>
+    <string name="champion">البطل</string>
+    <string name="all_champions">الأبطال</string>
+    <string name="ordering_by">ترتيب: %1$s</string>
+    <string name="search_hint">بحث عن بطل</string>
+    <string name="title_activity_searchable">بحث</string>
+    <string name="first_fragment_label">أول</string>
+    <string name="second_fragment_label">ثاني</string>
+    <string name="next">التالي</string>
+    <string name="previous">السابق</string>
+    <string name="patch">تحديث %1$s</string>
+    <string name="home_free_week_tip">تحقق من التدوير المجاني</string>
+    <string name="home_all_champions_tip">عرض كل الأبطال</string>
+    <string name="lore">القصة</string>
+    <string name="free_week">تدوير</string>
+    <string name="new_rotation_notification_title">تدوير جديد متاح!</string>
+    <string name="new_rotation_notification_desc">تحقق من أبطال الأسبوع!</string>
+    <string name="playing_with_champion">اللعب بـ %1$s</string>
+    <string name="playing_against_champion">اللعب ضد %1$s</string>
+    <string name="no_available_tips_for_playing_with_champion">لا نصائح متاحة.</string>
+    <string name="no_available_tips_for_playing_against_champion">لا نصائح متاحة.</string>
+    <string name="cd_toggle_icon_champion_detail">فتح/غلق القصة</string>
+    <string name="skills">المهارات</string>
+</resources>

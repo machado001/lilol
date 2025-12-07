@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Lilol</string>
+    <string name="hello_blank_fragment">Bonjour</string>
+    <string name="week_rotation">Rotation gratuite de la semaine</string>
+    <string name="week_rotation_two">Nouveaux joueurs (jusqu\'u niveau %1$s)</string>
+    <string name="disclaimer_rotation">note : Riot considère débutant jusqu\'au niveau %1$s</string>
+    <string name="error_request">Erreur ! 🫠
+Vérifiez votre connexion.</string>
+    <string name="new_player_range"><![CDATA[0 < niv ≤ %1$d (%2$d champions)]]></string>
+    <string name="normal_player_range"><![CDATA[ niv %1$d+ (%2$d champions)]]></string>
+    <string name="related_champions">Champions liés</string>
+    <string name="view_more">voir plus</string>
+    <string name="home">Accueil</string>
+    <string name="settings">Paramètres</string>
+    <string name="portuguese">Portugais</string>
+    <string name="language_array_title">Langue</string>
+    <string name="change_language">changer langue vers %1$s</string>
+    <string name="change_language_confirm">L\'appli doit recharger. Retour à l\'écran d\'accueil.</string>
+    <string name="yes">OK</string>
+    <string name="no">annuler</string>
+    <string name="free_champions">Rotation</string>
+    <string name="champion">Champion</string>
+    <string name="all_champions">Champions</string>
+    <string name="ordering_by">Tri : %1$s</string>
+    <string name="search_hint">Rechercher</string>
+    <string name="title_activity_searchable">Recherche</string>
+    <string name="first_fragment_label">Premier</string>
+    <string name="second_fragment_label">Deuxième</string>
+    <string name="next">Suivant</string>
+    <string name="previous">Précédent</string>
+    <string name="patch">Patch %1$s</string>
+    <string name="home_free_week_tip">Voir la rotation gratuite</string>
+    <string name="home_all_champions_tip">Voir tous les champions</string>
+    <string name="lore">Histoire</string>
+    <string name="free_week">Rotation</string>
+    <string name="new_rotation_notification_title">Nouvelle rotation !</string>
+    <string name="new_rotation_notification_desc">Découvrez les champions de la semaine !</string>
+    <string name="playing_with_champion">Jouer avec %1$s</string>
+    <string name="playing_against_champion">Jouer contre %1$s</string>
+    <string name="no_available_tips_for_playing_with_champion">Pas de conseils dispo.</string>
+    <string name="no_available_tips_for_playing_against_champion">Pas de conseils dispo.</string>
+    <string name="cd_toggle_icon_champion_detail">Ouvrir/fermer Histoire</string>
+    <string name="skills">Compétences</string>
+</resources>

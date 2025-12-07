@@ -17,6 +17,9 @@ class DataDragonRepositoryImpl(
     private var dataDragonDto: DataDragonDto? = null
 
     @GuardedBy("mutex")
+    private var cachedLanguage: String? = null
+
+    @GuardedBy("mutex")
     private var allGamesVersion: List<String> = emptyList()
 
     @GuardedBy("mutex")
@@ -26,19 +29,29 @@ class DataDragonRepositoryImpl(
     private var cachedDetails: SpecificChampionDto? = null
 
     @GuardedBy("mutex")
+    private var cachedDetailsLanguage: String? = null
+
+    @GuardedBy("mutex")
     private var cachedImage: String? = null
 
     override suspend fun fetchDataDragon(version: String, region: String): DataDragonDto {
+        val shouldFetch = mutex.withLock { 
+            dataDragonDto == null || cachedLanguage != region 
+        }
 
-        if (dataDragonDto == null) {
+        if (shouldFetch) {
             val networkResult = dataSource.fetchDataDragon(version, region)
-            mutex.withLock { this@DataDragonRepositoryImpl.dataDragonDto = networkResult }
+            mutex.withLock { 
+                this@DataDragonRepositoryImpl.dataDragonDto = networkResult 
+                this@DataDragonRepositoryImpl.cachedLanguage = region
+            }
         }
         return mutex.withLock { dataDragonDto!! }
     }
 
     override suspend fun fetchAllGameVersions(): List<String> {
-        if (allGamesVersion.isEmpty()) {
+        val shouldFetch = mutex.withLock { allGamesVersion.isEmpty() }
+        if (shouldFetch) {
             val networkResult = dataSource.getAllGameVersion()
             mutex.withLock {
                 this@DataDragonRepositoryImpl.allGamesVersion = networkResult
@@ -49,7 +62,8 @@ class DataDragonRepositoryImpl(
     }
 
     override suspend fun getAllSupportedLanguages(): List<String> {
-        if (allSupportedLanguages.isEmpty()) {
+        val shouldFetch = mutex.withLock { allSupportedLanguages.isEmpty() }
+        if (shouldFetch) {
             val networkResult = dataSource.getSupportedLanguages()
             mutex.withLock {
                 this@DataDragonRepositoryImpl.allSupportedLanguages = networkResult
@@ -63,10 +77,19 @@ class DataDragonRepositoryImpl(
         lang: String,
         championName: String,
     ): SpecificChampionDto {
-        if (cachedDetails == null || championName != cachedDetails?.data?.values?.first()?.name) {
+        val shouldFetch = mutex.withLock { 
+            cachedDetails == null || 
+            championName != cachedDetails?.data?.values?.firstOrNull()?.name ||
+            cachedDetailsLanguage != lang
+        }
+        
+        if (shouldFetch) {
             val networkResult =
                 dataSource.getChampDetails(version, lang, championName)
-            mutex.withLock { cachedDetails = networkResult }
+            mutex.withLock { 
+                cachedDetails = networkResult 
+                cachedDetailsLanguage = lang
+            }
         }
         return mutex.withLock { cachedDetails!! }
     }
@@ -74,7 +97,8 @@ class DataDragonRepositoryImpl(
     override suspend fun getSpecificChampionImage(
         championNameAsId: String,
     ): String {
-        if (cachedImage == null) {
+        val shouldFetch = mutex.withLock { cachedImage == null }
+        if (shouldFetch) {
             val networkResult =
                 dataSource.getChampionSplashURL(championNameAsId)
             mutex.withLock { cachedImage = networkResult }
