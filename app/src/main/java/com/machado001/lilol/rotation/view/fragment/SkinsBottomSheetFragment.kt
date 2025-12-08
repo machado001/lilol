@@ -11,6 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.google.android.material.carousel.CarouselSnapHelper
 import com.google.android.material.carousel.HeroCarouselStrategy
+import com.machado001.lilol.R
 import com.machado001.lilol.common.model.data.Skin
 import com.machado001.lilol.databinding.BottomSheetSkinsBinding
 import com.machado001.lilol.rotation.view.adapter.SkinsAdapter
@@ -51,6 +52,9 @@ class SkinsBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.txtSheetTitle.text =
+            "${getString(R.string.available_skins_label)} (${skins.size})"
 
         binding.rvSkinsCarousel.apply {
             layoutManager = CarouselLayoutManager(HeroCarouselStrategy())
