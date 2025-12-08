@@ -81,4 +81,7 @@
     <string name="skills">Skills</string>
     <string name="skins_label">Skins</string>
     <string name="available_skins_label">Available Skins</string>
+    <string name="spell_cooldown_label">Cooldown: %1$s</string>
+    <string name="spell_cost_label">Cost: %1$s</string>
+    <string name="spell_range_label">Range: %1$s</string>
 </resources>

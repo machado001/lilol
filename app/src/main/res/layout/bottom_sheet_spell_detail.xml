@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="20dp">
+
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:id="@+id/drag_handle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/spell_image"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="12dp"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/drag_handle"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/spell_key_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/spell_badge_bg"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="4dp"
+        android:text="Q"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/spell_image"
+        app:layout_constraintStart_toEndOf="@id/spell_image"
+        app:layout_constraintTop_toTopOf="@id/spell_image" />
+
+    <TextView
+        android:id="@+id/spell_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+        android:textColor="?attr/colorOnSurface"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/spell_key_badge"
+        app:layout_constraintTop_toTopOf="@id/spell_key_badge"
+        tools:text="Precision Protocol" />
+
+    <TextView
+        android:id="@+id/spell_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        android:textColor="?attr/colorOnSurface"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spell_image"
+        tools:text="A detailed description of the spell goes here." />
+
+    <LinearLayout
+        android:id="@+id/spell_stats_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:background="?attr/colorSurfaceContainerLow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spell_description">
+
+        <TextView
+            android:id="@+id/spell_cooldown"
+            style="@style/Theme.Lilol.TextViewBase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnSurface"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            tools:text="Cooldown: 9 / 8 / 7" />
+
+        <TextView
+            android:id="@+id/spell_cost"
+            style="@style/Theme.Lilol.TextViewBase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="?attr/colorOnSurface"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            tools:text="Cost: 50 Mana" />
+
+        <TextView
+            android:id="@+id/spell_range"
+            style="@style/Theme.Lilol.TextViewBase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="?attr/colorOnSurface"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            tools:text="Range: 800" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -34,7 +34,7 @@ class ChampionDetailsPresenter(
                         version,
                         lang,
                         championName
-                    ).toChampionDetails()
+                    ).toChampionDetails(version)
                 }
 
                 val allChampionsDeferred = async {
@@ -72,7 +72,12 @@ class ChampionDetailsPresenter(
                                     3 -> 'R'
                                     else -> 'K'
                                 },
-                                spellImageUri = spell.image,
+                                iconUrl = spell.iconUrl,
+                                name = spell.name,
+                                description = spell.description,
+                                cooldownBurn = spell.cooldownBurn,
+                                costBurn = spell.costBurn,
+                                rangeBurn = spell.rangeBurn
                             )
                         }
                     view?.apply {

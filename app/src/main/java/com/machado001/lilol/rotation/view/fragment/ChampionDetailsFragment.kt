@@ -26,6 +26,7 @@ import com.machado001.lilol.rotation.presentation.ChampionDetailsPresenter
 import com.machado001.lilol.rotation.view.adapter.RotationAdapter
 import com.machado001.lilol.rotation.view.adapter.SpellsAdapter
 import com.machado001.lilol.rotation.view.fragment.SkinsBottomSheetFragment
+import com.machado001.lilol.rotation.view.fragment.SpellDetailBottomSheetFragment
 import com.machado001.lilol.rotation.view.fragment.TipsBottomSheetFragment
 import com.machado001.lilol.rotation.view.fragment.TipsBottomSheetFragment.Companion.TAG as TipsTag
 import com.squareup.picasso.Picasso
@@ -201,7 +202,9 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
     override fun showSpellList(spells: List<SpellListItem>) {
         binding?.apply {
             rvSkills.apply {
-                adapter = SpellsAdapter(spells, args.championVersion)
+                adapter = SpellsAdapter(spells) { spell ->
+                    openSpellDetail(spell)
+                }
                 layoutManager =
                     LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
             }
@@ -230,6 +233,11 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
         if (currentSheet != null && currentSheet.isVisible) return
         val bottomSheet = TipsBottomSheetFragment.newInstance(ArrayList(tips), title)
         bottomSheet.show(childFragmentManager, TipsTag)
+    }
+
+    private fun openSpellDetail(spell: SpellListItem) {
+        val sheet = SpellDetailBottomSheetFragment.newInstance(spell)
+        sheet.show(childFragmentManager, SpellDetailBottomSheetFragment.TAG)
     }
 
     private fun showSkinsBottomSheet() {
