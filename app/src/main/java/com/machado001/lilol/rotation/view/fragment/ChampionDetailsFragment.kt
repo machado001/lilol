@@ -70,8 +70,7 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
             }
             skinsCard.setOnClickListener {
                 if (championSkins.isNotEmpty()) {
-                    val bottomSheet = SkinsBottomSheetFragment.newInstance(ArrayList(championSkins), currentChampionId)
-                    bottomSheet.show(childFragmentManager, SkinsBottomSheetFragment.TAG)
+                    showSkinsBottomSheet()
                 }
             }
         }
@@ -227,8 +226,18 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
 
     private fun openTipsBottomSheet(title: String, tips: List<String>) {
         if (tips.isEmpty()) return
+        val currentSheet = childFragmentManager.findFragmentByTag(TipsTag)
+        if (currentSheet != null && currentSheet.isVisible) return
         val bottomSheet = TipsBottomSheetFragment.newInstance(ArrayList(tips), title)
         bottomSheet.show(childFragmentManager, TipsTag)
+    }
+
+    private fun showSkinsBottomSheet() {
+        val currentSheet = childFragmentManager.findFragmentByTag(SkinsBottomSheetFragment.TAG)
+        if (currentSheet != null && currentSheet.isVisible) return
+        val bottomSheet =
+            SkinsBottomSheetFragment.newInstance(ArrayList(championSkins), currentChampionId)
+        bottomSheet.show(childFragmentManager, SkinsBottomSheetFragment.TAG)
     }
 
 }
