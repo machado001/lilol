@@ -42,4 +42,11 @@
     <string name="skills">Képességek</string>
     <string name="skins_label">Skinek</string>
     <string name="available_skins_label">Elérhető skinek</string>
+    <string name="spell_cooldown_label">Újratöltés: %1$s</string>
+    <string name="spell_cost_label">Költség: %1$s</string>
+    <string name="spell_range_label">Hatótáv: %1$s</string>
+    <string name="champions_empty_state">Nincs a keresésnek vagy a szűrőknek megfelelő hős.</string>
+    <string name="champions_empty_state_with_query">Nincs találat erre: „%1$s”. Próbálj más nevet vagy töröld a szűrőket.</string>
+    <string name="champions_error_message">Nem sikerült betölteni a hősöket. Ellenőrizd a kapcsolatot, és próbáld újra.</string>
+    <string name="pagination_label">%2$d oldalból %1$d. oldal</string>
 </resources>

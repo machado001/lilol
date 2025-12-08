@@ -42,4 +42,11 @@
     <string name="skills">Kỹ năng</string>
     <string name="skins_label">Trang phục</string>
     <string name="available_skins_label">Trang phục có sẵn</string>
+    <string name="spell_cooldown_label">Hồi chiêu: %1$s</string>
+    <string name="spell_cost_label">Tiêu hao: %1$s</string>
+    <string name="spell_range_label">Tầm: %1$s</string>
+    <string name="champions_empty_state">Không có tướng nào khớp với tìm kiếm hoặc bộ lọc.</string>
+    <string name="champions_empty_state_with_query">Không có kết quả cho "%1$s". Hãy thử tên khác hoặc xóa bộ lọc.</string>
+    <string name="champions_error_message">Không tải được tướng. Kiểm tra kết nối và thử lại.</string>
+    <string name="pagination_label">Trang %1$d / %2$d</string>
 </resources>

@@ -42,4 +42,11 @@
     <string name="skills">Yetenekler</string>
     <string name="skins_label">Kostümler</string>
     <string name="available_skins_label">Mevcut Kostümler</string>
+    <string name="spell_cooldown_label">Bekleme süresi: %1$s</string>
+    <string name="spell_cost_label">Maliyet: %1$s</string>
+    <string name="spell_range_label">Menzil: %1$s</string>
+    <string name="champions_empty_state">Arama veya filtrelerle eşleşen şampiyon yok.</string>
+    <string name="champions_empty_state_with_query">"%1$s" için sonuç yok. Başka bir ad deneyin veya filtreleri temizleyin.</string>
+    <string name="champions_error_message">Şampiyonlar yüklenemedi. Bağlantınızı kontrol edip tekrar deneyin.</string>
+    <string name="pagination_label">%2$d sayfadan %1$d. sayfa</string>
 </resources>

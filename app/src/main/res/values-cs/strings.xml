@@ -43,4 +43,11 @@
     <string name="no_available_tips_for_playing_against_champion">Zatím nejsou k dispozici žádné tipy na hraní proti tomuto šampionovi.</string>
     <string name="cd_toggle_icon_champion_detail">Otevřít/zavřít příběh</string>
     <string name="skills">Schopnosti</string>
+    <string name="spell_cooldown_label">Obnovení: %1$s</string>
+    <string name="spell_cost_label">Cena: %1$s</string>
+    <string name="spell_range_label">Dosah: %1$s</string>
+    <string name="champions_empty_state">Žádní šampioni neodpovídají vyhledávání ani filtrům.</string>
+    <string name="champions_empty_state_with_query">Žádné výsledky pro „%1$s“. Zkuste jiné jméno nebo vymažte filtry.</string>
+    <string name="champions_error_message">Šampiony se nepodařilo načíst. Zkontrolujte připojení a zkuste to znovu.</string>
+    <string name="pagination_label">Stránka %1$d z %2$d</string>
 </resources>

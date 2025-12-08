@@ -49,19 +49,4 @@
             app:destination="@id/championDetailFragment" />
     </fragment>
 
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.machado001.lilol.rotation.view.fragment.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_homeFragment_to_rotationFragment"
-            app:destination="@id/rotationFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_allChampionsFragment"
-            app:destination="@id/allChampionsFragment" />
-    </fragment>
-    <action
-        android:id="@+id/action_global_homeFragment"
-        app:destination="@id/homeFragment" />
 </navigation>

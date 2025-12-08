@@ -67,6 +67,18 @@
                     android:textSize="16sp"
                     android:textStyle="italic"
                     tools:text="the Steel Shadow" />
+
+                <TextView
+                    android:id="@+id/text_details_champion_roles"
+                    style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+                    android:layout_marginBottom="8dp"
+                    android:shadowDx="5"
+                    android:shadowDy="5"
+                    android:shadowRadius="10"
+                    android:textColor="@color/md_theme_dark_onSurface"
+                    android:textSize="13sp"
+                    android:textStyle="italic"
+                    tools:text="Assassin, Fighter" />
             </LinearLayout>
 
             <com.google.android.material.appbar.MaterialToolbar
@@ -367,4 +379,3 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-

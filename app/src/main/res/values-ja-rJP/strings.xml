@@ -42,4 +42,11 @@
     <string name="skills">スキル</string>
     <string name="skins_label">スキン</string>
     <string name="available_skins_label">利用可能なスキン</string>
+    <string name="spell_cooldown_label">クールダウン: %1$s</string>
+    <string name="spell_cost_label">消費: %1$s</string>
+    <string name="spell_range_label">射程: %1$s</string>
+    <string name="champions_empty_state">検索またはフィルターに合うチャンピオンが見つかりません。</string>
+    <string name="champions_empty_state_with_query">「%1$s」の結果がありません。別の名前を試すかフィルターをクリアしてください。</string>
+    <string name="champions_error_message">チャンピオンを読み込めませんでした。接続を確認して再試行してください。</string>
+    <string name="pagination_label">%2$d ページ中 %1$d ページ目</string>
 </resources>

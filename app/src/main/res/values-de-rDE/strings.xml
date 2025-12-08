@@ -42,4 +42,11 @@
     <string name="skills">Fähigkeiten</string>
     <string name="skins_label">Skins</string>
     <string name="available_skins_label">Verfügbare Skins</string>
+    <string name="spell_cooldown_label">Abklingzeit: %1$s</string>
+    <string name="spell_cost_label">Kosten: %1$s</string>
+    <string name="spell_range_label">Reichweite: %1$s</string>
+    <string name="champions_empty_state">Keine Champions passen zu deiner Suche oder deinen Filtern.</string>
+    <string name="champions_empty_state_with_query">Keine Ergebnisse f\u00fcr \u00ab%1$s\u00bb. Probiere einen anderen Namen oder setze die Filter zur\u00fcck.</string>
+    <string name="champions_error_message">Champions konnten nicht geladen werden. Pr\u00fcfe deine Verbindung und versuche es erneut.</string>
+    <string name="pagination_label">Seite %1$d von %2$d</string>
 </resources>

@@ -43,4 +43,11 @@ Check your internet connection or try later!</string>
     <string name="skills">Skills</string>
     <string name="skins_label">Skins</string>
     <string name="available_skins_label">Available Skins</string>
+    <string name="spell_cooldown_label">Cooldown: %1$s</string>
+    <string name="spell_cost_label">Cost: %1$s</string>
+    <string name="spell_range_label">Range: %1$s</string>
+    <string name="champions_empty_state">No champions match your search or filters yet.</string>
+    <string name="champions_empty_state_with_query">No results for "%1$s". Try a different name or clear filters.</string>
+    <string name="champions_error_message">We couldn’t load champions. Check your connection and try again.</string>
+    <string name="pagination_label">Page %1$d of %2$d</string>
 </resources>

@@ -42,4 +42,11 @@
     <string name="skills">Abilități</string>
     <string name="skins_label">Skinuri</string>
     <string name="available_skins_label">Skinuri disponibile</string>
+    <string name="spell_cooldown_label">Timp de reîncărcare: %1$s</string>
+    <string name="spell_cost_label">Cost: %1$s</string>
+    <string name="spell_range_label">Rază: %1$s</string>
+    <string name="champions_empty_state">Niciun campion nu se potrivește căutării sau filtrelor.</string>
+    <string name="champions_empty_state_with_query">Niciun rezultat pentru „%1$s”. Încearcă alt nume sau resetează filtrele.</string>
+    <string name="champions_error_message">Nu am putut încărca campionii. Verifică conexiunea și încearcă din nou.</string>
+    <string name="pagination_label">Pagina %1$d din %2$d</string>
 </resources>

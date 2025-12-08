@@ -13,10 +13,19 @@ import com.squareup.picasso.Picasso
 
 //name, roles, img
 class AllChampionsAdapter(
-    private val allChampions: List<Champion>,
+    champions: List<Champion>,
     private val goToChampDetails: (String, String, String) -> Unit,
 ) :
     RecyclerView.Adapter<AllChampionsAdapter.AllChampionsViewHolder>() {
+
+    private val allChampions = champions.toMutableList()
+
+    fun updateData(newChampions: List<Champion>) {
+        allChampions.clear()
+        allChampions.addAll(newChampions)
+        notifyDataSetChanged()
+    }
+
     inner class AllChampionsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(champion: Champion) {
 
@@ -25,19 +34,11 @@ class AllChampionsAdapter(
                     Picasso.get()
                         .load("${Constants.DATA_DRAGON_BASE_URL}cdn/img/champion/splash/${champion.id}_0.jpg")
                         .into(this)
+                    contentDescription = champion.name
                 }
 
                 findViewById<TextView>(R.id.item_text_champion_name).apply {
                     text = champion.name
-                }
-
-                findViewById<TextView>(R.id.item_text_role_one).apply {
-                    text = champion.tags.first()
-                }
-
-                findViewById<TextView>(R.id.item_text_role_two).apply {
-                    text =
-                        if (champion.tags.last() == champion.tags.first()) " " else champion.tags.last()
                 }
 
                 setOnClickListener {

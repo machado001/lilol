@@ -42,4 +42,11 @@
     <string name="skills">스킬</string>
     <string name="skins_label">스킨</string>
     <string name="available_skins_label">사용 가능한 스킨</string>
+    <string name="spell_cooldown_label">쿨다운: %1$s</string>
+    <string name="spell_cost_label">비용: %1$s</string>
+    <string name="spell_range_label">사거리: %1$s</string>
+    <string name="champions_empty_state">검색이나 필터에 맞는 챔피언이 없습니다.</string>
+    <string name="champions_empty_state_with_query">"%1$s"에 대한 결과가 없습니다. 다른 이름을 시도하거나 필터를 초기화하세요.</string>
+    <string name="champions_error_message">챔피언을 불러오지 못했습니다. 연결을 확인하고 다시 시도하세요.</string>
+    <string name="pagination_label">%2$d페이지 중 %1$d페이지</string>
 </resources>

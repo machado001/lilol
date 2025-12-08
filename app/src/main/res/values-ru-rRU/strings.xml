@@ -42,4 +42,11 @@
     <string name="skills">Умения</string>
     <string name="skins_label">Скины</string>
     <string name="available_skins_label">Доступные скины</string>
+    <string name="spell_cooldown_label">Перезарядка: %1$s</string>
+    <string name="spell_cost_label">Стоимость: %1$s</string>
+    <string name="spell_range_label">Дальность: %1$s</string>
+    <string name="champions_empty_state">Нет чемпионов, соответствующих поиску или фильтрам.</string>
+    <string name="champions_empty_state_with_query">Нет результатов для «%1$s». Попробуйте другое имя или сбросьте фильтры.</string>
+    <string name="champions_error_message">Не удалось загрузить чемпионов. Проверьте подключение и повторите попытку.</string>
+    <string name="pagination_label">Страница %1$d из %2$d</string>
 </resources>

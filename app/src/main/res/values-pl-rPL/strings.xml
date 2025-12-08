@@ -42,4 +42,11 @@
     <string name="skills">Umiejętności</string>
     <string name="skins_label">Skórki</string>
     <string name="available_skins_label">Dostępne skórki</string>
+    <string name="spell_cooldown_label">Czas odnowienia: %1$s</string>
+    <string name="spell_cost_label">Koszt: %1$s</string>
+    <string name="spell_range_label">Zasięg: %1$s</string>
+    <string name="champions_empty_state">Brak bohaterów pasujących do wyszukiwania lub filtrów.</string>
+    <string name="champions_empty_state_with_query">Brak wyników dla „%1$s”. Spróbuj innej nazwy lub wyczyść filtry.</string>
+    <string name="champions_error_message">Nie udało się wczytać bohaterów. Sprawdź połączenie i spróbuj ponownie.</string>
+    <string name="pagination_label">Strona %1$d z %2$d</string>
 </resources>

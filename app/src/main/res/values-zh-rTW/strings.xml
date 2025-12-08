@@ -42,4 +42,11 @@
     <string name="skills">技能</string>
     <string name="skins_label">造型</string>
     <string name="available_skins_label">可用造型</string>
+    <string name="spell_cooldown_label">冷卻時間：%1$s</string>
+    <string name="spell_cost_label">消耗：%1$s</string>
+    <string name="spell_range_label">射程：%1$s</string>
+    <string name="champions_empty_state">沒有符合搜尋或篩選的英雄。</string>
+    <string name="champions_empty_state_with_query">沒有「%1$s」的結果。試試其他名稱或清除篩選。</string>
+    <string name="champions_error_message">無法載入英雄。請檢查連線後再試。</string>
+    <string name="pagination_label">第 %1$d / %2$d 頁</string>
 </resources>

@@ -42,4 +42,11 @@
     <string name="skills">สกิล</string>
     <string name="skins_label">สกิน</string>
     <string name="available_skins_label">สกินที่มีอยู่</string>
+    <string name="spell_cooldown_label">คูลดาวน์: %1$s</string>
+    <string name="spell_cost_label">ค่าใช้จ่าย: %1$s</string>
+    <string name="spell_range_label">ระยะ: %1$s</string>
+    <string name="champions_empty_state">ไม่พบแชมเปี้ยนที่ตรงกับการค้นหาหรือฟิลเตอร์</string>
+    <string name="champions_empty_state_with_query">ไม่พบผลลัพธ์สำหรับ "%1$s" ลองชื่ออื่นหรือล้างฟิลเตอร์</string>
+    <string name="champions_error_message">ไม่สามารถโหลดแชมเปี้ยนได้ โปรดตรวจการเชื่อมต่อแล้วลองอีกครั้ง</string>
+    <string name="pagination_label">หน้า %1$d จาก %2$d</string>
 </resources>

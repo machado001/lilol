@@ -6,9 +6,11 @@ import com.machado001.lilol.common.model.data.Champion
 
 interface AllChampions {
     interface Presenter : BasePresenter {
-        suspend fun getAllChampions()
-        suspend fun filterChampions(roles: List<CharSequence>)
-        suspend fun getAllRoles(): Set<String>
+        suspend fun loadChampions()
+        fun onSearchQueryChanged(query: String)
+        fun onRolesChanged(roles: List<CharSequence>)
+        fun onNextPage()
+        fun onPreviousPage()
     }
 
     interface View : BaseView<Presenter> {
@@ -21,6 +23,8 @@ interface AllChampions {
         fun showErrorMessage(msg: String)
         fun showProgress(enabled: Boolean)
         fun showChampions(allChampions: List<Champion>)
-        fun populateChips(championRole: String)
+        fun showRoles(roles: Set<String>)
+        fun showPagination(currentPage: Int, totalPages: Int)
+        fun showEmptyState(show: Boolean, query: String = "")
     }
 }

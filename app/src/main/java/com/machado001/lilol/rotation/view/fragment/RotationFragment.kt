@@ -34,6 +34,7 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
     private var binding: FragmentRotationBinding? = null
     private var pagerAdapter: RotationPagerAdapter? = null
     private var tabMediator: TabLayoutMediator? = null
+    private var hasError: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -84,16 +85,32 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
     }
 
     override fun showProgress(enabled: Boolean) {
-        binding?.progressRotation?.visibility = if (enabled) View.VISIBLE else View.GONE
+        binding?.apply {
+            if (enabled) hasError = false
+            progressRotation.visibility = if (enabled) View.VISIBLE else View.GONE
+            if (hasError && !enabled) {
+                // Remain in error state
+                return
+            }
+            val contentVisibility = if (enabled) View.GONE else View.VISIBLE
+            rotationTabs.visibility = contentVisibility
+            rotationViewpager.visibility = contentVisibility
+            freeWeekToolbar.visibility = contentVisibility
+            textErrorRequest.visibility = View.GONE
+        }
     }
 
     override fun showFailureMessage() {
-        binding?.let {
-            with(it) {
-                textErrorRequest.apply {
-                    visibility = View.VISIBLE
-                }
+        hasError = true
+        binding?.apply {
+            progressRotation.visibility = View.GONE
+            rotationTabs.visibility = View.GONE
+            rotationViewpager.visibility = View.GONE
+            textErrorRequest.apply {
+                visibility = View.VISIBLE
+                text = getString(R.string.error_request)
             }
+            freeWeekToolbar.visibility = View.GONE
         }
     }
 

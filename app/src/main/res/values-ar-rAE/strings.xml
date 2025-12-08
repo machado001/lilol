@@ -42,4 +42,11 @@
     <string name="skills">المهارات</string>
     <string name="skins_label">مظاهر</string>
     <string name="available_skins_label">مظاهر متوفرة</string>
+    <string name="spell_cooldown_label">وقت التهدئة: %1$s</string>
+    <string name="spell_cost_label">التكلفة: %1$s</string>
+    <string name="spell_range_label">المدى: %1$s</string>
+    <string name="champions_empty_state">لا توجد أبطال مطابقة لبحثك أو لفلاترك.</string>
+    <string name="champions_empty_state_with_query">لا توجد نتائج لـ "%1$s". جرّب اسمًا آخر أو امسح الفلاتر.</string>
+    <string name="champions_error_message">تعذّر تحميل الأبطال. تحقق من الاتصال وحاول مرة أخرى.</string>
+    <string name="pagination_label">الصفحة %1$d من %2$d</string>
 </resources>

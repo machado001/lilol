@@ -54,7 +54,7 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
         val appBarConfiguration = AppBarConfiguration(
             topLevelDestinationIds =
             setOf(
-                R.id.homeFragment,
+                R.id.allChampionsFragment,
                 R.id.settingsFragment
             )
         )
@@ -125,6 +125,11 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
 
     override fun showErrorMessage() {
         binding?.apply {
+            progressBar.visibility = View.GONE
+            constraintDetailsChampion.visibility = View.GONE
+            textDetailsChampionName.text = getString(R.string.error_request)
+            textDetailsChampionTitle.text = ""
+            textDetailsChampionLore.text = ""
         }
     }
 
@@ -156,6 +161,10 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
                     textDetailsChampionName.text = name
                     textDetailsChampionTitle.text = title
                     textDetailsChampionLore.text = lore
+                    val rolesText = tags.joinToString(", ")
+                    textDetailsChampionRoles.text = rolesText
+                    textDetailsChampionRoles.visibility =
+                        if (rolesText.isNotBlank()) View.VISIBLE else View.GONE
 
                     detailsCollapsing.apply {
                         title = name

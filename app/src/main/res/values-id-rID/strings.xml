@@ -42,4 +42,11 @@
     <string name="skills">Skill</string>
     <string name="skins_label">Skin</string>
     <string name="available_skins_label">Skin Tersedia</string>
+    <string name="spell_cooldown_label">Waktu jeda: %1$s</string>
+    <string name="spell_cost_label">Biaya: %1$s</string>
+    <string name="spell_range_label">Jarak: %1$s</string>
+    <string name="champions_empty_state">Tidak ada champion yang cocok dengan pencarian atau filter.</string>
+    <string name="champions_empty_state_with_query">Tidak ada hasil untuk "%1$s". Coba nama lain atau hapus filter.</string>
+    <string name="champions_error_message">Kami tidak dapat memuat champion. Periksa koneksi dan coba lagi.</string>
+    <string name="pagination_label">Halaman %1$d dari %2$d</string>
 </resources>

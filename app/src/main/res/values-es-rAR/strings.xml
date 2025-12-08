@@ -43,4 +43,11 @@
     <string name="skills">Habilidades</string>
     <string name="skins_label">Pieles</string>
     <string name="available_skins_label">Pieles disponibles</string>
+    <string name="spell_cooldown_label">Enfriamiento: %1$s</string>
+    <string name="spell_cost_label">Costo: %1$s</string>
+    <string name="spell_range_label">Alcance: %1$s</string>
+    <string name="champions_empty_state">Ningún campeón coincide con tu búsqueda o filtros.</string>
+    <string name="champions_empty_state_with_query">Sin resultados para \"%1$s\". Probá otro nombre o limpiá los filtros.</string>
+    <string name="champions_error_message">No pudimos cargar los campeones. Revisá tu conexión e intentá de nuevo.</string>
+    <string name="pagination_label">Página %1$d de %2$d</string>
 </resources>

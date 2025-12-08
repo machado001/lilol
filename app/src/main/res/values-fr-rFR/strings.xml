@@ -43,4 +43,11 @@ Vérifiez votre connexion.</string>
     <string name="skills">Compétences</string>
     <string name="skins_label">Skins</string>
     <string name="available_skins_label">Skins disponibles</string>
+    <string name="spell_cooldown_label">Temps de recharge\u00a0: %1$s</string>
+    <string name="spell_cost_label">Co\u00fbt\u00a0: %1$s</string>
+    <string name="spell_range_label">Port\u00e9e\u00a0: %1$s</string>
+    <string name="champions_empty_state">Aucun champion ne correspond \u00e0 votre recherche ou vos filtres.</string>
+    <string name="champions_empty_state_with_query">Aucun r\u00e9sultat pour \u00ab\u00a0%1$s\u00a0\u00bb. Essayez un autre nom ou r\u00e9initialisez les filtres.</string>
+    <string name="champions_error_message">Impossible de charger les champions. V\u00e9rifiez votre connexion et r\u00e9essayez.</string>
+    <string name="pagination_label">Page %1$d sur %2$d</string>
 </resources>

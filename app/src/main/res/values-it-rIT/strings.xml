@@ -42,4 +42,11 @@
     <string name="skills">Abilità</string>
     <string name="skins_label">Skin</string>
     <string name="available_skins_label">Skin disponibili</string>
+    <string name="spell_cooldown_label">Ricarica: %1$s</string>
+    <string name="spell_cost_label">Costo: %1$s</string>
+    <string name="spell_range_label">Gittata: %1$s</string>
+    <string name="champions_empty_state">Nessun campione corrisponde alla ricerca o ai filtri.</string>
+    <string name="champions_empty_state_with_query">Nessun risultato per \u00ab%1$s\u00bb. Prova un altro nome o cancella i filtri.</string>
+    <string name="champions_error_message">Impossibile caricare i campioni. Controlla la connessione e riprova.</string>
+    <string name="pagination_label">Pagina %1$d di %2$d</string>
 </resources>

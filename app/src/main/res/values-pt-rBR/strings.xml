@@ -44,4 +44,11 @@ Verifique sua conexão ou tente mais tarde!</string>
     <string name="skills">Habilidades</string>
     <string name="skins_label">Skins</string>
     <string name="available_skins_label">Skins Disponíveis</string>
+    <string name="spell_cooldown_label">Recarga: %1$s</string>
+    <string name="spell_cost_label">Custo: %1$s</string>
+    <string name="spell_range_label">Alcance: %1$s</string>
+    <string name="champions_empty_state">Nenhum campeão corresponde à sua busca ou filtros.</string>
+    <string name="champions_empty_state_with_query">Nenhum resultado para "%1$s". Tente outro nome ou limpe os filtros.</string>
+    <string name="champions_error_message">Não foi possível carregar os campeões. Verifique sua conexão e tente novamente.</string>
+    <string name="pagination_label">Página %1$d de %2$d</string>
 </resources>
