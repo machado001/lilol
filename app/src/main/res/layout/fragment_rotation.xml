@@ -4,112 +4,74 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/free_week_toolbar"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
+        android:paddingHorizontal="8dp"
+        android:background="?attr/colorSurface"
+        app:title="@string/free_week"
+        app:titleCentered="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/rotation_tabs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        app:tabIndicatorColor="?attr/colorPrimary"
+        app:tabIndicatorFullWidth="false"
+        app:tabMode="fixed"
+        app:tabTextAppearance="@style/TextAppearance.Material3.TitleSmall"
+        app:tabTextColor="?attr/colorOnSurfaceVariant"
         app:layout_constraintTop_toBottomOf="@id/free_week_toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/rotation_viewpager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/rotation_tabs"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_height="0dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_height="600dp"
+        tools:listitem="@layout/item_rotation_page" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/new_player_range"
-                style="@style/Theme.Lilol.TextViewBase"
-                android:layout_width="match_parent"
-                android:background="?attr/colorSurfaceContainerLow"
-                android:text="@string/new_player_range"
-                android:textColor="?attr/colorOnBackground"
-                android:textSize="16sp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@id/rv_rotation_new_players"
-                app:layout_constraintStart_toStartOf="@+id/rv_rotation_new_players"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="visible" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_rotation_new_players"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorSurfaceContainerLow"
-                android:backgroundTintMode="src_in"
-                android:clipChildren="true"
-                android:clipToPadding="false"
-                app:barrierDirection="end"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/new_player_range"
-                tools:itemCount="10"
-                tools:listitem="@layout/item_rotation_rv" />
-
-            <TextView
-                android:id="@+id/normal_player_range"
-                style="@style/Theme.Lilol.TextViewBase"
-                android:layout_marginTop="20dp"
-                android:background="?attr/colorSurfaceContainerLow"
-                android:elevation="30dp"
-
-                android:text="@string/normal_player_range"
-                android:textColor="?attr/colorOnBackground"
-                android:textSize="16sp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@id/rv_rotation_main"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_rotation_new_players"
-                tools:visibility="visible" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_rotation_main"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorSurfaceContainerLow"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:elevation="2dp"
-                app:barrierDirection="end"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/normal_player_range"
-                tools:itemCount="10"
-                tools:listitem="@layout/item_rotation_rv" />
-
-
-
-            <TextView
-                android:id="@+id/text_error_request"
-                style="@style/Theme.Lilol.TextViewBase"
-                android:text="@string/error_request"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.core.widget.NestedScrollView>
+    <TextView
+        android:id="@+id/text_error_request"
+        style="@style/Theme.Lilol.TextViewBase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/error_request"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:textColor="?attr/colorError"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/rotation_tabs"
+        app:layout_constraintBottom_toTopOf="@id/rotation_viewpager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible" />
 
     <ProgressBar
-        android:layout_gravity="center"
         android:id="@+id/progress_rotation"
-        style="@style/Theme.Lilol.TextViewBase"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"
-        app:layout_constraintHorizontal_bias="0.5"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

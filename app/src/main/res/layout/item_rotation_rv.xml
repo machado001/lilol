@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="?attr/colorSurfaceContainerLow"
-    app:cardUseCompatPadding="true">
+    android:layout_margin="6dp"
+    app:cardBackgroundColor="?attr/colorSurface"
+    app:cardElevation="1dp"
+    app:cardUseCompatPadding="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -24,23 +26,31 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/zed" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/scrim_gradient_bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
         <TextView
             android:id="@+id/text_item_champion_name"
             style="@style/Theme.Lilol.TextViewBase.TextViewInChampionRotationsImage"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginBottom="12dp"
+            android:gravity="start"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             android:autoSizeTextType="uniform"
             android:lineBreakStyle="normal"
             android:breakStrategy="simple"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/image_item_champion"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Mordekaiser" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
-
-
-
