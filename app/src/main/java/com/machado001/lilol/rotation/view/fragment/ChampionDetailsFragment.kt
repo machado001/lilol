@@ -22,6 +22,7 @@ import com.machado001.lilol.Application
 import com.machado001.lilol.R
 import com.machado001.lilol.common.Constants
 import com.machado001.lilol.common.ListChampionPair
+import com.machado001.lilol.common.model.data.Skin
 import com.machado001.lilol.common.view.PicassoGradientTransformation
 import com.machado001.lilol.common.view.SpellListItem
 import com.machado001.lilol.databinding.FragmentChampionDetailRemakeTabBinding
@@ -39,6 +40,8 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
 
     private var binding: FragmentChampionDetailRemakeTabBinding? = null
     override lateinit var presenter: ChampionDetails.Presenter
+    private var championSkins: List<Skin> = emptyList()
+    private var currentChampionId: String = ""
     private val args: ChampionDetailsFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -203,6 +206,11 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
                     LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
             }
         }
+    }
+
+    override fun showSkinsList(skins: List<Skin>, championId: String) {
+        this.championSkins = skins
+        this.currentChampionId = championId
     }
 
     override fun populateChampionsTips(

@@ -8,6 +8,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.protobuf") version "0.9.4"
     id("com.google.firebase.crashlytics")
+    id("org.jetbrains.kotlin.plugin.parcelize")
 }
 
 android {

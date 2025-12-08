@@ -11,4 +11,5 @@ data class ChampionDetails(
     val allytips: List<String>,
     val enemytips: List<String>,
     val spells: List<Spell>,
+    val skins: List<Skin>
 )

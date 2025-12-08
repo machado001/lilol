@@ -78,6 +78,7 @@ class ChampionDetailsPresenter(
                     view?.apply {
                         showSpellList(spellList)
                         setupChampionDetails(championDetails)
+                        showSkinsList(championDetails.skins, championDetails.id)
                         setupRecyclerView(relatedChampions)
                     }
                 }
