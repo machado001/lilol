@@ -17,6 +17,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.machado001.lilol.Application
@@ -59,7 +60,11 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
-    ) { _: Boolean -> }
+    ) { granted ->
+        if (granted) {
+            subscribeToRiotRotationTopic()
+        }
+    }
 
 
     @SuppressLint("InlinedApi")
@@ -81,7 +86,19 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
                     "NOT NOW"
                 ) { _, _ -> Unit }
                 .show()
+        } else {
+            subscribeToRiotRotationTopic()
         }
+    }
+
+    private fun subscribeToRiotRotationTopic() {
+        FirebaseMessaging.getInstance()
+            .subscribeToTopic("riot-rotation")
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // no-op success
+                }
+            }
     }
 
     override fun showProgress(enabled: Boolean) {

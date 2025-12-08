@@ -6,4 +6,6 @@ import kotlinx.coroutines.flow.Flow
 interface RotationRepository {
     suspend fun fetchRemoteRotations(refresh: Boolean = false): RotationsDto
     val localRotations: Flow<String>
+    suspend fun getLocalSignature(): String?
+    suspend fun updateRotationFromPayload(payload: Map<*, *>)
 }

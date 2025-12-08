@@ -24,6 +24,7 @@ class RotationRepositoryImpl(
 
     private val cacheMutex = Mutex()
     private var rotationsDto: RotationsDto? = null
+    private val signatureMutex = Mutex()
 
     override suspend fun fetchRemoteRotations(refresh: Boolean): RotationsDto {
         if (rotationsDto == null || refresh) {
@@ -46,5 +47,49 @@ class RotationRepositoryImpl(
     }
 
     override val localRotations: Flow<String> = localDataSource.rotation
+
+    override suspend fun getLocalSignature(): String? {
+        val local = localDataSource.getLocalRotation()
+        val ids = local?.freeChampionIds.orEmpty()
+        if (ids.isEmpty()) return null
+        return signatureMutex.withLock {
+            ids.sorted().joinToString(",")
+        }
+    }
+
+    override suspend fun updateRotationFromPayload(payload: Map<*, *>) {
+        val dto = mapPayloadToRotationsDto(payload) ?: return
+        cacheMutex.withLock {
+            rotationsDto = dto
+        }
+        localDataSource.setRotation(dto.toRotations())
+    }
+
+    private fun mapPayloadToRotationsDto(payload: Map<*, *>): RotationsDto? {
+        val freeChampionIds = (payload["freeChampionIds"] as? List<*>)?.mapNotNull {
+            when (it) {
+                is Number -> it.toInt()
+                is String -> it.toIntOrNull()
+                else -> null
+            }
+        } ?: emptyList()
+
+        val freeChampionIdsForNewPlayers =
+            (payload["freeChampionIdsForNewPlayers"] as? List<*>)?.mapNotNull {
+                when (it) {
+                    is Number -> it.toInt()
+                    is String -> it.toIntOrNull()
+                    else -> null
+                }
+            } ?: emptyList()
+
+        val maxNewPlayerLevel = (payload["maxNewPlayerLevel"] as? Number)?.toInt() ?: 0
+
+        return RotationsDto(
+            freeChampionIds = freeChampionIds,
+            freeChampionIdsForNewPlayers = freeChampionIdsForNewPlayers,
+            maxNewPlayerLevel = maxNewPlayerLevel
+        )
+    }
 
 }
