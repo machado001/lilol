@@ -43,6 +43,7 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
     private var allyTipsContent: List<String> = emptyList()
     private var enemyTipsContent: List<String> = emptyList()
     private var currentChampionName: String = ""
+    private var currentChampionLore: String = ""
     private val args: ChampionDetailsFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -140,6 +141,7 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
 
                 championDetail.apply {
                     currentChampionName = name
+                    currentChampionLore = lore
                     allyTipsContent = buildTipsList(
                         allytips,
                         lore,
@@ -167,10 +169,11 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
                         text = getString(R.string.playing_against_champion, name)
                     }
                 }
-                var loreExpanded = false
                 loreCard.setOnClickListener {
-                    loreExpanded = !loreExpanded
-                    textDetailsChampionLore.visibility = if (loreExpanded) View.VISIBLE else View.GONE
+                    openTipsBottomSheet(
+                        getString(R.string.lore),
+                        listOf(currentChampionLore)
+                    )
                 }
                 allyCard.setOnClickListener {
                     openTipsBottomSheet(
