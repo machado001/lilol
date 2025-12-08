@@ -1,14 +1,9 @@
 package com.machado001.lilol.rotation.view.fragment
 
-import android.animation.LayoutTransition
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.Space
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -30,6 +25,9 @@ import com.machado001.lilol.rotation.ChampionDetails
 import com.machado001.lilol.rotation.presentation.ChampionDetailsPresenter
 import com.machado001.lilol.rotation.view.adapter.RotationAdapter
 import com.machado001.lilol.rotation.view.adapter.SpellsAdapter
+import com.machado001.lilol.rotation.view.fragment.SkinsBottomSheetFragment
+import com.machado001.lilol.rotation.view.fragment.TipsBottomSheetFragment
+import com.machado001.lilol.rotation.view.fragment.TipsBottomSheetFragment.Companion.TAG as TipsTag
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 import java.util.Locale
@@ -42,6 +40,9 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
     override lateinit var presenter: ChampionDetails.Presenter
     private var championSkins: List<Skin> = emptyList()
     private var currentChampionId: String = ""
+    private var allyTipsContent: List<String> = emptyList()
+    private var enemyTipsContent: List<String> = emptyList()
+    private var currentChampionName: String = ""
     private val args: ChampionDetailsFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -138,6 +139,18 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
                     .into(imageDetailsChampionImage)
 
                 championDetail.apply {
+                    currentChampionName = name
+                    allyTipsContent = buildTipsList(
+                        allytips,
+                        lore,
+                        getString(R.string.no_available_tips_for_playing_with_champion)
+                    )
+                    enemyTipsContent = buildTipsList(
+                        enemytips,
+                        lore,
+                        getString(R.string.no_available_tips_for_playing_against_champion)
+                    )
+
                     textDetailsChampionName.text = name
                     textDetailsChampionTitle.text = title
                     textDetailsChampionLore.text = lore
@@ -153,43 +166,23 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
                     textDetailsChampionEnemyTitle.apply {
                         text = getString(R.string.playing_against_champion, name)
                     }
-
-
-                    with(linearLayoutDetailsChampionAllyTips) {
-                        populateChampionsTips(allytips, lore, getString(R.string.no_available_tips_for_playing_with_champion), this)
-                    }
-
-                    with(linearLayoutDetailsChampionEnemyTips){
-                        populateChampionsTips(enemytips, lore, getString(R.string.no_available_tips_for_playing_against_champion), this)
-                    }
-
                 }
-                val sectionClickListeners = listOf(
-                    loreCard to { textDetailsChampionLore },
-                    allyCard to { linearLayoutDetailsChampionAllyTips },
-                    enemyCard to { linearLayoutDetailsChampionEnemyTips }
-                )
-
-
-                run {
-
+                var loreExpanded = false
+                loreCard.setOnClickListener {
+                    loreExpanded = !loreExpanded
+                    textDetailsChampionLore.visibility = if (loreExpanded) View.VISIBLE else View.GONE
                 }
-                val sectionStates = mutableListOf(false, false, false)
-
-                sectionClickListeners.forEachIndexed { index, (card, content) ->
-                    card.apply {
-                        setOnClickListener {
-                            sectionStates[index] = !sectionStates[index]
-                            layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-
-                            content().apply {
-                                visibility = when (sectionStates[index]) {
-                                    true -> View.VISIBLE
-                                    false -> View.GONE
-                                }
-                            }
-                        }
-                    }
+                allyCard.setOnClickListener {
+                    openTipsBottomSheet(
+                        getString(R.string.playing_with_champion, currentChampionName),
+                        allyTipsContent
+                    )
+                }
+                enemyCard.setOnClickListener {
+                    openTipsBottomSheet(
+                        getString(R.string.playing_against_champion, currentChampionName),
+                        enemyTipsContent
+                    )
                 }
             }
         }
@@ -218,47 +211,21 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
         this.currentChampionId = championId
     }
 
-    override fun populateChampionsTips(
+    private fun buildTipsList(
         tips: List<String>,
         lore: String,
         noTipsMessage: String,
-        layout: LinearLayout,
-    ) {
+    ): List<String> {
         if (tips.isEmpty() || tips.contains(lore)) {
-            val textView = TextView(
-                requireContext(),
-                null,
-                0,
-                R.style.Theme_Lilol_TextViewBase_ChampionDetail,
-            ).apply {
-                text = noTipsMessage
-                textSize = 16.0f
-            }
-            layout.addView(textView)
-        } else {
-            tips.map { tip ->
-                "- $tip"
-            }.forEach { tip ->
-                val textView = TextView(
-                    requireContext(),
-                    null,
-                    0,
-                    R.style.Theme_Lilol_TextViewBase_ChampionDetail,
-                ).apply {
-                    text = tip
-                }
-                val space = Space(requireContext()).apply {
-                    layoutParams = ViewGroup.LayoutParams(0, 16)
-                }
-                layout.addView(textView)
-                if (tip != tips.last()) layout.addView(space)
-            }
+            return listOf(noTipsMessage)
         }
+        return tips.map { "- $it" }
     }
 
+    private fun openTipsBottomSheet(title: String, tips: List<String>) {
+        if (tips.isEmpty()) return
+        val bottomSheet = TipsBottomSheetFragment.newInstance(ArrayList(tips), title)
+        bottomSheet.show(childFragmentManager, TipsTag)
+    }
 
 }
-
-
-
-
