@@ -66,7 +66,12 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
                 setupWithNavController(detailsToolbar, navController, appBarConfiguration)
                 detailsToolbar.popupTheme = R.style.Theme_Lilol
             }
-
+            skinsCard.setOnClickListener {
+                if (championSkins.isNotEmpty()) {
+                    val bottomSheet = SkinsBottomSheetFragment.newInstance(ArrayList(championSkins), currentChampionId)
+                    bottomSheet.show(childFragmentManager, SkinsBottomSheetFragment.TAG)
+                }
+            }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -253,8 +258,6 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
 
 
 }
-
-
 
 
 

@@ -40,4 +40,6 @@
     <string name="no_available_tips_for_playing_against_champion">لا نصائح متاحة.</string>
     <string name="cd_toggle_icon_champion_detail">فتح/غلق القصة</string>
     <string name="skills">المهارات</string>
+    <string name="skins_label">مظاهر</string>
+    <string name="available_skins_label">مظاهر متوفرة</string>
 </resources>

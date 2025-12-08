@@ -40,4 +40,6 @@
     <string name="no_available_tips_for_playing_against_champion">Chưa có mẹo.</string>
     <string name="cd_toggle_icon_champion_detail">Mở/đóng Cốt truyện</string>
     <string name="skills">Kỹ năng</string>
+    <string name="skins_label">Trang phục</string>
+    <string name="available_skins_label">Trang phục có sẵn</string>
 </resources>

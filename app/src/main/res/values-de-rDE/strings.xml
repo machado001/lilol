@@ -40,4 +40,6 @@
     <string name="no_available_tips_for_playing_against_champion">Keine Tipps verfügbar.</string>
     <string name="cd_toggle_icon_champion_detail">Geschichte öffnen/schließen</string>
     <string name="skills">Fähigkeiten</string>
+    <string name="skins_label">Skins</string>
+    <string name="available_skins_label">Verfügbare Skins</string>
 </resources>

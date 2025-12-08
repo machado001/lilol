@@ -41,4 +41,6 @@ Check your internet connection or try later!</string>
     <string name="no_available_tips_for_playing_against_champion">No available tips to play against this champion yet.</string>
     <string name="cd_toggle_icon_champion_detail">Open/close Lore</string>
     <string name="skills">Skills</string>
+    <string name="skins_label">Skins</string>
+    <string name="available_skins_label">Available Skins</string>
 </resources>

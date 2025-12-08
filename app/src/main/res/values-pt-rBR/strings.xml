@@ -42,4 +42,6 @@ Verifique sua conexão ou tente mais tarde!</string>
     <string name="no_available_tips_for_playing_against_champion">Sem dicas disponíveis para jogar contra este campeão ainda.</string>
     <string name="cd_toggle_icon_champion_detail">Abrir/fechar História</string>
     <string name="skills">Habilidades</string>
+    <string name="skins_label">Skins</string>
+    <string name="available_skins_label">Skins Disponíveis</string>
 </resources>

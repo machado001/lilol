@@ -41,4 +41,6 @@ Vérifiez votre connexion.</string>
     <string name="no_available_tips_for_playing_against_champion">Pas de conseils dispo.</string>
     <string name="cd_toggle_icon_champion_detail">Ouvrir/fermer Histoire</string>
     <string name="skills">Compétences</string>
+    <string name="skins_label">Skins</string>
+    <string name="available_skins_label">Skins disponibles</string>
 </resources>

@@ -40,4 +40,6 @@
     <string name="no_available_tips_for_playing_against_champion">ยังไม่มีคำแนะนำ</string>
     <string name="cd_toggle_icon_champion_detail">เปิด/ปิด ประวัติ</string>
     <string name="skills">สกิล</string>
+    <string name="skins_label">สกิน</string>
+    <string name="available_skins_label">สกินที่มีอยู่</string>
 </resources>

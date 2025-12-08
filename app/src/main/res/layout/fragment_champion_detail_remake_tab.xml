@@ -117,12 +117,50 @@
                 tools:listitem="@layout/item_spell_rv" />
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/lore_card"
+                android:id="@+id/skins_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:animateLayoutChanges="true"
                 app:layout_constraintTop_toBottomOf="@id/rv_skills">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/text_details_champion_skins_title"
+                        style="@style/Theme.Lilol.TextViewBase.ChampionDetail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/skins_label"
+                        android:textColor="?attr/colorOnBackground"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="0dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/baseline_arrow_forward_ios_24"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_details_champion_skins_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/text_details_champion_skins_title"
+                        app:tint="?attr/colorOnBackground" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/lore_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:animateLayoutChanges="true"
+                app:layout_constraintTop_toBottomOf="@id/skins_card">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraint_card_wrapper"

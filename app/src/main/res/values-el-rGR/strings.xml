@@ -40,4 +40,6 @@
     <string name="no_available_tips_for_playing_against_champion">Χωρίς συμβουλές.</string>
     <string name="cd_toggle_icon_champion_detail">Άνοιγμα/κλείσιμο Ιστορίας</string>
     <string name="skills">Ικανότητες</string>
+    <string name="skins_label">Skins</string>
+    <string name="available_skins_label">Διαθέσιμα Skins</string>
 </resources>

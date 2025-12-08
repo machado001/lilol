@@ -40,4 +40,6 @@
     <string name="no_available_tips_for_playing_against_champion">ヒントはまだありません。</string>
     <string name="cd_toggle_icon_champion_detail">ストーリーの開閉</string>
     <string name="skills">スキル</string>
+    <string name="skins_label">スキン</string>
+    <string name="available_skins_label">利用可能なスキン</string>
 </resources>

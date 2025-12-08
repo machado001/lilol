@@ -40,4 +40,6 @@
     <string name="no_available_tips_for_playing_against_champion">Žádné tipy.</string>
     <string name="cd_toggle_icon_champion_detail">Otevřít/zavřít Příběh</string>
     <string name="skills">Schopnosti</string>
+    <string name="skins_label">Skiny</string>
+    <string name="available_skins_label">Dostupné skiny</string>
 </resources>

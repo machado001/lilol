@@ -40,4 +40,6 @@
     <string name="no_available_tips_for_playing_against_champion">Nincs tipp.</string>
     <string name="cd_toggle_icon_champion_detail">Történet nyitása/zárása</string>
     <string name="skills">Képességek</string>
+    <string name="skins_label">Skinek</string>
+    <string name="available_skins_label">Elérhető skinek</string>
 </resources>

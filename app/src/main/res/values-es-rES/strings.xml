@@ -41,4 +41,6 @@
     <string name="no_available_tips_for_playing_against_champion">Sin consejos disponibles aún.</string>
     <string name="cd_toggle_icon_champion_detail">Abrir/cerrar Historia</string>
     <string name="skills">Habilidades</string>
+    <string name="skins_label">Pieles</string>
+    <string name="available_skins_label">Pieles disponibles</string>
 </resources>

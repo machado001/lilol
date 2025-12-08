@@ -40,4 +40,6 @@
     <string name="no_available_tips_for_playing_against_champion">Belum ada tips.</string>
     <string name="cd_toggle_icon_champion_detail">Buka/tutup Lore</string>
     <string name="skills">Skill</string>
+    <string name="skins_label">Skin</string>
+    <string name="available_skins_label">Skin Tersedia</string>
 </resources>

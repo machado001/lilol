@@ -40,4 +40,6 @@
     <string name="no_available_tips_for_playing_against_champion">暂无对抗技巧。</string>
     <string name="cd_toggle_icon_champion_detail">展开/折叠故事</string>
     <string name="skills">技能</string>
+    <string name="skins_label">皮肤</string>
+    <string name="available_skins_label">可用皮肤</string>
 </resources>

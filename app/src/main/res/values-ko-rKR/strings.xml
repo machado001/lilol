@@ -40,4 +40,6 @@
     <string name="no_available_tips_for_playing_against_champion">팁이 아직 없습니다.</string>
     <string name="cd_toggle_icon_champion_detail">배경 이야기 열기/접기</string>
     <string name="skills">스킬</string>
+    <string name="skins_label">스킨</string>
+    <string name="available_skins_label">사용 가능한 스킨</string>
 </resources>

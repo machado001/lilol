@@ -40,4 +40,6 @@
     <string name="no_available_tips_for_playing_against_champion">Brak wskazówek.</string>
     <string name="cd_toggle_icon_champion_detail">Otwórz/zamknij Historię</string>
     <string name="skills">Umiejętności</string>
+    <string name="skins_label">Skórki</string>
+    <string name="available_skins_label">Dostępne skórki</string>
 </resources>
