@@ -1,12 +1,13 @@
 package com.machado001.lilol
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.functions.FirebaseFunctions
@@ -32,7 +33,6 @@ class RiotMessagingService : FirebaseMessagingService() {
         val type = data["type"]
 
         if (type != ROTATION_TYPE) {
-            Log.d(TAG, "Ignoring non-rotation FCM message: $data")
             return
         }
 
@@ -44,7 +44,6 @@ class RiotMessagingService : FirebaseMessagingService() {
 
         val localSignature = runBlocking { rotationRepository.getLocalSignature() }
         val isOutdated = localSignature == null || localSignature != incomingSignature
-        Log.d(TAG, "Rotation FCM received. Incoming=$incomingSignature, Local=$localSignature, Outdated=$isOutdated")
 
         if (!isOutdated) return
 
@@ -71,6 +70,7 @@ class RiotMessagingService : FirebaseMessagingService() {
             }
     }
 
+    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     private fun showRotationNotification() {
         val channelId = "riot_rotation_channel"
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -79,7 +79,7 @@ class RiotMessagingService : FirebaseMessagingService() {
                 "Champion rotation updates",
                 NotificationManager.IMPORTANCE_DEFAULT
             )
-            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             manager.createNotificationChannel(channel)
         }
 

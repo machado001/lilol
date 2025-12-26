@@ -90,7 +90,7 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.functions)
-    implementation("com.google.firebase:firebase-messaging")
+    implementation(libs.firebase.messaging)
     implementation(libs.firebase.appcheck.playintegrity)
     debugImplementation(libs.firebase.appcheck.debug)
 }
