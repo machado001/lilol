@@ -20,18 +20,18 @@ import com.machado001.lilol.common.ListChampionPair
 import com.machado001.lilol.common.model.data.Skin
 import com.machado001.lilol.common.view.PicassoGradientTransformation
 import com.machado001.lilol.common.view.SpellListItem
+import com.machado001.lilol.common.view.fadeOutAndGone
+import com.machado001.lilol.common.view.startSkeletonPulse
+import com.machado001.lilol.common.view.stopSkeletonPulse
 import com.machado001.lilol.databinding.FragmentChampionDetailRemakeTabBinding
 import com.machado001.lilol.rotation.ChampionDetails
 import com.machado001.lilol.rotation.presentation.ChampionDetailsPresenter
 import com.machado001.lilol.rotation.view.adapter.RotationAdapter
 import com.machado001.lilol.rotation.view.adapter.SpellsAdapter
-import com.machado001.lilol.rotation.view.fragment.SkinsBottomSheetFragment
-import com.machado001.lilol.rotation.view.fragment.SpellDetailBottomSheetFragment
-import com.machado001.lilol.rotation.view.fragment.TipsBottomSheetFragment
-import com.machado001.lilol.rotation.view.fragment.TipsBottomSheetFragment.Companion.TAG as TipsTag
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 import java.util.Locale
+import com.machado001.lilol.rotation.view.fragment.TipsBottomSheetFragment.Companion.TAG as TipsTag
 
 
 class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remake_tab),
@@ -125,7 +125,11 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
 
     override fun showErrorMessage() {
         binding?.apply {
-            progressBar.visibility = View.GONE
+            detailsLoadingPlaceholder.stopSkeletonPulse()
+            detailsLoadingPlaceholder.visibility = View.GONE
+            detailsImagePlaceholder.stopSkeletonPulse()
+            detailsImagePlaceholder.visibility = View.GONE
+            imageDetailsChampionImage.visibility = View.INVISIBLE
             constraintDetailsChampion.visibility = View.GONE
             textDetailsChampionName.text = getString(R.string.error_request)
             textDetailsChampionTitle.text = ""
@@ -137,7 +141,7 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
     }
 
     override fun setupChampionDetails(championDetail: com.machado001.lilol.common.model.data.ChampionDetails) {
-        binding?.let { it ->
+        binding?.let {
             with(it) {
                 Picasso.get()
                     .load("${Constants.DATA_DRAGON_BASE_URL}cdn/img/champion/splash/${championDetail.id}_0.jpg")
@@ -203,7 +207,23 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
 
     override fun showProgress(show: Boolean) {
         binding?.apply {
-            progressBar.visibility = if (show) View.VISIBLE else View.GONE
+            if (show) {
+                detailsLoadingPlaceholder.animate().cancel()
+                detailsLoadingPlaceholder.alpha = 1f
+                detailsLoadingPlaceholder.visibility = View.VISIBLE
+                detailsLoadingPlaceholder.startSkeletonPulse()
+                detailsImagePlaceholder.animate().cancel()
+                detailsImagePlaceholder.alpha = 1f
+                detailsImagePlaceholder.visibility = View.VISIBLE
+                detailsImagePlaceholder.startSkeletonPulse()
+                imageDetailsChampionImage.visibility = View.INVISIBLE
+            } else {
+                detailsLoadingPlaceholder.stopSkeletonPulse()
+                detailsLoadingPlaceholder.fadeOutAndGone()
+                detailsImagePlaceholder.stopSkeletonPulse()
+                detailsImagePlaceholder.fadeOutAndGone()
+                imageDetailsChampionImage.visibility = View.VISIBLE
+            }
             constraintDetailsChampion.visibility = if (show) View.GONE else View.VISIBLE
         }
     }

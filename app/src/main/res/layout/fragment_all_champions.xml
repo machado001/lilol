@@ -171,16 +171,132 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <ProgressBar
-        android:id="@+id/all_champions_progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@+id/all_champions_loading_placeholder"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:orientation="vertical"
         android:visibility="gone"
+        android:importantForAccessibility="no"
+        android:focusable="false"
+        android:clickable="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@id/all_champions_toolbar"
+        tools:visibility="visible">
+
+        <View
+            android:layout_width="160dp"
+            android:layout_height="24dp"
+            android:alpha="0.7"
+            android:background="@drawable/bg_skeleton_block" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="16dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:alpha="0.7"
+            android:background="@drawable/bg_skeleton_block" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="12dp" />
+
+        <View
+            android:layout_width="220dp"
+            android:layout_height="28dp"
+            android:alpha="0.7"
+            android:background="@drawable/bg_skeleton_block" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="16dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="140dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:alpha="0.7"
+                    android:background="@drawable/bg_skeleton_block" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="140dp"
+                    android:layout_weight="1"
+                    android:alpha="0.7"
+                    android:background="@drawable/bg_skeleton_block" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="140dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:alpha="0.7"
+                    android:background="@drawable/bg_skeleton_block" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="140dp"
+                    android:layout_weight="1"
+                    android:alpha="0.7"
+                    android:background="@drawable/bg_skeleton_block" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="140dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:alpha="0.7"
+                    android:background="@drawable/bg_skeleton_block" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="140dp"
+                    android:layout_weight="1"
+                    android:alpha="0.7"
+                    android:background="@drawable/bg_skeleton_block" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="16dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:alpha="0.7"
+            android:background="@drawable/bg_skeleton_block" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

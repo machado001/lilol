@@ -2,7 +2,6 @@ package com.machado001.lilol.rotation.view.fragment
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -17,6 +16,9 @@ import com.google.android.material.chip.ChipDrawable
 import com.machado001.lilol.Application
 import com.machado001.lilol.R
 import com.machado001.lilol.common.model.data.Champion
+import com.machado001.lilol.common.view.fadeOutAndGone
+import com.machado001.lilol.common.view.startSkeletonPulse
+import com.machado001.lilol.common.view.stopSkeletonPulse
 import com.machado001.lilol.databinding.FragmentAllChampionsBinding
 import com.machado001.lilol.rotation.AllChampions
 import com.machado001.lilol.rotation.presentation.AllChampionsPresenter
@@ -188,7 +190,15 @@ class AllChampionsFragment : Fragment(R.layout.fragment_all_champions), AllChamp
     override fun showProgress(enabled: Boolean) {
         binding?.apply {
             if (enabled) hasError = false
-            allChampionsProgress.visibility = if (enabled) View.VISIBLE else View.GONE
+            if (enabled) {
+                allChampionsLoadingPlaceholder.animate().cancel()
+                allChampionsLoadingPlaceholder.alpha = 1f
+                allChampionsLoadingPlaceholder.visibility = View.VISIBLE
+                allChampionsLoadingPlaceholder.startSkeletonPulse()
+            } else {
+                allChampionsLoadingPlaceholder.stopSkeletonPulse()
+                allChampionsLoadingPlaceholder.fadeOutAndGone()
+            }
             if (hasError && !enabled) {
                 // Keep error state; do not reshow content
                 return
@@ -206,7 +216,8 @@ class AllChampionsFragment : Fragment(R.layout.fragment_all_champions), AllChamp
     override fun showErrorMessage(msg: String) {
         hasError = true
         binding?.apply {
-            allChampionsProgress.visibility = View.GONE
+            allChampionsLoadingPlaceholder.stopSkeletonPulse()
+            allChampionsLoadingPlaceholder.visibility = View.GONE
             rvAllChampions.visibility = View.GONE
             allChampionsPaginationContainer.visibility = View.GONE
             allChampionsEmptyState.visibility = View.VISIBLE

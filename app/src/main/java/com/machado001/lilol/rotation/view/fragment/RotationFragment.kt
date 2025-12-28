@@ -5,8 +5,8 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.View
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -15,14 +15,17 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.firebase.messaging.FirebaseMessaging
-import com.google.android.material.tabs.TabLayoutMediator
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.messaging.FirebaseMessaging
 import com.machado001.lilol.Application
 import com.machado001.lilol.R
 import com.machado001.lilol.common.ListChampionPair
+import com.machado001.lilol.common.view.fadeOutAndGone
+import com.machado001.lilol.common.view.startSkeletonPulse
+import com.machado001.lilol.common.view.stopSkeletonPulse
 import com.machado001.lilol.databinding.FragmentRotationBinding
 import com.machado001.lilol.rotation.Rotation
 import com.machado001.lilol.rotation.presentation.RotationPresenter
@@ -104,7 +107,16 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
     override fun showProgress(enabled: Boolean) {
         binding?.apply {
             if (enabled) hasError = false
-            progressRotation.visibility = if (enabled) View.VISIBLE else View.GONE
+            freeWeekToolbar.visibility = View.VISIBLE
+            if (enabled) {
+                rotationLoadingPlaceholder.animate().cancel()
+                rotationLoadingPlaceholder.alpha = 1f
+                rotationLoadingPlaceholder.visibility = View.VISIBLE
+                rotationLoadingPlaceholder.startSkeletonPulse()
+            } else {
+                rotationLoadingPlaceholder.stopSkeletonPulse()
+                rotationLoadingPlaceholder.fadeOutAndGone()
+            }
             if (hasError && !enabled) {
                 // Remain in error state
                 return
@@ -112,7 +124,6 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
             val contentVisibility = if (enabled) View.GONE else View.VISIBLE
             rotationTabs.visibility = contentVisibility
             rotationViewpager.visibility = contentVisibility
-            freeWeekToolbar.visibility = contentVisibility
             textErrorRequest.visibility = View.GONE
         }
     }
@@ -120,14 +131,15 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
     override fun showFailureMessage() {
         hasError = true
         binding?.apply {
-            progressRotation.visibility = View.GONE
+            rotationLoadingPlaceholder.stopSkeletonPulse()
+            rotationLoadingPlaceholder.visibility = View.GONE
             rotationTabs.visibility = View.GONE
             rotationViewpager.visibility = View.GONE
             textErrorRequest.apply {
                 visibility = View.VISIBLE
                 text = getString(R.string.error_request)
             }
-            freeWeekToolbar.visibility = View.GONE
+            freeWeekToolbar.visibility = View.VISIBLE
         }
     }
 

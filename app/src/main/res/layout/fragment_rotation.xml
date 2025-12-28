@@ -64,15 +64,77 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:visibility="visible" />
 
-    <ProgressBar
-        android:id="@+id/progress_rotation"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@+id/rotation_loading_placeholder"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:importantForAccessibility="no"
+        android:focusable="false"
+        android:clickable="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@id/free_week_toolbar"
+        tools:visibility="visible">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:alpha="0.6"
+            android:background="@drawable/bg_skeleton_block" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="12dp" />
+
+        <View
+            android:layout_width="220dp"
+            android:layout_height="16dp"
+            android:alpha="0.5"
+            android:background="@drawable/bg_skeleton_block" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="20dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:alpha="0.7"
+            android:background="@drawable/bg_skeleton_block" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="12dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:alpha="0.65"
+            android:background="@drawable/bg_skeleton_block" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="12dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:alpha="0.6"
+            android:background="@drawable/bg_skeleton_block" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="12dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:alpha="0.55"
+            android:background="@drawable/bg_skeleton_block" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
