@@ -10,17 +10,25 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
 import com.machado001.lilol.R
+import com.machado001.lilol.ads.AdsConfig
+import com.machado001.lilol.ads.InterstitialAdManager
 import com.machado001.lilol.databinding.ActivityRotationBinding
+import kotlinx.coroutines.launch
 import java.util.Locale
 
 class RotationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRotationBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
+    
+    // Track visited champion names to show ad after 3 unique visits
+    private val visitedChampionNames = mutableSetOf<String>()
+    private val countedEntryKey = "champion_detail_counted"
 
     override fun attachBaseContext(newBase: Context) {
         val langPref = PreferenceManager.getDefaultSharedPreferences(newBase)
@@ -48,6 +56,31 @@ class RotationActivity : AppCompatActivity() {
         binding = ActivityRotationBinding.inflate(layoutInflater)
         configureWindowInsets(binding.root)
         setContentView(binding.root)
+        
+        // Ensure locale is enforced after setContentView (just in case)
+        enforceLocale()
+
+        // Preload Interstitial Ad with Locale Enforcement
+        lifecycleScope.launch {
+            InterstitialAdManager.preload(this@RotationActivity)
+            // AdMob WebView initialization might reset Locale, enforce it again
+            enforceLocale()
+        }
+        
+        // Check for pending ad on restart (e.g. language change)
+        if (AdsConfig.checkAndConsumePendingAdOnRestart(this)) {
+            // Wait for ad to load and ensure locale sticks
+            binding.root.postDelayed({
+                // Re-enforce locale right before showing ad
+                enforceLocale()
+                
+                InterstitialAdManager.showIfAvailable(this) {
+                    // Re-enforce locale after ad interaction
+                    enforceLocale()
+                }
+            }, 1000) // 1 second is usually enough if preloaded, but kept 1s to match user intent (was 10s in debug)
+        }
+
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
@@ -55,12 +88,55 @@ class RotationActivity : AppCompatActivity() {
         binding.bottomNav.apply {
             setupWithNavController(navController)
 
-            navController.addOnDestinationChangedListener { _, destination, _ ->
+            navController.addOnDestinationChangedListener { _, destination, arguments ->
                 visibility = if (destination.id == R.id.championDetailFragment) {
                     View.GONE
                 } else {
                     View.VISIBLE
                 }
+
+                if (destination.id == R.id.championDetailFragment) {
+                    val entry = navController.currentBackStackEntry
+                    val alreadyCounted = entry?.savedStateHandle?.get<Boolean>(countedEntryKey) == true
+                    if (!alreadyCounted) {
+                        entry?.savedStateHandle?.set(countedEntryKey, true)
+                        val championName = arguments?.getString("championName")
+                        if (!championName.isNullOrBlank()) {
+                            val isNewVisit = visitedChampionNames.add(championName)
+                            if (isNewVisit && visitedChampionNames.size % 3 == 0) {
+                                enforceLocale() // Enforce before showing
+                                InterstitialAdManager.showIfAvailable(this@RotationActivity) {
+                                    enforceLocale() // Enforce after showing
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Helper to enforce the user's selected locale.
+     * This combats the "WebView Locale Reset" bug often caused by AdMob/WebView initialization.
+     */
+    private fun enforceLocale() {
+        val langPref = PreferenceManager.getDefaultSharedPreferences(this)
+        val lang = langPref.getString("appLanguage", "") ?: ""
+        
+        if (lang.isNotEmpty()) {
+            val (code, country) = if (lang.contains("_")) {
+                lang.split("_")
+            } else {
+                listOf(lang, "")
+            }
+            val targetLocale = if (country.isNotEmpty()) Locale(code, country) else Locale(code)
+            
+            if (Locale.getDefault() != targetLocale) {
+                Locale.setDefault(targetLocale)
+                val config = resources.configuration
+                config.setLocale(targetLocale)
+                resources.updateConfiguration(config, resources.displayMetrics)
             }
         }
     }
