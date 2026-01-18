@@ -9,7 +9,7 @@ import java.util.Locale
 
 class SettingsPresenter(
     private var view: Settings.View?,
-    private var repository: SettingsRepository
+    private var repository: SettingsRepository,
 ) : Settings.Presenter {
 
     override suspend fun changeAppLanguage(): Unit = coroutineScope {
@@ -17,8 +17,11 @@ class SettingsPresenter(
 
         val userReadableLanguages = availableLanguages.map { lang ->
             async {
-                val (code, country) = lang.split("_")
-                Locale(code, country).displayName
+                val parts = lang.split("_")
+                val code = parts.getOrElse(0) { "" }
+                val country = parts.getOrElse(1) { "" }
+                val locale = if (country.isNotEmpty()) Locale(code, country) else Locale(code)
+                locale.displayName
             }
         }.awaitAll()
 

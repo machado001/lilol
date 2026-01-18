@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Replaced via buildTypes resValue declarations. -->
+    <string name="ad_unit_banner_all_champions" translatable="false"></string>
+    <string name="ad_unit_banner_rotation" translatable="false"></string>
+    <string name="ad_unit_banner_champion_details" translatable="false"></string>
+    <string name="ad_unit_banner_settings" translatable="false"></string>
+</resources>

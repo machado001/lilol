@@ -1,4 +1,6 @@
 import com.google.protobuf.gradle.id
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.androidApplication)
@@ -10,6 +12,17 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("org.jetbrains.kotlin.plugin.parcelize")
 }
+
+val localPropsFile = Properties().apply {
+    val f = rootProject.file("local.properties")
+    if (f.exists()) f.inputStream().use { load(it) }
+}
+
+fun propOrNull(key: String): String? = localPropsFile.getProperty(key)
+
+fun String.configureOrThrow() =
+    propOrNull(this) ?: throw GradleException("$this not found in local.properties.")
+
 
 android {
     namespace = "com.machado001.lilol"
@@ -26,30 +39,43 @@ android {
         targetSdk = 36
         versionCode = 14
         versionName = "1.0.6"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        debug {
+            //public ad unit id for test
+            resValue("string", "ad_unit_banner_all_champions", "ca-app-pub-3940256099942544/6300978111")
+            resValue("string", "ad_unit_banner_rotation", "ca-app-pub-3940256099942544/6300978111")
+            resValue("string", "ad_unit_banner_champion_details", "ca-app-pub-3940256099942544/6300978111")
+            buildConfigField("String", "ADMOB_INTERSTITIAL_AD_UNIT_ID",  "\"ca-app-pub-3940256099942544/1033173712\"")
+        }
         release {
+            val all = "ADMOB_BANNER_ALL".configureOrThrow()
+            val rotation = "ADMOB_BANNER_ROTATION".configureOrThrow()
+            val details = "ADMOB_BANNER_DETAILS".configureOrThrow()
+            val interstitial = "ADMOB_INTERSTITIAL".configureOrThrow()
+
             isMinifyEnabled = true
             isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            resValue("string", "ad_unit_banner_all_champions", all)
+            resValue("string", "ad_unit_banner_rotation", rotation)
+            resValue("string", "ad_unit_banner_champion_details", details)
+            buildConfigField("String", "ADMOB_INTERSTITIAL_AD_UNIT_ID", interstitial)
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = "17"
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
+        freeCompilerArgs = listOf("-XXLanguage:+PropertyParamAnnotationDefaultTargetMode")
     }
 }
 
 dependencies {
+
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.picasso)
     implementation(libs.logging.interceptor)
@@ -67,7 +93,7 @@ dependencies {
     implementation(libs.protobuf.kotlin.lite)
     implementation(libs.protobuf.javalite)
 
-  // Kotlin
+    // Kotlin
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.kotlinx.coroutines.core)
@@ -93,6 +119,10 @@ dependencies {
     implementation(libs.firebase.messaging)
     implementation(libs.firebase.appcheck.playintegrity)
     debugImplementation(libs.firebase.appcheck.debug)
+    debugImplementation(libs.leakcanary.android)
+
+    // Google Mobile Ads
+    implementation(libs.play.services.ads)
 }
 
 

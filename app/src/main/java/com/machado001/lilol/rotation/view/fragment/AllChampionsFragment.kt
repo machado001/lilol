@@ -56,9 +56,10 @@ class AllChampionsFragment : Fragment(R.layout.fragment_all_champions), AllChamp
     }
 
     private fun setupRecycler() {
-        championsAdapter = AllChampionsAdapter(emptyList()) { championKey, championName, championVersion ->
-            goToChampionDetails(championKey, championName, championVersion)
-        }
+        championsAdapter =
+            AllChampionsAdapter(emptyList()) { championKey, championName, championVersion ->
+                goToChampionDetails(championKey, championName, championVersion)
+            }
         binding?.rvAllChampions?.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = championsAdapter
@@ -130,7 +131,8 @@ class AllChampionsFragment : Fragment(R.layout.fragment_all_champions), AllChamp
     override fun showChampions(allChampions: List<Champion>) {
         hasError = false
         championsAdapter?.updateData(allChampions)
-        binding?.rvAllChampions?.visibility = if (allChampions.isEmpty()) View.GONE else View.VISIBLE
+        binding?.rvAllChampions?.visibility =
+            if (allChampions.isEmpty()) View.GONE else View.VISIBLE
     }
 
     override fun showRoles(roles: Set<String>) {
@@ -208,6 +210,7 @@ class AllChampionsFragment : Fragment(R.layout.fragment_all_champions), AllChamp
             allChampionsPaginationContainer.visibility = contentVisibility
             allChampionsEmptyState.visibility =
                 if (enabled) View.GONE else allChampionsEmptyState.visibility
+            allChampionsAdContainer.visibility = contentVisibility
             allChampionsSearchLayout.visibility = contentVisibility
             chipGroup.visibility = contentVisibility
         }
@@ -225,6 +228,7 @@ class AllChampionsFragment : Fragment(R.layout.fragment_all_champions), AllChamp
                 getString(R.string.champions_error_message)
             }
             allChampionsEmptyState.textAlignment = View.TEXT_ALIGNMENT_CENTER
+            allChampionsAdContainer.visibility = View.VISIBLE
             allChampionsSearchLayout.visibility = View.VISIBLE
             chipGroup.visibility = View.VISIBLE
         }

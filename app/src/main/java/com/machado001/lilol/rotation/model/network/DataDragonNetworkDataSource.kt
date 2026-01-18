@@ -1,7 +1,7 @@
 package com.machado001.lilol.rotation.model.network
 
-import com.machado001.lilol.rotation.model.dto.SpecificChampionDto
 import com.machado001.lilol.rotation.model.dto.DataDragonDto
+import com.machado001.lilol.rotation.model.dto.SpecificChampionDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 

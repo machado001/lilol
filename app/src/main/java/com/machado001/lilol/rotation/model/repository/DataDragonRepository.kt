@@ -1,7 +1,7 @@
 package com.machado001.lilol.rotation.model.repository
 
-import com.machado001.lilol.rotation.model.dto.SpecificChampionDto
 import com.machado001.lilol.rotation.model.dto.DataDragonDto
+import com.machado001.lilol.rotation.model.dto.SpecificChampionDto
 
 interface DataDragonRepository {
     suspend fun fetchDataDragon(version: String, region: String): DataDragonDto

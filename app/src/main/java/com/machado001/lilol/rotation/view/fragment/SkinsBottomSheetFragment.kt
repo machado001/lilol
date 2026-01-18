@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.carousel.CarouselLayoutManager
@@ -15,7 +14,6 @@ import com.machado001.lilol.R
 import com.machado001.lilol.common.model.data.Skin
 import com.machado001.lilol.databinding.BottomSheetSkinsBinding
 import com.machado001.lilol.rotation.view.adapter.SkinsAdapter
-import java.util.ArrayList
 
 class SkinsBottomSheetFragment : BottomSheetDialogFragment() {
 
