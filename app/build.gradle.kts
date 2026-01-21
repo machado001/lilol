@@ -62,7 +62,7 @@ android {
             resValue("string", "ad_unit_banner_all_champions", all)
             resValue("string", "ad_unit_banner_rotation", rotation)
             resValue("string", "ad_unit_banner_champion_details", details)
-            buildConfigField("String", "ADMOB_INTERSTITIAL_AD_UNIT_ID", interstitial)
+            buildConfigField("String", "ADMOB_INTERSTITIAL_AD_UNIT_ID",  "\"$interstitial\"")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
