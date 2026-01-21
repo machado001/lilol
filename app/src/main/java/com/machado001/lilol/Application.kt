@@ -8,6 +8,7 @@ import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
 import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
 import com.machado001.lilol.common.di.AppContainer
 import com.machado001.lilol.common.di.Container
+import logcat.AndroidLogcatLogger
 
 /**
  * Application to apply Manual DI.
@@ -18,7 +19,8 @@ class Application : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        configureStrictModePolicy()
+        AndroidLogcatLogger.installOnDebuggableApp(this)
+        configureStrictModePolicyOnDebuggableApp()
         initAppCheck()
         val appContainer = AppContainer(this)
         MyNotification(this).createNotificationChannel()
@@ -35,16 +37,19 @@ class Application : Application() {
         )
     }
 
-    private fun configureStrictModePolicy() {
-        StrictMode.setThreadPolicy(
-            StrictMode.ThreadPolicy.Builder()
-                .detectAll()
-                .build()
-        )
-        StrictMode.setVmPolicy(
-            StrictMode.VmPolicy.Builder()
-                .detectAll()
-                .build()
-        )
+    private fun configureStrictModePolicyOnDebuggableApp() {
+        if (BuildConfig.DEBUG) {
+            StrictMode.setThreadPolicy(
+                StrictMode.ThreadPolicy.Builder()
+                    .detectAll()
+                    .penaltyLog()
+                    .build()
+            )
+            StrictMode.setVmPolicy(
+                StrictMode.VmPolicy.Builder()
+                    .detectAll()
+                    .build()
+            )
+        }
     }
 }
