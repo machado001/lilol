@@ -5,9 +5,10 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresPermission
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.functions.FirebaseFunctions
@@ -70,7 +71,6 @@ class RiotMessagingService : FirebaseMessagingService() {
             }
     }
 
-    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     private fun showRotationNotification() {
         val channelId = "riot_rotation_channel"
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -94,13 +94,20 @@ class RiotMessagingService : FirebaseMessagingService() {
         )
 
         val notification = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.lilol_icon)
+            .setSmallIcon(R.drawable.lilol_push_notification_icon)
             .setContentTitle(getString(R.string.new_rotation_notification_title))
             .setContentText(getString(R.string.new_rotation_notification_desc))
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             .build()
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
         NotificationManagerCompat.from(this).notify(ROTATION_NOTIFICATION_ID, notification)
     }
 

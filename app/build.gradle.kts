@@ -26,7 +26,7 @@ fun String.configureOrThrow() =
 
 android {
     namespace = "com.machado001.lilol"
-    compileSdk = 36
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     buildFeatures {
         viewBinding = true
@@ -35,10 +35,11 @@ android {
 
     defaultConfig {
         applicationId = "com.machado001.lilol"
-        minSdk = 24
-        targetSdk = 36
-        versionCode = 14
-        versionName = "1.0.6"
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.compileSdk.get().toInt()
+        versionCode = 15
+        versionName = "1.0.7"
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -75,6 +76,7 @@ kotlin {
 }
 
 dependencies {
+    implementation(projects.google.inAppReview)
 
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.picasso)
@@ -123,6 +125,8 @@ dependencies {
 
     // Google Mobile Ads
     implementation(libs.play.services.ads)
+    implementation(libs.logcat)
+
 }
 
 

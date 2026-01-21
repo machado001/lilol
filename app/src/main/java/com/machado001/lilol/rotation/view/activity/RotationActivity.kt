@@ -1,6 +1,7 @@
 package com.machado001.lilol.rotation.view.activity
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -15,19 +16,23 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
+import com.machado001.lilol.Application
 import com.machado001.lilol.R
 import com.machado001.lilol.ads.AdsConfig
 import com.machado001.lilol.ads.InterstitialAdManager
 import com.machado001.lilol.databinding.ActivityRotationBinding
+import com.machado001.lilol.review.Review
+import com.machado001.lilol.review.presentation.ReviewPresenter
 import kotlinx.coroutines.launch
 import java.util.Locale
 
-class RotationActivity : AppCompatActivity() {
+class RotationActivity : AppCompatActivity(), Review.View {
     private lateinit var binding: ActivityRotationBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
     
     private val visitedChampionNames = mutableSetOf<String>()
     private val countedEntryKey = "champion_detail_counted"
+    override lateinit var presenter: Review.Presenter
 
     override fun attachBaseContext(newBase: Context) {
         val langPref = PreferenceManager.getDefaultSharedPreferences(newBase)
@@ -70,6 +75,13 @@ class RotationActivity : AppCompatActivity() {
                     enforceLocale()
                 }
             }, 1000)
+
+        val appContainer = (application as Application).container
+        presenter = ReviewPresenter(this, appContainer.reviewManager)
+        if (savedInstanceState == null) {
+            lifecycleScope.launch {
+                presenter.maybePromptForReview()
+            }
         }
 
         val navHostFragment =
@@ -132,6 +144,8 @@ class RotationActivity : AppCompatActivity() {
         }
     }
 
+    override fun getReviewActivity(): Activity = this
+
     private fun configureWindowInsets(view: View) {
         ViewCompat.setOnApplyWindowInsetsListener(view) { v, windowInsets ->
             windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).apply {
@@ -144,5 +158,10 @@ class RotationActivity : AppCompatActivity() {
             }
             WindowInsetsCompat.CONSUMED
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDestroy()
     }
 }

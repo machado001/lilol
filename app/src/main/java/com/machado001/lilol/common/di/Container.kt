@@ -1,5 +1,6 @@
 package com.machado001.lilol.common.di
 
+import com.machado001.google.inappreview.GooglePlayReviewManager
 import com.machado001.lilol.rotation.model.repository.ChampionsManager
 import com.machado001.lilol.rotation.model.repository.DataDragonRepository
 import com.machado001.lilol.rotation.model.repository.RotationRepository
@@ -10,4 +11,5 @@ interface Container {
     val championsManager: ChampionsManager
     val dataDragonRepository: DataDragonRepository
     val settingsRepository: SettingsRepository
+    val reviewManager: GooglePlayReviewManager
 }

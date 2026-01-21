@@ -19,6 +19,9 @@ dependencyResolutionManagement {
     }
 }
 
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 rootProject.name = "Lilol"
 include(":app")
- 
+include(":google:in-app-review")

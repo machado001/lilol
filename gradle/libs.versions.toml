@@ -11,6 +11,7 @@ kotlinxCoroutinesCore = "1.10.0"
 lifecycle-runtime-ktx = "2.8.7"
 espresso-core = "3.6.1"
 appcompat = "1.7.0"
+logcat = "0.4"
 logging-interceptor = "4.12.0"
 material = "1.12.0"
 constraintlayout = "2.2.0"
@@ -26,6 +27,11 @@ junitKtx = "1.2.1"
 uiautomator = "2.3.0"
 firebaseAppcheckDebug = "19.0.1"
 leakcanary = "2.14"
+review = "2.0.2"
+
+#IDE shows is not being used, but indeed it is. don't delete these.
+compileSdk = "36"
+minSdk = "24"
 
 [libraries]
 androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
@@ -52,6 +58,7 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junitJupiter" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.7.3" }
+logcat = { module = "com.squareup.logcat:logcat", version.ref = "logcat" }
 logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "logging-interceptor" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
@@ -66,8 +73,12 @@ androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.
 androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiautomator" }
 google-firebase-appcheck-debug = { group = "com.google.firebase", name = "firebase-appcheck-debug", version.ref = "firebaseAppcheckDebug" }
 leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
+review = { module = "com.google.android.play:review", version.ref = "review" }
+review-ktx = { module = "com.google.android.play:review-ktx", version.ref = "review" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+
