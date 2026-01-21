@@ -26,7 +26,6 @@ class RotationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRotationBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
     
-    // Track visited champion names to show ad after 3 unique visits
     private val visitedChampionNames = mutableSetOf<String>()
     private val countedEntryKey = "champion_detail_counted"
 
@@ -52,33 +51,25 @@ class RotationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        // Locale setup is now handled in attachBaseContext
         binding = ActivityRotationBinding.inflate(layoutInflater)
         configureWindowInsets(binding.root)
         setContentView(binding.root)
         
-        // Ensure locale is enforced after setContentView (just in case)
         enforceLocale()
 
-        // Preload Interstitial Ad with Locale Enforcement
         lifecycleScope.launch {
             InterstitialAdManager.preload(this@RotationActivity)
-            // AdMob WebView initialization might reset Locale, enforce it again
             enforceLocale()
         }
         
-        // Check for pending ad on restart (e.g. language change)
         if (AdsConfig.checkAndConsumePendingAdOnRestart(this)) {
-            // Wait for ad to load and ensure locale sticks
             binding.root.postDelayed({
-                // Re-enforce locale right before showing ad
                 enforceLocale()
                 
                 InterstitialAdManager.showIfAvailable(this) {
-                    // Re-enforce locale after ad interaction
                     enforceLocale()
                 }
-            }, 1000) // 1 second is usually enough if preloaded, but kept 1s to match user intent (was 10s in debug)
+            }, 1000)
         }
 
         val navHostFragment =
@@ -104,9 +95,9 @@ class RotationActivity : AppCompatActivity() {
                         if (!championName.isNullOrBlank()) {
                             val isNewVisit = visitedChampionNames.add(championName)
                             if (isNewVisit && visitedChampionNames.size % 3 == 0) {
-                                enforceLocale() // Enforce before showing
+                                enforceLocale()
                                 InterstitialAdManager.showIfAvailable(this@RotationActivity) {
-                                    enforceLocale() // Enforce after showing
+                                    enforceLocale()
                                 }
                             }
                         }
