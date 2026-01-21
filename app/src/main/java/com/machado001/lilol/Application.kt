@@ -23,7 +23,6 @@ class Application : Application() {
 
         MobileAds.initialize(this) {}
 
-        configureStrictModePolicy()
         AndroidLogcatLogger.installOnDebuggableApp(this)
         configureStrictModePolicyOnDebuggableApp()
 

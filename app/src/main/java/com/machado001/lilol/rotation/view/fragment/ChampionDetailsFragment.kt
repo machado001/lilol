@@ -2,6 +2,7 @@ package com.machado001.lilol.rotation.view.fragment
 
 import android.content.res.Configuration
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.get
@@ -51,6 +52,7 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
     private var currentChampionName: String = ""
     private var currentChampionLore: String = ""
     private val args: ChampionDetailsFragmentArgs by navArgs()
+    private var toolbarMenuVisibility: Map<Int, Boolean>? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -143,6 +145,48 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
         super.onDestroyView()
         binding = null
         presenter.onDestroy()
+    }
+
+    fun setToolbarOpaqueForInterstitial(showing: Boolean) {
+        val detailsBinding = binding ?: return
+        val toolbar = detailsBinding.detailsToolbar
+        val collapsing = detailsBinding.detailsCollapsing
+        if (toolbarMenuVisibility == null) {
+            toolbarMenuVisibility =
+                (0 until toolbar.menu.size).associate { index ->
+                    val item = toolbar.menu.getItem(index)
+                    item.itemId to item.isVisible
+                }
+        }
+        if (showing) {
+            val surface = MaterialColors.getColor(
+                toolbar,
+                com.google.android.material.R.attr.colorSurface
+            )
+            toolbar.setBackgroundColor(surface)
+            collapsing.statusBarScrim = ColorDrawable(surface)
+            toolbar.navigationIcon?.alpha = 0
+            for (index in 0 until toolbar.menu.size) {
+                toolbar.menu.getItem(index).apply {
+                    isVisible = false
+                    isEnabled = false
+                    icon?.alpha = 0
+                }
+            }
+            toolbar.isEnabled = false
+        } else {
+            toolbar.setBackgroundColor(Color.TRANSPARENT)
+            collapsing.statusBarScrim = ColorDrawable(Color.TRANSPARENT)
+            toolbar.navigationIcon?.alpha = 255
+            for (index in 0 until toolbar.menu.size) {
+                toolbar.menu.getItem(index).apply {
+                    isVisible = toolbarMenuVisibility?.get(itemId) ?: true
+                    isEnabled = true
+                    icon?.alpha = 255
+                }
+            }
+            toolbar.isEnabled = true
+        }
     }
 
 

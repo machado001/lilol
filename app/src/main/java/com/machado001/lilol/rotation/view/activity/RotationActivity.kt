@@ -23,6 +23,7 @@ import com.machado001.lilol.ads.InterstitialAdManager
 import com.machado001.lilol.databinding.ActivityRotationBinding
 import com.machado001.lilol.review.Review
 import com.machado001.lilol.review.presentation.ReviewPresenter
+import com.machado001.lilol.rotation.view.fragment.ChampionDetailsFragment
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -70,11 +71,15 @@ class RotationActivity : AppCompatActivity(), Review.View {
         if (AdsConfig.checkAndConsumePendingAdOnRestart(this)) {
             binding.root.postDelayed({
                 enforceLocale()
-                
-                InterstitialAdManager.showIfAvailable(this) {
+
+                InterstitialAdManager.showIfAvailable(
+                    this,
+                    interstitialFocusListener()
+                ) {
                     enforceLocale()
                 }
             }, 1000)
+        }
 
         val appContainer = (application as Application).container
         presenter = ReviewPresenter(this, appContainer.reviewManager)
@@ -108,7 +113,10 @@ class RotationActivity : AppCompatActivity(), Review.View {
                             val isNewVisit = visitedChampionNames.add(championName)
                             if (isNewVisit && visitedChampionNames.size % 3 == 0) {
                                 enforceLocale()
-                                InterstitialAdManager.showIfAvailable(this@RotationActivity) {
+                                InterstitialAdManager.showIfAvailable(
+                                    this@RotationActivity,
+                                    interstitialFocusListener()
+                                ) {
                                     enforceLocale()
                                 }
                             }
@@ -157,6 +165,31 @@ class RotationActivity : AppCompatActivity(), Review.View {
                 }
             }
             WindowInsetsCompat.CONSUMED
+        }
+    }
+
+    private fun interstitialFocusListener(): InterstitialAdManager.Listener =
+        object : InterstitialAdManager.Listener {
+            override fun onAdShown() {
+                setChampionDetailsToolbarOpaque(true)
+            }
+
+            override fun onAdDismissed() {
+                setChampionDetailsToolbarOpaque(false)
+            }
+
+            override fun onAdFailedToShow() {
+                setChampionDetailsToolbarOpaque(false)
+            }
+        }
+
+    private fun setChampionDetailsToolbarOpaque(showing: Boolean) {
+        val navHost =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
+                ?: return
+        val current = navHost.childFragmentManager.primaryNavigationFragment
+        if (current is ChampionDetailsFragment) {
+            current.setToolbarOpaqueForInterstitial(showing)
         }
     }
 

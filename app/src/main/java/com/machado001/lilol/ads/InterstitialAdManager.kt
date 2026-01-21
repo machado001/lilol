@@ -15,6 +15,7 @@ import com.machado001.lilol.BuildConfig
 import com.machado001.lilol.common.extensions.TAG
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
+import logcat.logcat
 import kotlin.coroutines.resume
 
 /**
@@ -24,6 +25,13 @@ import kotlin.coroutines.resume
 object InterstitialAdManager {
     private var interstitialAd: InterstitialAd? = null
     private var isLoading = false
+    private var isShowing = false
+
+    interface Listener {
+        fun onAdShown() {}
+        fun onAdDismissed() {}
+        fun onAdFailedToShow() {}
+    }
 
     /**
      * Preloads an interstitial ad using Coroutines.
@@ -67,33 +75,49 @@ object InterstitialAdManager {
      * @param activity The current activity.
      * @param onFinished Callback invoked when the ad is closed, failed to show, or not available.
      */
-    fun showIfAvailable(activity: Activity, onFinished: () -> Unit) {
+    fun showIfAvailable(
+        activity: Activity,
+        listener: Listener? = null,
+        onFinished: () -> Unit
+    ) {
         if (!AdsConfig.shouldShowAds(activity)) {
             onFinished()
             return
         }
 
+        if (isShowing) {
+            logcat{"Interstitial already showing, skipping."}
+            onFinished()
+            return
+        }
+
         if (interstitialAd != null) {
+            isShowing = true
             interstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
                 override fun onAdDismissedFullScreenContent() {
                     Log.d(TAG, "Ad dismissed fullscreen content.")
                     interstitialAd = null
+                    isShowing = false
                     // Preload the next ad safely using lifecycle scope
                     (activity as? LifecycleOwner)?.lifecycleScope?.launch {
                         preload(activity)
                     }
+                    listener?.onAdDismissed()
                     onFinished()
                 }
 
                 override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                     Log.e(TAG, "Ad failed to show fullscreen content.")
                     interstitialAd = null
+                    isShowing = false
+                    listener?.onAdFailedToShow()
                     onFinished()
                 }
 
                 override fun onAdShowedFullScreenContent() {
                     Log.d(TAG, "Ad showed fullscreen content.")
                     interstitialAd = null
+                    listener?.onAdShown()
                 }
             }
             interstitialAd?.setImmersiveMode(true)
