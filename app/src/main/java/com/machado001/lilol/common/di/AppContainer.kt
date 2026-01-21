@@ -3,8 +3,10 @@ package com.machado001.lilol.common.di
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.google.firebase.Firebase
 import com.google.firebase.functions.functions
+import com.machado001.google.inappreview.GooglePlayReviewManager
 import com.machado001.lilol.BuildConfig
 import com.machado001.lilol.Rotation.LocalRotation
 import com.machado001.lilol.common.Constants
@@ -84,6 +86,10 @@ class AppContainer(private val context: Context) : Container {
 
     override val settingsRepository: SettingsRepository by lazy {
         SettingsRepositoryImpl(dataDragonApi)
+    }
+
+    override val reviewManager: GooglePlayReviewManager by lazy {
+        GooglePlayReviewManager(ReviewManagerFactory.create(context))
     }
 
     companion object {

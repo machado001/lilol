@@ -13,7 +13,7 @@ plugins {
 
 android {
     namespace = "com.machado001.lilol"
-    compileSdk = 36
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     buildFeatures {
         viewBinding = true
@@ -22,8 +22,8 @@ android {
 
     defaultConfig {
         applicationId = "com.machado001.lilol"
-        minSdk = 24
-        targetSdk = 36
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.compileSdk.get().toInt()
         versionCode = 15
         versionName = "1.0.7"
 
@@ -50,6 +50,9 @@ android {
 }
 
 dependencies {
+
+    implementation(projects.google.inAppReview)
+
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.picasso)
     implementation(libs.logging.interceptor)
@@ -93,6 +96,8 @@ dependencies {
     implementation(libs.firebase.messaging)
     implementation(libs.firebase.appcheck.playintegrity)
     debugImplementation(libs.firebase.appcheck.debug)
+
+    implementation(libs.logcat)
 }
 
 
