@@ -5,6 +5,9 @@
 - Navigation graph: `app/src/main/res/navigation/nav_graph.xml`.
 - Gradle config: root `build.gradle.kts`, `settings.gradle.kts`; module config in `app/build.gradle.kts`.
 - Release artifacts: `app/release/`; Firebase config: `app/google-services.json`.
+- It follows an MVP approach, maintain it.
+- Use coroutines and flows following best practices described in books like Coroutines Deep Dive from Marcin Moskala.
+- Follow code structure without alter it.
 
 ## Build, Test, and Development Commands
 - `./gradlew :app:assembleDebug` — build debug APK.
@@ -21,11 +24,7 @@
 ## Testing Guidelines
 - Unit tests under `app/src/test/java`; instrumented tests under `app/src/androidTest/java`.
 - Name tests with intent-revealing method names (e.g., `fetchRotations_returnsErrorOnUnauthenticated()`).
-- Before PRs: run `./gradlew :app:testDebugUnitTest`; run instrumented tests when UI/Navigation changes.
-
-## Commit & Pull Request Guidelines
-- Commit messages: imperative, concise (e.g., `Add error state styling`, `Fix rotation pagination`).
-- PRs should describe scope, testing performed, and screenshots for UI changes. Link issues if applicable.
+- Don't open any PRs.
 
 ## Security & Configuration Tips
 - Keep `app/google-services.json` and signing keys out of commits. Use Play App Signing; register correct SHA-256 in Firebase for App Check.

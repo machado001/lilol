@@ -2,6 +2,7 @@ package com.machado001.lilol
 
 import android.app.Application
 import android.os.StrictMode
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.Firebase
 import com.google.firebase.appcheck.appCheck
 import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
@@ -16,11 +17,16 @@ import logcat.AndroidLogcatLogger
 class Application : Application() {
 
     lateinit var container: Container
-
     override fun onCreate() {
         super.onCreate()
+
+
+        MobileAds.initialize(this) {}
+
+        configureStrictModePolicy()
         AndroidLogcatLogger.installOnDebuggableApp(this)
         configureStrictModePolicyOnDebuggableApp()
+
         initAppCheck()
         val appContainer = AppContainer(this)
         MyNotification(this).createNotificationChannel()

@@ -4,15 +4,20 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.get
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.color.MaterialColors
 import com.machado001.lilol.Application
 import com.machado001.lilol.R
 import com.machado001.lilol.common.Constants
@@ -72,6 +77,55 @@ class ChampionDetailsFragment : Fragment(R.layout.fragment_champion_detail_remak
             skinsCard.setOnClickListener {
                 if (championSkins.isNotEmpty()) {
                     showSkinsBottomSheet()
+                }
+            }
+            val onSurface =
+                MaterialColors.getColor(detailsToolbar, com.google.android.material.R.attr.colorOnSurface)
+            detailsToolbar.setTitleTextColor(onSurface)
+            detailsToolbar.navigationIcon?.setTint(onSurface)
+            detailsToolbar.overflowIcon?.setTint(onSurface)
+            for (index in 0 until detailsToolbar.menu.size) {
+                detailsToolbar.menu[index].icon?.setTint(onSurface)
+            }
+            detailsToolbar.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.allChampionsFragment -> {
+                        if (!navController.popBackStack(R.id.allChampionsFragment, false)) {
+                            navController.navigate(
+                                R.id.allChampionsFragment,
+                                null,
+                                NavOptions.Builder()
+                                    .setLaunchSingleTop(true)
+                                    .build()
+                            )
+                        }
+                        true
+                    }
+                    R.id.rotationFragment -> {
+                        if (!navController.popBackStack(R.id.rotationFragment, false)) {
+                            navController.navigate(
+                                R.id.rotationFragment,
+                                null,
+                                NavOptions.Builder()
+                                    .setLaunchSingleTop(true)
+                                    .build()
+                            )
+                        }
+                        true
+                    }
+                    R.id.settingsFragment -> {
+                        if (!navController.popBackStack(R.id.settingsFragment, false)) {
+                            navController.navigate(
+                                R.id.settingsFragment,
+                                null,
+                                NavOptions.Builder()
+                                    .setLaunchSingleTop(true)
+                                    .build()
+                            )
+                        }
+                        true
+                    }
+                    else -> NavigationUI.onNavDestinationSelected(item, navController)
                 }
             }
         }

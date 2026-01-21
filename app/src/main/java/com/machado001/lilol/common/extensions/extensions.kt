@@ -1,21 +1,20 @@
 package com.machado001.lilol.common.extensions
 
+import com.machado001.lilol.common.Constants
 import com.machado001.lilol.common.model.data.Champion
 import com.machado001.lilol.common.model.data.ChampionDetails
 import com.machado001.lilol.common.model.data.DataDragon
-import com.machado001.lilol.common.Constants
 import com.machado001.lilol.common.model.data.Passive
+import com.machado001.lilol.common.model.data.Skin
 import com.machado001.lilol.common.model.data.Spell
 import com.machado001.lilol.rotation.model.dto.ChampionDto
 import com.machado001.lilol.rotation.model.dto.DataDragonDto
+import com.machado001.lilol.rotation.model.dto.PassiveDto
 import com.machado001.lilol.rotation.model.dto.Rotations
 import com.machado001.lilol.rotation.model.dto.RotationsDto
+import com.machado001.lilol.rotation.model.dto.SkinDto
 import com.machado001.lilol.rotation.model.dto.SpecificChampionDto
 import com.machado001.lilol.rotation.model.dto.SpellDto
-
-import com.machado001.lilol.common.model.data.Skin
-import com.machado001.lilol.rotation.model.dto.PassiveDto
-import com.machado001.lilol.rotation.model.dto.SkinDto
 
 fun ChampionDto.toChampion(): Champion = Champion(
     key = key,

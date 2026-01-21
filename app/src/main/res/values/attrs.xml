@@ -6,4 +6,13 @@
     <attr name="colorOnCustomColor1Container" format="color" />
     <attr name="harmonizeCustomColor1" format="boolean" />
 
+    <declare-styleable name="BannerAdView">
+        <attr name="bannerPlacement" format="enum">
+            <enum name="all_champions_top" value="0" />
+            <enum name="rotation_bottom" value="1" />
+            <enum name="champion_details_bottom" value="2" />
+            <enum name="settings_bottom" value="3" />
+        </attr>
+    </declare-styleable>
+
 </resources>

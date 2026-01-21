@@ -2,8 +2,8 @@ package com.machado001.lilol.rotation.model.local
 
 import androidx.datastore.core.DataStore
 import com.machado001.lilol.Rotation
-import com.machado001.lilol.rotation.model.dto.RotationsDto
 import com.machado001.lilol.rotation.model.dto.Rotations
+import com.machado001.lilol.rotation.model.dto.RotationsDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map

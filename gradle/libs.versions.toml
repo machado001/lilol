@@ -1,10 +1,10 @@
 [versions]
-agp = "8.7.3"
+agp = "8.13.2"
 datastore = "1.1.1"
-firebaseBom = "34.5.0"
+firebaseBom = "34.7.0"
 junitJupiter = "5.10.0"
-kotlin = "2.0.20"
-core-ktx = "1.15.0"
+kotlin = "2.3.0"
+core-ktx = "1.17.0"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.2.1"
 kotlinxCoroutinesCore = "1.10.0"
@@ -17,6 +17,7 @@ material = "1.12.0"
 constraintlayout = "2.2.0"
 navVersion = "2.8.5"
 picasso = "2.71828"
+playServicesAds = "24.9.0"
 preferenceKtx = "1.2.1"
 protobufKotlinLite = "4.29.2"
 retrofit = "2.11.0"
@@ -25,6 +26,7 @@ swiperefreshlayout = "1.1.0"
 junitKtx = "1.2.1"
 uiautomator = "2.3.0"
 firebaseAppcheckDebug = "19.0.1"
+leakcanary = "2.14"
 review = "2.0.2"
 
 #IDE shows is not being used, but indeed it is. don't delete these.
@@ -62,6 +64,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
+play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "playServicesAds" }
 protobuf-javalite = { module = "com.google.protobuf:protobuf-javalite", version.ref = "protobufKotlinLite" }
 protobuf-kotlin-lite = { module = "com.google.protobuf:protobuf-kotlin-lite", version.ref = "protobufKotlinLite" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
@@ -69,6 +72,7 @@ retrofit-kotlinx-serialization-converter = { module = "com.squareup.retrofit2:co
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiautomator" }
 google-firebase-appcheck-debug = { group = "com.google.firebase", name = "firebase-appcheck-debug", version.ref = "firebaseAppcheckDebug" }
+leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
 review = { module = "com.google.android.play:review", version.ref = "review" }
 review-ktx = { module = "com.google.android.play:review-ktx", version.ref = "review" }
 

@@ -88,4 +88,7 @@
     <string name="champions_empty_state_with_query">No results for "%1$s". Try a different name or clear filters.</string>
     <string name="champions_error_message">We couldn’t load champions. Check your connection and try again.</string>
     <string name="pagination_label">Page %1$d of %2$d</string>
+    <string name="ask_notification_permission">"If you want to receive new rotations in the future, please, allow notifications permission. "</string>
+    <string name="ok">OK</string>
+    <string name="not_now">NOT NOW</string>
 </resources>

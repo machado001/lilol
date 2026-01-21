@@ -5,7 +5,6 @@ import com.machado001.lilol.common.base.BasePresenter
 import com.machado001.lilol.common.base.BaseView
 import com.machado001.lilol.common.model.data.Champion
 import com.machado001.lilol.rotation.model.dto.Rotations
-import kotlinx.coroutines.Job
 
 interface Rotation {
 

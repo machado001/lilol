@@ -4,10 +4,10 @@ import com.machado001.lilol.common.extensions.toDataDragon
 import com.machado001.lilol.common.model.data.Champion
 import com.machado001.lilol.rotation.AllChampions
 import com.machado001.lilol.rotation.model.repository.DataDragonRepository
-import java.util.Locale
-import kotlin.coroutines.coroutineContext
-import kotlin.math.min
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
+import java.util.Locale
+import kotlin.math.min
 
 class AllChampionsPresenter(
     private var view: AllChampions.View?,
@@ -32,7 +32,7 @@ class AllChampionsPresenter(
             view?.showRoles(extractRoles(allChampions))
             deliverPage()
         } catch (e: Exception) {
-            coroutineContext.ensureActive()
+            currentCoroutineContext().ensureActive()
             view?.showErrorMessage(e.message ?: "Unable to load champions")
         } finally {
             view?.showProgress(false)

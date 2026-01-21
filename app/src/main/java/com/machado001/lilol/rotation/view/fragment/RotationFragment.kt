@@ -79,14 +79,14 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
             PackageManager.PERMISSION_GRANTED
         ) {
             MaterialAlertDialogBuilder(requireContext())
-                .setMessage("If you want to receive new rotations in the future, please, allow notifications permission. ")
+                .setMessage(getString(R.string.ask_notification_permission))
                 .setPositiveButton(
-                    "OK"
+                    getString(R.string.ok)
                 ) { _, _ ->
                     requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
                 }
                 .setNegativeButton(
-                    "NOT NOW"
+                    getString(R.string.not_now)
                 ) { _, _ -> Unit }
                 .show()
         } else {
@@ -108,20 +108,24 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
         binding?.apply {
             if (enabled) hasError = false
             freeWeekToolbar.visibility = View.VISIBLE
-            if (enabled) {
-                rotationLoadingPlaceholder.animate().cancel()
-                rotationLoadingPlaceholder.alpha = 1f
-                rotationLoadingPlaceholder.visibility = View.VISIBLE
-                rotationLoadingPlaceholder.startSkeletonPulse()
-            } else {
-                rotationLoadingPlaceholder.stopSkeletonPulse()
-                rotationLoadingPlaceholder.fadeOutAndGone()
+            rotationLoadingPlaceholder.apply {
+                if (enabled) {
+                    animate().cancel()
+                    alpha = 1f
+                    visibility = View.VISIBLE
+                    startSkeletonPulse()
+                } else {
+                    stopSkeletonPulse()
+                    fadeOutAndGone()
+                }
             }
             if (hasError && !enabled) {
                 // Remain in error state
                 return
             }
             val contentVisibility = if (enabled) View.GONE else View.VISIBLE
+
+            rotationBannerAd.visibility = contentVisibility
             rotationTabs.visibility = contentVisibility
             rotationViewpager.visibility = contentVisibility
             textErrorRequest.visibility = View.GONE
@@ -192,12 +196,13 @@ class RotationFragment : Fragment(R.layout.fragment_rotation), Rotation.View {
             goToChampionDetailsScreen(key, name, version)
         }
         binding.rotationViewpager.adapter = pagerAdapter
-        tabMediator = TabLayoutMediator(binding.rotationTabs, binding.rotationViewpager) { tab, position ->
-            tab.text = when (position) {
-                0 -> getString(R.string.week_rotation_two, "—")
-                else -> getString(R.string.free_week)
-            }
-        }.also { it.attach() }
+        tabMediator =
+            TabLayoutMediator(binding.rotationTabs, binding.rotationViewpager) { tab, position ->
+                tab.text = when (position) {
+                    0 -> getString(R.string.week_rotation_two, "—")
+                    else -> getString(R.string.free_week)
+                }
+            }.also { it.attach() }
     }
 
     override fun onDestroyView() {

@@ -36,7 +36,7 @@
         app:startIconDrawable="@drawable/baseline_search_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/all_champions_toolbar">
+        app:layout_constraintTop_toBottomOf="@id/all_champions_ad_container">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/all_champions_search_edit_text"
@@ -48,6 +48,17 @@
             android:maxLines="1"
             android:contentDescription="@string/search_hint" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.machado001.lilol.ads.BannerAdView
+        android:id="@+id/all_champions_ad_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/all_champions_toolbar"
+        app:bannerPlacement="all_champions_top"
+        tools:layout_height="50dp" />
 
     <HorizontalScrollView
         android:id="@+id/all_champions_filter_container"

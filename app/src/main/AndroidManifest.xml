@@ -24,6 +24,10 @@
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/lilol_push_notification_icon" />
 
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-7172744071623937~7104399085" />
+
         <activity
             android:name=".rotation.view.activity.RotationActivity"
             android:windowSoftInputMode="adjustResize"
@@ -36,18 +40,6 @@
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".rotation.view.activity.SearchableActivity" />
-        </activity>
-
-        <activity
-            android:name=".rotation.view.activity.SearchableActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
         </activity>
 
         <provider
